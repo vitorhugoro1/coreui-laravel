@@ -12,22 +12,22 @@
 */
 
 /* CoreUI templates */
-Route::view('/', 'templates.index');
+Route::view('/', 'samples.dashboard');
 // Section UI elements
-Route::view('/templates/buttons', 'templates.buttons');
-Route::view('/templates/social', 'templates.social');
-Route::view('/templates/cards', 'templates.cards');
-Route::view('/templates/forms', 'templates.forms');
-Route::view('/templates/modals', 'templates.modals');
-Route::view('/templates/switches', 'templates.switches');
-Route::view('/templates/tables', 'templates.tables');
-Route::view('/templates/tabs', 'templates.tabs');
-Route::view('/templates/font-awesome-icons', 'templates.font-awesome-icons');
-Route::view('/templates/simple-line-icons', 'templates.simple-line-icons');
-Route::view('/templates/widgets', 'templates.widgets');
-Route::view('/templates/charts', 'templates.charts');
+Route::view('/sample/buttons','samples.buttons');
+Route::view('/sample/social','samples.social');
+Route::view('/sample/cards','samples.cards');
+Route::view('/sample/forms','samples.forms');
+Route::view('/sample/modals','samples.modals');
+Route::view('/sample/switches','samples.switches');
+Route::view('/sample/tables','samples.tables');
+Route::view('/sample/tabs','samples.tabs');
+Route::view('/sample/icons-font-awesome', 'samples.font-awesome-icons');
+Route::view('/sample/icons-simple-line', 'samples.simple-line-icons');
+Route::view('/sample/widgets','samples.widgets');
+Route::view('/sample/charts','samples.charts');
 // Section Pages
-Route::view('/templates/login', 'templates.login')->name('login');
-Route::view('/templates/register', 'templates.register')->name('register');
-Route::view('/templates/error404', 'templates.error404')->name('error404');
-Route::view('/templates/error500', 'templates.error500')->name('error500');
+Route::view('/sample/login','pages.login')->name('login');
+Route::view('/sample/register','pages.register')->name('register');
+Route::view('/sample/error404','errors.404')->name('error404');
+Route::view('/sample/error500','errors.500')->name('error500');
