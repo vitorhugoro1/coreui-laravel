@@ -1,6 +1,6 @@
 var gulp = require('gulp'), file = require('gulp-file');
 
-gulp.task('default', ['copycss','copyfonts','custom', 'copyjs','copyimg']);
+gulp.task('default', ['copycss','copyfonts','custom', 'copyjs','copyjsapp','copyimg']);
 
 /*
 * CSS files
@@ -41,6 +41,12 @@ gulp.task('copyjs', function() {
 		'node_modules/pace/dist/js/boo*.js',
 		'node_modules/pace-progress/pac*.js',
 		'node_modules/chart.js/dist/Ch*.js',
+		'resources/assets/Static_Full_Project_GULP/src/js/**'
+		]).pipe(gulp.dest('public/js/vendor'));
+});
+
+gulp.task('copyjsapp', function() {
+	return gulp.src([
 		'resources/assets/Static_Full_Project_GULP/src/js/**'
 		]).pipe(gulp.dest('public/js'));
 });

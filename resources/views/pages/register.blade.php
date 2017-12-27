@@ -31,27 +31,32 @@
           <div class="card-body p-4">
             <h1>Register</h1>
             <p class="text-muted">Create your account</p>
-            <div class="input-group mb-3">
-              <span class="input-group-addon"><i class="icon-user"></i></span>
-              <input type="text" class="form-control" placeholder="Username">
-            </div>
+            <form method="POST" action="{{ route('register') }}">
+              {{ csrf_field() }} 
+              <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+                <input type="text" name="name" class="form-control" placeholder="Username">
+              </div>              
+  
+              <div class="input-group mb-3">
+                <span class="input-group-addon">@</span>
+                <input type="text" name="email" class="form-control" placeholder="Email">
+              </div>
 
-            <div class="input-group mb-3">
-              <span class="input-group-addon">@</span>
-              <input type="text" class="form-control" placeholder="Email">
-            </div>
+              <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input type="password" name="password" class="form-control" placeholder="Password">
+              </div>
 
-            <div class="input-group mb-3">
-              <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Password">
-            </div>
+              <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input type="password" name="password_confirmation" class="form-control" placeholder="Password">
+              </div>
 
-            <div class="input-group mb-4">
-              <span class="input-group-addon"><i class="icon-lock"></i></span>
-              <input type="password" class="form-control" placeholder="Repeat password">
-            </div>
+              <button type="submit" class="btn btn-block btn-warning">Create Account</button>
+            </form>
 
-            <button type="button" class="btn btn-block btn-success">Create Account</button>
+            <a href="/login" class="btn btn-block btn-secondary mt-2">You have already an account? Sign in</a>
           </div>
           <div class="card-footer p-4">
             <div class="row">
@@ -73,9 +78,9 @@
   </div>
 
   <!-- Bootstrap and necessary plugins -->
-  <script src="{{ asset('js/jquery.min.js') }}"></script>
-  <script src="{{ asset('js/popper.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
+  <script src="{{ asset('js/vendor/popper.min.js') }}"></script>
+  <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
 
 </body>
 </html>
