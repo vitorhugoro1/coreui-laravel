@@ -62,10 +62,10 @@
         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Pages</a>
         <ul class="nav-dropdown-items">
           <li class="nav-item">
-            <a class="nav-link" href="/sample/login" target="_top"><i class="icon-star"></i> Login</a>
+            <a class="nav-link" href="/login" target="_top"><i class="icon-star"></i> Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/sample/register" target="_top"><i class="icon-star"></i> Register</a>
+            <a class="nav-link" href="/register" target="_top"><i class="icon-star"></i> Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/sample/error404" target="_top"><i class="icon-star"></i> Error 404</a>

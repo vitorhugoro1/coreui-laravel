@@ -42,27 +42,27 @@
 -->
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-  @include('core.navbar')
+  @include('panel.navbar')
   
   <div class="app-body">
-    @include('core.sidebar')
+    @include('panel.sidebar')
     <!-- Main content -->
     <main class="main">
 
       <!-- Breadcrumb -->
-      @include('core.breadcrumb')
+      @include('panel.breadcrumb')
 
       @yield('content')
       <!-- /.container-fluid -->
     </main>
 
-    @include('core.asidemenu')
+    @include('panel.asidemenu')
 
   </div>
 
-  @include('core.footer')
+  @include('panel.footer')
 
-  @include('core.scripts')
+  @include('panel.scripts')
   @yield('myscript')
 
 </body>
