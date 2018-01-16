@@ -10,8 +10,10 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@coreui/ajax": "^1.0.6",
         "axios": "^0.16.2",
-        "browser-sync": "2.18.13",
+        "browser-sync": "^2.23.5",
+        "browser-sync-webpack-plugin": "^1.2.0",
         "chart.js": "2.7.1",
         "cross-env": "^5.0.1",
         "del": "3.0.0",
@@ -29,6 +31,7 @@
         "gulp-sass": "3.1.0",
         "gulp-search": "1.0.0",
         "gulp-uglify": "3.0.0",
+        "imagemin-webpack-plugin": "^1.6.1",
         "jquery": "3.2.1",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
