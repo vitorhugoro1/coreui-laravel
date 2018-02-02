@@ -7,15 +7,11 @@ CoreUI-laravel is simple adaptation to Laravel the most beautiful free Bootstrap
 ```bash
 git clone https://github.com/taboritis/coreui-laravel.git
 cd coreui-laravel
-composer update
+composer install
 cp .env.example .env
 php artisan key:generate
 ```
 
-##### That's all. Enjoy.
-
-### Change log
-##### v 1.0.6a
 - You have to register and login to app (database needed)
 - If you are user MySQL you can paste this to your .env file:
 ```bash
@@ -26,6 +22,7 @@ DB_DATABASE=coreui
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+
 - To create table in database
 ```bash
 	php artisan migrate
@@ -35,6 +32,12 @@ DB_PASSWORD=
 	php artisan migrate:fresh --seed
 ``` 
 
+
+
+##### That's all. Enjoy.
+
+### Change log
+##### v 1.0.6a
 ##### v 1.0.6
 - Update to CoreUI 1.0.6
 - In gulpfile.js prepared scripts to import libraries and app files to /public directory
