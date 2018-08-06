@@ -2,14 +2,14 @@
   <nav class="sidebar-nav">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" href="/"><i class="icon-speedometer"></i> Dashboard </a>
+        <a class="nav-link" href="{{ url('/') }}"><i class="icon-speedometer"></i> Dashboard </a>
       </li>
 
       <li class="nav-title">
         UI Elements
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/sample/dashboard"><i class="icon-calculator"></i> Samples</a>
+        <a class="nav-link" href="{{ url('/sample/dashboard') }}"><i class="icon-calculator"></i> Samples</a>
       </li>
     </ul>
   </nav>
