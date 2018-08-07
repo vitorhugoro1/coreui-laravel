@@ -15,7 +15,17 @@ class CreateWeightsTable extends Migration
     {
         Schema::create('weights', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('category_id');
+            $table->decimal('min', 8, 2);
+            $table->decimal('max', 8, 2);
+            $table->string('gender');
+            $table->boolean('has_team');
+            $table->boolean('has_age_bracket');
+            $table->boolean('has_weapon');
+            $table->json('team')->nullable();
+            $table->json('age_bracket')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

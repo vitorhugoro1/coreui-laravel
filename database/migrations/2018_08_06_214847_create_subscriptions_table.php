@@ -15,7 +15,16 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('user_id');
+            $table->boolean('is_free');
+            $table->decimal('amount', 12, 2)->nullable();
+            $table->json('data_category_ticket')->nullable();
+            $table->json('data_service')->nullable();
+            $table->string('service')->nullable();
+            $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

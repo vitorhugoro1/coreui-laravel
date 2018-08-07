@@ -15,7 +15,10 @@ class CreateEventTermTable extends Migration
     {
         Schema::create('event_term', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->text('body');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

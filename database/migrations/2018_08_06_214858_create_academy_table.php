@@ -15,7 +15,17 @@ class CreateAcademyTable extends Migration
     {
         Schema::create('academy', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('master')->nullable();
+            $table->unsignedInteger('master_id')->nullable();
+            $table->string('zip_code');
+            $table->string('address_1');
+            $table->string('address_2');
+            $table->string('city');
+            $table->string('state');
+            $table->string('country');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

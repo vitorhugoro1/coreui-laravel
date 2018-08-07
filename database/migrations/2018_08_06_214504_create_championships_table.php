@@ -19,7 +19,7 @@ class CreateChampionshipsTable extends Migration
             $table->string('slug');
             $table->string('type');
             $table->string('status');
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->boolean('is_comment');
             $table->unsignedInteger('author_id');
             $table->timestamps();

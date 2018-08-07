@@ -14,23 +14,29 @@
 Auth::routes();
 /* CoreUI templates */
 
-Route::middleware('auth')->group(function() {
-	Route::view('/', 'panel.blank');
-	// Section CoreUI elements
-	Route::view('/sample/dashboard','samples.dashboard');
-	Route::view('/sample/buttons','samples.buttons');
-	Route::view('/sample/social','samples.social');
-	Route::view('/sample/cards','samples.cards');
-	Route::view('/sample/forms','samples.forms');
-	Route::view('/sample/modals','samples.modals');
-	Route::view('/sample/switches','samples.switches');
-	Route::view('/sample/tables','samples.tables');
-	Route::view('/sample/tabs','samples.tabs');
-	Route::view('/sample/icons-font-awesome', 'samples.font-awesome-icons');
-	Route::view('/sample/icons-simple-line', 'samples.simple-line-icons');
-	Route::view('/sample/widgets','samples.widgets');
-	Route::view('/sample/charts','samples.charts');
+Route::middleware('auth')->group(function () {
+    Route::view('/', 'panel.blank');
+
+    Route::name('admin.')->group(function () {
+        Route::resource('users', 'Admin\UserController');
+        Route::resource('championships', 'Admin\ChampionshipController');
+    });
+    // Section CoreUI elements
+    Route::view('/sample/dashboard', 'samples.dashboard');
+    Route::view('/sample/buttons', 'samples.buttons');
+    Route::view('/sample/social', 'samples.social');
+    Route::view('/sample/cards', 'samples.cards');
+    Route::view('/sample/forms', 'samples.forms');
+    Route::view('/sample/modals', 'samples.modals');
+    Route::view('/sample/switches', 'samples.switches');
+    Route::view('/sample/tables', 'samples.tables');
+    Route::view('/sample/tabs', 'samples.tabs');
+    Route::view('/sample/icons-font-awesome', 'samples.font-awesome-icons');
+    Route::view('/sample/icons-simple-line', 'samples.simple-line-icons');
+    Route::view('/sample/widgets', 'samples.widgets');
+    Route::view('/sample/charts', 'samples.charts');
 });
+
 // Section Pages
-Route::view('/sample/error404','errors.404')->name('error404');
-Route::view('/sample/error500','errors.500')->name('error500');
+Route::view('/sample/error404', 'errors.404')->name('error404');
+Route::view('/sample/error500', 'errors.500')->name('error500');

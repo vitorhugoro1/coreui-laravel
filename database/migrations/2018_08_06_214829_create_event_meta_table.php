@@ -15,7 +15,11 @@ class CreateEventMetaTable extends Migration
     {
         Schema::create('event_meta', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('category_id');
+            $table->string('name');
+            $table->text('value');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
