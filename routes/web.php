@@ -17,7 +17,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::view('/', 'panel.blank');
 
-    Route::name('admin.')->group(function () {
+    Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('users', 'Admin\UserController');
         Route::resource('championships', 'Admin\ChampionshipController');
     });
