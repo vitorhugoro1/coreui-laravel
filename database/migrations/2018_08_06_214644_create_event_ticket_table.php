@@ -17,8 +17,8 @@ class CreateEventTicketTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->unsignedInteger('event_id');
-            $table->timestamp('open_date');
-            $table->timestamp('close_date');
+            $table->timestamp('open_date')->nullable();
+            $table->timestamp('close_date')->nullable();
             $table->boolean('is_free');
             $table->integer('quantity')->nullable();
             $table->decimal('amount', 8, 2)->nullable();

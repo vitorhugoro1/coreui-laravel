@@ -16,9 +16,10 @@ window.Vue = require('vue');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-const TableComponent = require('vue-table-component');
+import { TableComponent, TableColumn } from 'vue-table-component';
 
-Vue.use(TableComponent);
+Vue.component('table-component', TableComponent);
+Vue.component('table-column', TableColumn);
 
 const app = new Vue({
     el: '#app'
