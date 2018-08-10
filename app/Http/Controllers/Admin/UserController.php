@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit')->with(compact('user'));
     }
 
     /**
@@ -72,7 +72,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->validate($request, [
+            'name'  => 'required|string',
+            'email' => 'required|string|email'
+        ]);
+
+        $user->fill($request->only(['email', 'name']));
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('message', 'Success in update the user!');
     }
 
     /**
