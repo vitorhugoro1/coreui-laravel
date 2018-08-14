@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -38,18 +38,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'name'  => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'password'  => 'required|string|min:6|confirmed'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
+        User::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => bcrypt($request->password)
+        ]);
+
+        return redirect()->route('admin.users.index')->with('message', 'User created successful!');
     }
 
     /**

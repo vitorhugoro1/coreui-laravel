@@ -15,7 +15,6 @@
   <title>CoreUI - Open Source Bootstrap Admin Template</title>
 
   <!-- Icons -->
-  <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/simple-line-icons.css') }}" rel="stylesheet">
 
   <!-- Main styles for this application -->
@@ -41,10 +40,10 @@
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
   @include('panel.navbar')
   
-  <div class="app-body" id="app">
+  <div class="app-body">
     @include('panel.sidebar')
     <!-- Main content -->
-    <main class="main">
+    <main class="main" id="app">
 
       <!-- Breadcrumb -->
       @include('panel.breadcrumb')

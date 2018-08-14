@@ -18,8 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::view('/', 'panel.blank');
 
     Route::name('admin.')->prefix('admin')->group(function () {
-        Route::resource('users', 'Admin\UserController');
+        Route::resource('users', 'Admin\UserController')->except(['show']);
         Route::resource('championships', 'Admin\ChampionshipController');
+        Route::resource('roles', 'Admin\RoleController');
     });
     // Section CoreUI elements
     Route::view('/sample/dashboard', 'samples.dashboard');

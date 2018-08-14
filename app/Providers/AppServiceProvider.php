@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Spatie\Menu\Laravel\Link;
+use Spatie\Menu\Laravel\Menu;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,30 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Menu::macro('sidebar', function () {
+            $menu = Menu::new()
+                    ->addClass('nav')
+                    ->setActiveClassOnLink()
+                    ->add(Link::toUrl('/', 'Dashboard')->addParentClass('nav-item')->addClass('nav-link'))
+                    ->submenu('<a class="nav-link nav-dropdown-toggle" href="#"><i class="fas fa-users"></i> Users</a>', function (Menu $menu) {
+                        $menu
+                            ->addParentClass('nav-dropdown')
+                            ->addClass('nav-dropdown-items')
+                            ->addItemClass('nav-link')
+                            ->addItemParentClass('nav-item')
+                            ->route('admin.users.index', 'View Users')
+                            ->route('admin.roles.index', 'View Roles');
+                    })
+                    ->submenu('<a class="nav-link nav-dropdown-toggle" href="#"><i class="fas fa-building"></i> Championships</a>', function (Menu $menu) {
+                        $menu->addParentClass('nav-dropdown')
+                                ->addClass('nav-dropdown-items')
+                                ->addItemClass('nav-link')
+                                ->addItemParentClass('nav-item')
+                                ->route('admin.championships.index', 'View Events');
+                    });
+
+            return $menu;
+        });
     }
 
     /**

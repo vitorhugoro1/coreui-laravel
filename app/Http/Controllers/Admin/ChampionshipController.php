@@ -15,7 +15,9 @@ class ChampionshipController extends Controller
      */
     public function index()
     {
-        //
+        $championships = Championship::with('user')->paginate();
+
+        return view('admin.championship.index')->with(compact('championships'));
     }
 
     /**
