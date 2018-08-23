@@ -6,5 +6,6 @@
 <script src="{{ asset('js/vendor/pace.min.js') }}"></script>
 <!-- Plugins and scripts required by all views -->
 <script src="{{ asset('js/vendor/Chart.min.js') }}"></script>
+<script src="{{ asset('js/vendor/select2/select2.min.js') }}"></script>
 <!-- CoreUI main scripts -->
 <script src="{{ asset('js/core/core-ui.js')}}"></script>

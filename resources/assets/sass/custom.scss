@@ -11,6 +11,9 @@
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 
+@import "~select2/src/scss/core";
+@import "~select2-theme-bootstrap4/src/select2-bootstrap";
+
 .table-component__filter__clear {
   visibility: hidden;
 }

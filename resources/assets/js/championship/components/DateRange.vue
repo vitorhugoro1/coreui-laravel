@@ -1,5 +1,5 @@
 <template>
-    <v-date-picker :select-attribute="attributes" mode="range" v-model="selectDate" show-caps></v-date-picker>
+    <v-date-picker :min-date='new Date()' :input-props="attributes" mode="range" v-model="selectDate" show-caps></v-date-picker>
 </template>
 
 <script>
@@ -30,22 +30,25 @@
                 default: 'date-range'
             },
             classField: {
-                type: Array,
-                default: function () {
-                    return ['form-control'];
-                }
+                type: String,
+                default: 'form-control',
+            },
+            makeRequired: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
                 selectDate: {
                     start: this.initial,
-                    end: this.last
+                    end: this.last,
                 },
                 attributes: {
                    name: this.name,
-                   id: this.id
-                }
+                   id: this.id,
+                   class: this.classField,
+                },
             };
         },
     };
