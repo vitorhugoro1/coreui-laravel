@@ -27,7 +27,7 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.championship.create');
     }
 
     /**

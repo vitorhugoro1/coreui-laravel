@@ -12,4 +12,6 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
+    .js('resources/assets/js/championship/app.js', 'public/js/championship')
+    .js('resources/assets/js/core-ui.js', 'public/js/core')
    .sass('resources/assets/sass/custom.scss', 'public/css');

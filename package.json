@@ -42,6 +42,9 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
     "bootstrap": "^4.0.0",
-    "vue-table-component": "1.*"
+    "v-calendar": "^0.9.7",
+    "vue-ckeditor2": "^2.0.9",
+    "vue-table-component": "1.*",
+    "vue-template-compiler": "^2.5.17"
   }
 }

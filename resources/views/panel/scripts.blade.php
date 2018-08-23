@@ -1,4 +1,5 @@
 <!-- Bootstrap and necessary plugins -->
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
 <script src="{{ asset('js/vendor/popper.min.js') }}"></script>
 <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
@@ -6,4 +7,4 @@
 <!-- Plugins and scripts required by all views -->
 <script src="{{ asset('js/vendor/Chart.min.js') }}"></script>
 <!-- CoreUI main scripts -->
-<script src="{{ asset('js/app.js')}}"></script>
+<script src="{{ asset('js/core/core-ui.js')}}"></script>

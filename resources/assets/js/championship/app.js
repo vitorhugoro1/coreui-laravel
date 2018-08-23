@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('../bootstrap');
 
 window.Vue = require('vue');
 
@@ -14,7 +14,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('ckeditor', require('./components/ckeditor.vue'));
+Vue.component('ckeditor', require('../components/ckeditor.vue'));
+Vue.component('date-range', require('./components/DateRange.vue'));
 
 import { TableComponent, TableColumn } from 'vue-table-component';
 
