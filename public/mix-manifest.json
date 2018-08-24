@@ -2,6 +2,7 @@
     "/js/championship/app.js": "/js/championship/app.js",
     "/js/app.js": "/js/app.js",
     "/css/custom.css": "/css/custom.css",
+    "/js/users/app.js": "/js/users/app.js",
     "/js/core/core-ui.js": "/js/core/core-ui.js",
     "/js/vendor/select2/select2.min.js": "/js/vendor/select2/select2.min.js"
 }

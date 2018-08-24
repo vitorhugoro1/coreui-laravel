@@ -7,96 +7,75 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#profile3" role="tab" aria-controls="profile" aria-selected="false" v-if="is_free == 'false' && hasBankCash()">
-                    <i class="icon-basket-loaded"></i> Bank Accounts</a>
+                    <i class="fa fa-money-check-alt"></i> Bank Accounts</a>
             </li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active show" id="home3" role="tabpanel">
-                <div class="form-group">
-                    <label class="col-md-1 p-0">Is Free?</label>
-                    <div class="form-check form-check-inline">
-                        <input v-model="is_free" class="form-check-input" id="input-is_free-1" value="true" name="is_free" type="radio" checked>
-                        <label class="form-check-label" for="input-is_free-1">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input v-model="is_free" class="form-check-input" id="input-is_free-2" value="false" name="is_free" type="radio">
-                        <label class="form-check-label" for="input-is_free-2">No</label>
-                    </div>
-                </div>
-                <div class="form-group" v-if="is_free == 'false'">
-                    <label for="amount">Amount</label>
-                    <div class="controls">
-                        <div class="input-prepend input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Is Free?</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input v-model="is_free" class="form-check-input" id="input-is_free-1" value="true" name="is_free" type="radio" checked>
+                                    <label class="form-check-label" for="input-is_free-1">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input v-model="is_free" class="form-check-input" id="input-is_free-2" value="false" name="is_free" type="radio">
+                                    <label class="form-check-label" for="input-is_free-2">No</label>
+                                </div>
                             </div>
-                            <input id="amount" name="amount" class="form-control" type="text">
                         </div>
                     </div>
-                </div>
-                <div class="form-group" v-if="is_free == 'false'">
-                    <label for="additional_amount">Additional Amount</label>
-                    <div class="controls">
-                        <div class="input-prepend input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
-                            </div>
-                            <input id="additional_amount" name="additional_amount" class="form-control" type="text">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="subscription_period">Subscription Event Period</label>
+                            <date-range id="subscription_period" name="subscription_period" :makerequired="true"></date-range>
                         </div>
                     </div>
-                </div>
-                <div class="form-group" v-if="is_free == 'false'">
-                    <label for="payment_method">Payment Methods</label>
-                    <v-select v-model="payment_method" inputId="payment_method" :options="payment_options" multiple></v-select>
-                    <input type="hidden" v-for="option in payment_method" :key="option.value" name="payment_method[]" :value="option.value">
+                    <div class="col-lg-6">
+                        <div class="form-group" v-if="is_free == 'false'">
+                            <label for="amount">Subscription Amount</label>
+                            <div class="controls">
+                                <div class="input-prepend input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">R$</span>
+                                    </div>
+                                    <input id="amount" name="amount" v-model.lazy="amount" v-money='moneyRules' class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group" v-if="is_free == 'false'">
+                            <label for="additional_amount">Subscription Additional Amount</label>
+                            <div class="controls">
+                                <div class="input-prepend input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">R$</span>
+                                    </div>
+                                    <input id="additional_amount" name="additional_amount" class="form-control" v-model.lazy="additional_amount" v-money='moneyRules' type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group" v-if="is_free == 'false'">
+                            <label for="payment_method">Payment Methods</label>
+                            <v-select v-model="payment_method" inputId="payment_method" :options="payment_options" multiple placeholder="Select an Payment Method">
+                                <template slot="option" slot-scope="option">
+                                    <i :class="`pf pf-${option.icon}`"></i>
+                                    {{ option.label }}
+                                </template>
+                            </v-select>
+                            <input type="hidden" v-for="option in payment_method" :key="option.value" name="payment_method[]" :value="option.value">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane" id="profile3" role="tabpanel">
-                <table class="table-responsive table table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox">
-                            </th>
-                            <th>#ID</th>
-                            <th>Name</th>
-                            <th>Account Owner</th>
-                            <th>Owner Document</th>
-                            <th>Bank</th>
-                            <th>Agency</th>
-                            <th>Account Nº</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="account in bank_accounts" :key="account.id">
-                            <td>
-                                <input type="checkbox" name="bank_account_action[]" :value="account.id">
-                            </td>
-                            <th>#{{ account.id }}</th>
-                            <td>{{ account.name }}</td>
-                            <td>{{ account.account_owner }}</td>
-                            <td class="text-center">{{ account.owner_document }}</td>
-                            <td>{{ account.bank }}</td>
-                            <td>{{ account.agency }}</td>
-                            <td>{{ account.account_number }}</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>
-                                <input type="checkbox">
-                            </th>
-                            <th>#ID</th>
-                            <th>Name</th>
-                            <th>Account Owner</th>
-                            <th>Owner Document</th>
-                            <th>Bank</th>
-                            <th>Agency</th>
-                            <th>Account Nº</th>
-                        </tr>
-                    </tfoot>
-                </table>
-                <button type="button" class="btn btn-outline-secondary">Add Account</button>
+                <bank-account-list></bank-account-list>
             </div>
         </div>
     </div>
@@ -104,55 +83,41 @@
 
 <script>
 import { find } from 'lodash';
+import { VMoney } from 'v-money';
+import BankAccountList from './BankAccount/BankAccountList';
 
 export default {
     name: 'event-ticket-selector',
+    components: { BankAccountList },
+    props: ['money'],
+    directives: { money: VMoney },
     data() {
         return {
             is_free: 'false',
             payment_options: [
                 {
                     label: 'PayPal',
-                    value: 'paypal'
+                    value: 'paypal',
+                    icon: 'paypal'
                 },
                 {
                     label: 'PagSeguro',
-                    value: 'pagseguro'
+                    value: 'pagseguro',
+                    icon: 'pagseguro'
                 },
                 {
                     label: 'Bank Cash',
-                    value: 'bank_cash'
+                    value: 'bank_cash',
+                    icon: 'cash'
                 }
             ],
+            amount: 0,
+            additional_amount: 0,
             payment_method: [],
-            bank_accounts: []
+            moneyRules: this.money
         };
     },
     methods: {
-        loadAccount: function () {
-            const accounts = [
-                {
-                    id: 1,
-                    name: 'My Bradesco',
-                    account_owner: 'Vitor Hugo Rodrigues',
-                    owner_document: '425.239.728-67',
-                    bank: 'Bradesco',
-                    agency: '1628',
-                    account_number: '75296-7'
-                },
-                {
-                    id: 2,
-                    name: 'My Teste',
-                    account_owner: 'Vitor Hugo Rodrigues',
-                    owner_document: '-',
-                    bank: 'Teste',
-                    agency: '1628',
-                    account_number: '75296-7'
-                }
-            ];
-
-            this.bank_accounts = accounts;
-        },
         hasBankCash: function () {
             let option = find(this.payment_method, ['value', 'bank_cash']);
 
@@ -160,7 +125,7 @@ export default {
         }
     },
     created() {
-        this.loadAccount();
+        
     }
 }
 </script>

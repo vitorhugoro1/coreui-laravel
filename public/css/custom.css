@@ -1,4 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+
+/*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -15344,6 +15346,515 @@ readers do not read off random characters that represent icons */
 .fas {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+}
+
+/*!
+ *  PaymentFont 1.2.5 by @AMPoellmann - http://paymentfont.io
+ *  License - http://paymentfont.io/#license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+
+@font-face {
+  font-family: "PaymentFont";
+  src: url(/fonts/vendor/paymentpaymentfont-webfont.eot?38394ca16133f78363850eb0ebc16c36);
+  src: url(/fonts/vendor/paymentpaymentfont-webfont.eot?38394ca16133f78363850eb0ebc16c36) format("embedded-opentype"), url(/fonts/vendor/paymentpaymentfont-webfont.woff?a984717a9f4ef00fa217fc58c3ff86a6) format("woff"), url(/fonts/vendor/paymentpaymentfont-webfont.woff?a984717a9f4ef00fa217fc58c3ff86a6) format("woff"), url(/fonts/vendor/paymentpaymentfont-webfont.ttf?92d755b23dfbe5bd5ac566c8df9e7827) format("truetype"), url(/fonts/vendor/paymentpaymentfont-webfont.svg?f7b79a3d76e79248879a74cd4fadbb14) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.pf {
+  display: inline-block;
+  font: normal normal normal 14px/1 "PaymentFont";
+  font-size: inherit;
+  text-rendering: auto;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pf-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+}
+
+.pf-2x {
+  font-size: 2em;
+}
+
+.pf-3x {
+  font-size: 3em;
+}
+
+.pf-4x {
+  font-size: 4em;
+}
+
+.pf-5x {
+  font-size: 5em;
+}
+
+.pf-amazon:before {
+  content: "\F000";
+}
+
+.pf-american-express:before {
+  content: "\F001";
+}
+
+.pf-american-express-alt:before {
+  content: "\F002";
+}
+
+.pf-atm:before {
+  content: "\F003";
+}
+
+.pf-bankomat:before {
+  content: "\F004";
+}
+
+.pf-bank-transfer:before {
+  content: "\F005";
+}
+
+.pf-bitcoin:before {
+  content: "\F006";
+}
+
+.pf-bitcoin-sign:before {
+  content: "\F007";
+}
+
+.pf-braintree:before {
+  content: "\F008";
+}
+
+.pf-btc:before {
+  content: "\F009";
+}
+
+.pf-card:before {
+  content: "\F00A";
+}
+
+.pf-carta-si:before {
+  content: "\F00B";
+}
+
+.pf-cash:before {
+  content: "\F00C";
+}
+
+.pf-cash-on-delivery:before {
+  content: "\F00D";
+}
+
+.pf-cb:before {
+  content: "\F00E";
+}
+
+.pf-cirrus:before {
+  content: "\F00F";
+}
+
+.pf-cirrus-alt:before {
+  content: "\F010";
+}
+
+.pf-clickandbuy:before {
+  content: "\F011";
+}
+
+.pf-credit-card:before {
+  content: "\F012";
+}
+
+.pf-diners:before {
+  content: "\F013";
+}
+
+.pf-discover:before {
+  content: "\F014";
+}
+
+.pf-ec:before {
+  content: "\F015";
+}
+
+.pf-eps:before {
+  content: "\F016";
+}
+
+.pf-eur:before {
+  content: "\F017";
+}
+
+.pf-facture:before {
+  content: "\F018";
+}
+
+.pf-fattura:before {
+  content: "\F019";
+}
+
+.pf-flattr:before {
+  content: "\F01A";
+}
+
+.pf-giropay:before {
+  content: "\F01B";
+}
+
+.pf-google-wallet:before {
+  content: "\F01C";
+}
+
+.pf-google-wallet-alt:before {
+  content: "\F01D";
+}
+
+.pf-gpb:before {
+  content: "\F01E";
+}
+
+.pf-gratipay:before {
+  content: "\F01F";
+}
+
+.pf-ideal:before {
+  content: "\F020";
+}
+
+.pf-ils:before {
+  content: "\F021";
+}
+
+.pf-inr:before {
+  content: "\F022";
+}
+
+.pf-invoice:before {
+  content: "\F023";
+}
+
+.pf-invoice-sign:before {
+  content: "\F024";
+}
+
+.pf-invoice-sign-alt:before {
+  content: "\F025";
+}
+
+.pf-invoice-sign-alt-o:before {
+  content: "\F026";
+}
+
+.pf-invoice-sign-o:before {
+  content: "\F027";
+}
+
+.pf-jcb:before {
+  content: "\F028";
+}
+
+.pf-jpy:before {
+  content: "\F029";
+}
+
+.pf-krw:before {
+  content: "\F02A";
+}
+
+.pf-maestro:before {
+  content: "\F02B";
+}
+
+.pf-maestro-alt:before {
+  content: "\F02C";
+}
+
+.pf-mastercard:before {
+  content: "\F02D";
+}
+
+.pf-mastercard-alt:before {
+  content: "\F02E";
+}
+
+.pf-mastercard-securecode:before {
+  content: "\F02F";
+}
+
+.pf-ogone:before {
+  content: "\F030";
+}
+
+.pf-paybox:before {
+  content: "\F031";
+}
+
+.pf-paylife:before {
+  content: "\F032";
+}
+
+.pf-paypal:before {
+  content: "\F033";
+}
+
+.pf-paypal-alt:before {
+  content: "\F034";
+}
+
+.pf-paysafecard:before {
+  content: "\F035";
+}
+
+.pf-postepay:before {
+  content: "\F036";
+}
+
+.pf-quick:before {
+  content: "\F037";
+}
+
+.pf-rechnung:before {
+  content: "\F038";
+}
+
+.pf-ripple:before {
+  content: "\F039";
+}
+
+.pf-rub:before {
+  content: "\F03A";
+}
+
+.pf-skrill:before {
+  content: "\F03B";
+}
+
+.pf-sofort:before {
+  content: "\F03C";
+}
+
+.pf-square:before {
+  content: "\F03D";
+}
+
+.pf-stripe:before {
+  content: "\F03E";
+}
+
+.pf-truste:before {
+  content: "\F03F";
+}
+
+.pf-try:before {
+  content: "\F040";
+}
+
+.pf-unionpay:before {
+  content: "\F041";
+}
+
+.pf-usd:before {
+  content: "\F042";
+}
+
+.pf-verified-by-visa:before {
+  content: "\F043";
+}
+
+.pf-verisign:before {
+  content: "\F044";
+}
+
+.pf-visa:before {
+  content: "\F045";
+}
+
+.pf-visa-electron:before {
+  content: "\F046";
+}
+
+.pf-western-union:before {
+  content: "\F047";
+}
+
+.pf-western-union-alt:before {
+  content: "\F048";
+}
+
+.pf-wirecard:before {
+  content: "\F049";
+}
+
+.pf-sepa:before {
+  content: "\F04A";
+}
+
+.pf-sepa-alt:before {
+  content: "\F04B";
+}
+
+.pf-apple-pay:before {
+  content: "\F04C";
+}
+
+.pf-interac:before {
+  content: "\F04D";
+}
+
+.pf-paymill:before {
+  content: "\F04E";
+}
+
+.pf-dankort:before {
+  content: "\F04F";
+}
+
+.pf-bancontact-mister-cash:before {
+  content: "\F050";
+}
+
+.pf-moip:before {
+  content: "\F051";
+}
+
+.pf-pagseguro:before {
+  content: "\F052";
+}
+
+.pf-cash-on-pickup:before {
+  content: "\F053";
+}
+
+.pf-sage:before {
+  content: "\F054";
+}
+
+.pf-elo:before {
+  content: "\F055";
+}
+
+.pf-elo-alt:before {
+  content: "\F056";
+}
+
+.pf-payu:before {
+  content: "\F057";
+}
+
+.pf-mercado-pago:before {
+  content: "\F058";
+}
+
+.pf-mercado-pago-sign:before {
+  content: "\F059";
+}
+
+.pf-payshop:before {
+  content: "\F05A";
+}
+
+.pf-multibanco:before {
+  content: "\F05B";
+}
+
+.pf-gratipay-sign:before {
+  content: "\F05C";
+}
+
+.pf-six:before {
+  content: "\F05D";
+}
+
+.pf-cashcloud:before {
+  content: "\F05E";
+}
+
+.pf-interac-alt:before {
+  content: "\F05F";
+}
+
+.pf-klarna:before {
+  content: "\F060";
+}
+
+.pf-bitpay:before {
+  content: "\F061";
+}
+
+.pf-venmo:before {
+  content: "\F062";
+}
+
+.pf-visa-debit:before {
+  content: "\F063";
+}
+
+.pf-alipay:before {
+  content: "\F064";
+}
+
+.pf-diners-alt:before {
+  content: "\F065";
+}
+
+.pf-hipercard:before {
+  content: "\F066";
+}
+
+.pf-skrill-alt:before {
+  content: "\F067";
+}
+
+.pf-shopify:before {
+  content: "\F068";
+}
+
+.pf-direct-debit:before {
+  content: "\F069";
+}
+
+.pf-sodexo:before {
+  content: "\F06A";
+}
+
+.pf-bpay:before {
+  content: "\F06B";
+}
+
+.pf-contactless:before {
+  content: "\F06C";
+}
+
+.pf-contactless-alt:before {
+  content: "\F06D";
+}
+
+.pf-eth:before {
+  content: "\F06E";
+}
+
+.pf-ltc:before {
+  content: "\F06F";
+}
+
+.pf-visa-pay:before {
+  content: "\F070";
+}
+
+.pf-wechat-pay:before {
+  content: "\F071";
+}
+
+.pf-amazon-pay:before {
+  content: "\F072";
+}
+
+.pf-amazon-pay-alt:before {
+  content: "\F073";
 }
 
 .select2-container {

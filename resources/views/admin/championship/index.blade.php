@@ -21,7 +21,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($championships as $championship)
+                                @forelse($championships as $championship)
                                     <tr>
                                         <td>{{ $championship->title }}</td>
                                         <td>{{ $championship->status }}</td>
@@ -38,7 +38,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="4">Not has championships</td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                             {{ $championships->links() }}
@@ -48,4 +52,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('myscript')
+    <script src="{{ asset('js/championship/app.js') }}"></script>
 @endsection

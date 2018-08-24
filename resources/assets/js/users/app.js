@@ -15,28 +15,12 @@ window.Vue = require('vue');
  */
 
 Vue.component('ckeditor', require('../components/ckeditor.vue'));
-Vue.component('date-range', require('./components/DateRange.vue'));
-Vue.component('event-ticket-selector', require('./components/EventTicketSelector.vue'));
-
 
 import { TableComponent, TableColumn } from 'vue-table-component';
-import vSelect from 'vue-select';
 
-Vue.component('v-select', vSelect);
 Vue.component('table-component', TableComponent);
 Vue.component('table-column', TableColumn);
 
 const app = new Vue({
-    el: '#app',
-    data(){
-        return {
-            money: {
-                decimal: ',',
-                thousands: '.',
-                prefix: '',
-                suffix: '',
-                precision: 2,
-            }
-        }
-    }
+    el: '#app'
 });

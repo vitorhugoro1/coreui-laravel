@@ -19,9 +19,6 @@
         data() {
             return {
                 config: {
-                    toolbar: [
-                        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']
-                    ],
                     height: 300
                 }
             };

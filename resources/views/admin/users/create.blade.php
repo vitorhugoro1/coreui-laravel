@@ -60,3 +60,7 @@
         </div>
     </div>
 @endsection
+
+@section('myscript')
+    <script src="{{ asset('js/users/app.js') }}"></script>
+@endsection

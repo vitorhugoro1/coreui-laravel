@@ -40,17 +40,42 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="period">Event Periods</label>
-                                            <date-range id="period" name="period" :makeRequired="true"></date-range>
+                                            <date-range id="period" name="period" :makerequired="true"></date-range>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <ckeditor content="" id="content" name="content" :readonlymode="false"></ckeditor>
                                     </div>
                                     <div class="col-lg-12 my-2">
+                                        <h3>Localization</h3>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="place">Place</label>
+                                            <input type="text" name="place" id="place" class="form-control" placeholder="Find event place">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 my-2">
                                         <h3>Subscription</h3>
                                     </div>
-                                    <div class="col-md-12 mb-4">
-                                        <event-ticket-selector></event-ticket-selector>
+                                    <div class="col-lg-12">
+                                        <event-ticket-selector :money='money'></event-ticket-selector>
+                                    </div>
+                                    <div class="col-lg-12 my-2">
+                                        <h3>Categories</h3>
+                                    </div>
+                                    <div class="col-lg-12 mb-4">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" data-toggle="tab" href="#categories-options" role="tab" aria-controls="home" aria-selected="true">
+                                                    <i class="icon-calculator"></i> Categories Options</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active show" id="categories-options" role="tabpanel">
+                                                CAtegorieeeees
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Create</button>
