@@ -18,9 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::view('/', 'panel.blank');
 
     Route::name('admin.')->prefix('admin')->group(function () {
+        Route::view('/', 'panel.blank');
         Route::resource('users', 'Admin\UserController')->except(['show']);
         Route::resource('championships', 'Admin\ChampionshipController');
         Route::resource('roles', 'Admin\RoleController');
+        Route::resource('academies', 'Admin\AcademyController');
+        Route::resource('categories', 'Admin\CategoryController');
     });
     // Section CoreUI elements
     Route::view('/sample/dashboard', 'samples.dashboard');

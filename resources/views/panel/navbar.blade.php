@@ -8,14 +8,12 @@
   </button>
 
   <ul class="nav navbar-nav d-md-down-none">
-    {{-- 
     <li class="nav-item px-3">
-      <a class="nav-link" href="/">Dashboard</a>
-    </li> 
-    --}}
-    <li class="nav-item px-3">
-      <a class="nav-link" href="/sample/dashboard">Samples</a>
+      <a class="nav-link" href="{{ url('/admin') }}">Dashboard</a>
     </li>
+    {{-- <li class="nav-item px-3">
+      <a class="nav-link" href="/sample/dashboard">Samples</a>
+    </li> --}}
   </ul>
   <ul class="nav navbar-nav ml-auto">
     <!--
@@ -39,7 +37,7 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <div class="dropdown-header text-center">
-          <strong>{{ auth()->user()->name }}'s Account</strong>
+          <strong>{{ auth()->user()->name }}</strong>
         </div>
 {{--         <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
         <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>

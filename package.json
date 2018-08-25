@@ -49,7 +49,7 @@
     "v-money": "^0.8.1",
     "vue-ckeditor2": "^2.0.9",
     "vue-multiselect": "^2.1.0",
-    "vue-select": "^2.4.0",
+    "vue-select": "frontandstart/vue-select",
     "vue-table-component": "1.*",
     "vue-template-compiler": "^2.5.17",
     "vue-the-mask": "^0.11.1"

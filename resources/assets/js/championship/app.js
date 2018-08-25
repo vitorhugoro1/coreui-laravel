@@ -17,7 +17,7 @@ window.Vue = require('vue');
 Vue.component('ckeditor', require('../components/ckeditor.vue'));
 Vue.component('date-range', require('./components/DateRange.vue'));
 Vue.component('event-ticket-selector', require('./components/EventTicketSelector.vue'));
-
+Vue.component('event-date-selector', require('./components/EventDateSelector.vue'));
 
 import { TableComponent, TableColumn } from 'vue-table-component';
 import vSelect from 'vue-select';
@@ -36,7 +36,8 @@ const app = new Vue({
                 prefix: '',
                 suffix: '',
                 precision: 2,
-            }
+            },
+            modalitiesModel: []
         }
     }
 });

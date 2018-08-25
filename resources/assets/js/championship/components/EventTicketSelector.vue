@@ -5,8 +5,12 @@
                 <a class="nav-link active show" data-toggle="tab" href="#home3" role="tab" aria-controls="home" aria-selected="true">
                     <i class="icon-calculator"></i> Subscription Values</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#profile3" role="tab" aria-controls="profile" aria-selected="false" v-if="is_free == 'false' && hasBankCash()">
+            <li class="nav-item" v-if="is_free == 'false'">
+                <a class="nav-link disabled" data-toggle="tab" href="#discount-rules" role="tab" aria-controls="profile" aria-selected="false" alt="Soon">
+                    <i class="fa fa-money-check-alt"></i> Discount Rules</a>
+            </li>
+            <li class="nav-item" v-if="is_free == 'false' && hasBankCash()">
+                <a class="nav-link" data-toggle="tab" href="#profile3" role="tab" aria-controls="profile" aria-selected="false">
                     <i class="fa fa-money-check-alt"></i> Bank Accounts</a>
             </li>
         </ul>
@@ -63,7 +67,7 @@
                     <div class="col-lg-12">
                         <div class="form-group" v-if="is_free == 'false'">
                             <label for="payment_method">Payment Methods</label>
-                            <v-select v-model="payment_method" inputId="payment_method" :options="payment_options" multiple placeholder="Select an Payment Method">
+                            <v-select v-model="payment_method" inputId="payment_method" :options="payment_options" multiple placeholder="Select an Payment Method" disabledkey="unavailable">
                                 <template slot="option" slot-scope="option">
                                     <i :class="`pf pf-${option.icon}`"></i>
                                     {{ option.label }}
@@ -98,12 +102,14 @@ export default {
                 {
                     label: 'PayPal',
                     value: 'paypal',
-                    icon: 'paypal'
+                    icon: 'paypal',
+                    unavailable: true
                 },
                 {
                     label: 'PagSeguro',
                     value: 'pagseguro',
-                    icon: 'pagseguro'
+                    icon: 'pagseguro',
+                    unavailable: true
                 },
                 {
                     label: 'Bank Cash',
