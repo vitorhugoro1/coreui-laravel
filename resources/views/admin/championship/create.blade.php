@@ -8,7 +8,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('admin.roles.store') }}" method="post">
+                            <form action="{{ route('admin.championships.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -54,46 +54,7 @@
                                         <h3>Organization</h3>
                                     </div>
                                     <div class="col-lg-12">
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active show" data-toggle="tab" href="#organizations" role="tab" aria-controls="home" aria-selected="true">
-                                                    <i class="icon-calculator"></i> Organizations</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active show" id="organizations" role="tabpanel">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">#ID</th>
-                                                            <th scope="col">Name</th>
-                                                            <th scope="col">Contact</th>
-                                                            <th scope="col">Address</th>
-                                                            <th scope="col">E-mail</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">#01</th>
-                                                            <td>Skigawk</td>
-                                                            <td>(+55) 11 2556-5631</td>
-                                                            <td>Rua Nestor Pestana, xxx - Sao Paulo, Brazil</td>
-                                                            <td>email@email.com</td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th scope="col">#ID</th>
-                                                            <th scope="col">Name</th>
-                                                            <th scope="col">Contact</th>
-                                                            <th scope="col">Address</th>
-                                                            <th scope="col">E-mail</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                                <button type="button" class="btn btn-outline-secondary">Add an Organizator</button>
-                                            </div>
-                                        </div>
+                                        <event-organizator></event-organizator>
                                     </div>
                                     <div class="col-lg-12 my-2">
                                         <h3>Subscription</h3>
@@ -122,19 +83,19 @@
                                                         <div class="form-group">
                                                             <label for="modalities">Modalities</label>
                                                             <v-select v-model="modalitiesModel" inputId="modalities"
-                                                            :options="[{label: 'teste', value: 'teste'}]" multiple placeholder="Select an Modalities"></v-select>
+                                                            :options="{{ $modalities->toJson() }}" multiple placeholder="Select an Modalities"></v-select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label for="fight_level">Fight Level</label>
-                                                            <v-select v-model="fight_level" inputId="fight_level" :options="[]" multiple placeholder="Select an Fight Level"></v-select>
+                                                            <v-select v-model="fight_level" inputId="fight_level" :options="{{ $fight_level->toJson() }}" multiple placeholder="Select an Fight Level"></v-select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label for="age_bracket">Age Bracket</label>
-                                                            <v-select v-model="age_bracket" inputId="age_bracket" :options="[]" multiple placeholder="Select an Age Bracket"></v-select>
+                                                            <v-select v-model="age_bracket" inputId="age_bracket" :options="{{ $age_bracket->toJson() }}" multiple placeholder="Select an Age Bracket"></v-select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -155,11 +116,13 @@
                                     <div class="col-lg-12 my-2">
                                         <h3>Details</h3>
                                     </div>
-                                    <div class="col-lg-12 mb-4">
+                                    <div class="col-lg-6 mb-4">
                                         <div class="form-group">
-                                            <label for="thumbnail">Thumbnail</label>
-                                            <input type="file" class="form-control" name="thumbnail" id="thumbnail">
+                                            <label class="col-form-label" for="thumbnail">Thumbnail</label>
+                                            <input class="col-md" type="file" name="thumbnail" id="thumbnail">
                                         </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
                                         <div class="form-group">
                                             <label for="terms">Service Terms</label>
                                             <button type="button" class="btn btn-outline-success form-control">Service Terms</button>

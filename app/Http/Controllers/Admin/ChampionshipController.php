@@ -27,7 +27,11 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
-        return view('admin.championship.create');
+        $modalities = collect();
+        $fight_level = collect();
+        $age_bracket = collect();
+
+        return view('admin.championship.create')->with(compact('modalities', 'fight_level', 'age_bracket'));
     }
 
     /**
@@ -38,7 +42,7 @@ class ChampionshipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
