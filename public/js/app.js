@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 170);
+/******/ 	return __webpack_require__(__webpack_require__.s = 171);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1902,7 +1902,7 @@
             try {
                 oldLocale = globalLocale._abbr;
                 var aliasedRequire = require;
-                __webpack_require__(169)("./" + name);
+                __webpack_require__(162)("./" + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {}
         }
@@ -4584,7 +4584,7 @@
 
 
 var bind = __webpack_require__(6);
-var isBuffer = __webpack_require__(141);
+var isBuffer = __webpack_require__(140);
 
 /*global toString:true*/
 
@@ -4915,6 +4915,106 @@ module.exports = g;
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(1);
+var normalizeHeaderName = __webpack_require__(142);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(8);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(8);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -5021,106 +5121,6 @@ module.exports = function normalizeComponent (
   }
 }
 
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(143);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(8);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(8);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 5 */
@@ -5366,12 +5366,12 @@ process.umask = function() { return 0; };
 
 
 var utils = __webpack_require__(1);
-var settle = __webpack_require__(144);
-var buildURL = __webpack_require__(146);
-var parseHeaders = __webpack_require__(147);
-var isURLSameOrigin = __webpack_require__(148);
+var settle = __webpack_require__(143);
+var buildURL = __webpack_require__(145);
+var parseHeaders = __webpack_require__(146);
+var isURLSameOrigin = __webpack_require__(147);
 var createError = __webpack_require__(9);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(149);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(148);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -5468,7 +5468,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(150);
+      var cookies = __webpack_require__(149);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -5552,7 +5552,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(145);
+var enhanceError = __webpack_require__(144);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -5610,88 +5610,6 @@ module.exports = Cancel;
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5768,7 +5686,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5907,7 +5825,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -5970,7 +5888,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6033,7 +5951,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6159,7 +6077,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6222,7 +6140,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6330,7 +6248,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6393,7 +6311,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6502,7 +6420,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6638,7 +6556,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6732,7 +6650,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6794,7 +6712,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -6917,7 +6835,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7040,7 +6958,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7152,7 +7070,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7307,7 +7225,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7399,7 +7317,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7582,7 +7500,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7649,7 +7567,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7733,7 +7651,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7797,7 +7715,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7877,7 +7795,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -7957,7 +7875,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8037,7 +7955,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8140,7 +8058,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8244,7 +8162,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8315,7 +8233,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8382,7 +8300,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8453,7 +8371,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8524,7 +8442,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8590,7 +8508,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8661,7 +8579,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8736,7 +8654,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8832,7 +8750,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -8928,7 +8846,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9015,7 +8933,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9099,7 +9017,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9169,7 +9087,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9279,7 +9197,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9392,7 +9310,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9456,7 +9374,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9543,7 +9461,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9621,7 +9539,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9703,7 +9621,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9782,7 +9700,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9862,7 +9780,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -9943,7 +9861,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10070,7 +9988,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10198,7 +10116,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10299,7 +10217,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10427,7 +10345,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10585,7 +10503,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10699,7 +10617,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10798,7 +10716,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -10884,7 +10802,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11020,7 +10938,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11093,7 +11011,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11189,7 +11107,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11275,7 +11193,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11368,7 +11286,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11459,7 +11377,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11573,7 +11491,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11703,7 +11621,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11788,7 +11706,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -11879,7 +11797,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12019,7 +11937,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12093,7 +12011,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12215,7 +12133,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12316,7 +12234,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12432,7 +12350,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12500,7 +12418,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12594,7 +12512,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12679,7 +12597,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12787,7 +12705,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -12951,7 +12869,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13037,7 +12955,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13123,7 +13041,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13187,7 +13105,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13284,7 +13202,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13350,7 +13268,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13477,7 +13395,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13568,7 +13486,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13659,7 +13577,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13723,7 +13641,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13851,7 +13769,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -13981,7 +13899,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14050,7 +13968,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14115,7 +14033,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14194,7 +14112,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14380,7 +14298,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 103 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14482,7 +14400,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 104 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14546,7 +14464,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 105 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14621,7 +14539,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 106 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14781,7 +14699,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 107 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -14958,7 +14876,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 108 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15030,7 +14948,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 109 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15145,7 +15063,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15260,7 +15178,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15352,7 +15270,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 112 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15425,7 +15343,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15488,7 +15406,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 114 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15621,7 +15539,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15714,7 +15632,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15785,7 +15703,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15905,7 +15823,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -15976,7 +15894,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16042,7 +15960,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16168,7 +16086,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -16266,7 +16184,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16361,7 +16279,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16423,7 +16341,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16485,7 +16403,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js language configuration
@@ -16608,7 +16526,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16763,7 +16681,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16865,7 +16783,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16927,7 +16845,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -16989,7 +16907,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17072,7 +16990,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17144,7 +17062,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17208,7 +17126,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17322,7 +17240,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17429,7 +17347,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -17536,235 +17454,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 136 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(164)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-var options = null
-var ssrIdKey = 'data-vue-ssr-id'
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction, _options) {
-  isProduction = _isProduction
-
-  options = _options || {}
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-  if (options.ssrId) {
-    styleElement.setAttribute(ssrIdKey, obj.id)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-/* 137 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -34877,10 +34567,92 @@ function applyToTag (styleElement, obj) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(5)(module)))
 
 /***/ }),
-/* 138 */
+/* 136 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(137);
+window._ = __webpack_require__(135);
 // window.Popper = require('popper.js').default;
 
 /**
@@ -34901,7 +34673,7 @@ window._ = __webpack_require__(137);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(139);
+window.axios = __webpack_require__(138);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -34937,13 +34709,13 @@ if (token) {
 // });
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(140);
+module.exports = __webpack_require__(139);
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34951,8 +34723,8 @@ module.exports = __webpack_require__(140);
 
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(6);
-var Axios = __webpack_require__(142);
-var defaults = __webpack_require__(4);
+var Axios = __webpack_require__(141);
+var defaults = __webpack_require__(3);
 
 /**
  * Create an instance of Axios
@@ -34986,14 +34758,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(11);
-axios.CancelToken = __webpack_require__(156);
+axios.CancelToken = __webpack_require__(155);
 axios.isCancel = __webpack_require__(10);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(157);
+axios.spread = __webpack_require__(156);
 
 module.exports = axios;
 
@@ -35002,7 +34774,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ (function(module, exports) {
 
 /*!
@@ -35029,18 +34801,18 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 var utils = __webpack_require__(1);
-var InterceptorManager = __webpack_require__(151);
-var dispatchRequest = __webpack_require__(152);
-var isAbsoluteURL = __webpack_require__(154);
-var combineURLs = __webpack_require__(155);
+var InterceptorManager = __webpack_require__(150);
+var dispatchRequest = __webpack_require__(151);
+var isAbsoluteURL = __webpack_require__(153);
+var combineURLs = __webpack_require__(154);
 
 /**
  * Create a new instance of Axios
@@ -35122,7 +34894,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35141,7 +34913,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35174,7 +34946,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35202,7 +34974,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35277,7 +35049,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35321,7 +35093,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35396,7 +35168,7 @@ module.exports = (
 
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35439,7 +35211,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35499,7 +35271,7 @@ module.exports = (
 
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35558,16 +35330,16 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var transformData = __webpack_require__(153);
+var transformData = __webpack_require__(152);
 var isCancel = __webpack_require__(10);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -35644,7 +35416,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35671,7 +35443,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35692,7 +35464,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35713,7 +35485,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35777,7 +35549,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35811,7 +35583,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46774,10 +46546,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(159).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(158).setImmediate))
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -46833,7 +46605,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(160);
+__webpack_require__(159);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -46847,7 +46619,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -47040,540 +46812,235 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(7)))
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(162)
-}
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(165)
-/* template */
-var __vue_template__ = __webpack_require__(167)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-793bc0a8"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\ckeditor.vue"
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-793bc0a8", Component.options)
-  } else {
-    hotAPI.reload("data-v-793bc0a8", Component.options)
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__(166)
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
   }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+*/}
 
-module.exports = Component.exports
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
 
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
 
-/***/ }),
-/* 162 */
-/***/ (function(module, exports, __webpack_require__) {
+module.exports = function (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
+  options = _options || {}
 
-// load the styles
-var content = __webpack_require__(163);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(136)("e452203e", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-793bc0a8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ckeditor.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-793bc0a8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ckeditor.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
 
-/***/ }),
-/* 163 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(12)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 164 */
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
     }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
     } else {
-      newStyles[id].parts.push(part)
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
     }
   }
-  return styles
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
 }
 
 
 /***/ }),
-/* 165 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_ckeditor2__ = __webpack_require__(166);
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'ckeditor',
-    components: { VueCkeditor: __WEBPACK_IMPORTED_MODULE_0_vue_ckeditor2__["a" /* default */] },
-    props: ['content', 'name', 'id', 'readonlymode'],
-    computed: {
-        contentEditor: function contentEditor() {
-            return this.content;
-        }
-    },
-    data: function data() {
-        return {
-            config: {
-                height: 300
-            }
-        };
-    },
-
-
-    methods: {
-        onBlur: function onBlur(editor) {
-            console.log(editor);
-        },
-        onFocus: function onFocus(editor) {
-            console.log(editor);
-        }
-    }
-});
-
-/***/ }),
-/* 166 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var inc = new Date().getTime();
-var script = {
-  name: 'VueCkeditor',
-  props: {
-    name: {
-      type: String,
-      default: function _default() {
-        return 'editor-'.concat(++inc);
-      }
-    },
-    value: {
-      type: String
-    },
-    id: {
-      type: String,
-      default: function _default() {
-        return 'editor-'.concat(inc);
-      }
-    },
-    types: {
-      type: String,
-      default: function _default() {
-        return 'classic';
-      }
-    },
-    config: {
-      type: Object,
-      default: function _default() {}
-    },
-    instanceReadyCallback: {
-      type: Function
-    },
-    readOnlyMode: {
-      type: Boolean,
-      default: function _default() {
-        return false;
-      }
-    }
-  },
-  data: function data() {
-    return {
-      destroyed: false,
-      instanceValue: ''
-    };
-  },
-  computed: {
-    instance: function instance() {
-      return CKEDITOR.instances[this.id];
-    }
-  },
-  watch: {
-    value: function value(val) {
-      try {
-        if (this.instance) {
-          this.update(val);
-        }
-      } catch (e) {}
-    },
-    readOnlyMode: function readOnlyMode(val) {
-      this.instance.setReadOnly(val);
-    }
-  },
-  mounted: function mounted() {
-    this.create();
-  },
-  beforeDestroy: function beforeDestroy() {
-    this.destroy();
-  },
-  methods: {
-    create: function create() {
-      var _this = this;
-
-      if (typeof CKEDITOR === 'undefined') {
-        console.log('CKEDITOR is missing (http://ckeditor.com/)');
-      } else {
-        if (this.types === 'inline') {
-          CKEDITOR.inline(this.id, this.config);
-        } else {
-          CKEDITOR.replace(this.id, this.config);
-        }
-
-        this.instance.setData(this.value);
-        this.instance.on('instanceReady', function() {
-          _this.instance.setData(_this.value);
-        });
-        this.instance.on('change', this.onChange);
-        this.instance.on('mode', this.onMode);
-        this.instance.on('blur', this.onBlur);
-        this.instance.on('focus', this.onFocus);
-        this.instance.on('fileUploadResponse', function() {
-          setTimeout(function() {
-            _this.onChange();
-          }, 0);
-        });
-
-        if (typeof this.instanceReadyCallback !== 'undefined') {
-          this.instance.on('instanceReady', this.instanceReadyCallback);
-        }
-      }
-    },
-    update: function update(val) {
-      if (this.instanceValue !== val) {
-        this.instance.setData(val, {
-          internal: false
-        });
-      }
-    },
-    destroy: function destroy() {
-      try {
-        if (!this.destroyed) {
-          this.instance.focusManager.blur(true);
-          this.instance.removeAllListeners();
-          this.instance.destroy();
-          this.destroyed = true;
-        }
-      } catch (e) {}
-    },
-    onChange: function onChange() {
-      var html = this.instance.getData();
-
-      if (html !== this.value) {
-        this.$emit('input', html);
-        this.instanceValue = html;
-      }
-    },
-    onBlur: function onBlur() {
-      this.$emit('blur', this.instance);
-    },
-    onFocus: function onFocus() {
-      this.$emit('focus', this.instance);
-    },
-    onMode: function onMode() {
-      var _this2 = this;
-
-      if (this.instance.mode === 'source') {
-        var editable = this.instance.editable();
-        editable.attachListener(editable, 'input', function() {
-          _this2.onChange();
-        });
-      }
-    }
-  }
-};
-
-/* script */
-var __vue_script__ = script;
-/* template */
-
-var __vue_render__ = function __vue_render__() {
-  var _vm = this;
-
-  var _h = _vm.$createElement;
-
-  var _c = _vm._self._c || _h;
-
-  return _c(
-    'div',
-    {
-      staticClass: 'ckeditor'
-    },
-    [
-      _c('textarea', {
-        attrs: {
-          name: _vm.name,
-          id: _vm.id,
-          types: _vm.types,
-          config: _vm.config,
-          disabled: _vm.readOnlyMode
-        },
-        domProps: {
-          value: _vm.value
-        }
-      })
-    ]
-  );
-};
-
-var __vue_staticRenderFns__ = [];
-__vue_render__._withStripped = true;
-/* style */
-
-var __vue_inject_styles__ = undefined;
-/* scoped */
-
-var __vue_scope_id__ = undefined;
-/* module identifier */
-
-var __vue_module_identifier__ = undefined;
-/* functional template */
-
-var __vue_is_functional_template__ = false;
-/* component normalizer */
-
-function __vue_normalize__(
-  template,
-  style,
-  script$$1,
-  scope,
-  functional,
-  moduleIdentifier,
-  createInjector,
-  createInjectorSSR
-) {
-  var component =
-    (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {}; // For security concerns, we use only base name in production mode.
-
-  component.__file =
-    '/Users/dangvanthanh/Code/dev/vue/vue-ckeditor2/src/VueCkeditor.vue';
-
-  if (!component.render) {
-    component.render = template.render;
-    component.staticRenderFns = template.staticRenderFns;
-    component._compiled = true;
-    if (functional) component.functional = true;
-  }
-
-  component._scopeId = scope;
-
-  return component;
-}
-/* style inject */
-
-function __vue_create_injector__() {
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var styles =
-    __vue_create_injector__.styles || (__vue_create_injector__.styles = {});
-  var isOldIE =
-    typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-  return function addStyle(id, css) {
-    if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
-
-    var group = isOldIE ? css.media || 'default' : id;
-    var style =
-      styles[group] ||
-      (styles[group] = {
-        ids: [],
-        parts: [],
-        element: undefined
-      });
-
-    if (!style.ids.includes(id)) {
-      var code = css.source;
-      var index = style.ids.length;
-      style.ids.push(id);
-
-      if (isOldIE) {
-        style.element =
-          style.element ||
-          document.querySelector('style[data-group=' + group + ']');
-      }
-
-      if (!style.element) {
-        var el = (style.element = document.createElement('style'));
-        el.type = 'text/css';
-        if (css.media) el.setAttribute('media', css.media);
-
-        if (isOldIE) {
-          el.setAttribute('data-group', group);
-          el.setAttribute('data-next-index', '0');
-        }
-
-        head.appendChild(el);
-      }
-
-      if (isOldIE) {
-        index = parseInt(style.element.getAttribute('data-next-index'));
-        style.element.setAttribute('data-next-index', index + 1);
-      }
-
-      if (style.element.styleSheet) {
-        style.parts.push(code);
-        style.element.styleSheet.cssText = style.parts
-          .filter(Boolean)
-          .join('\n');
-      } else {
-        var textNode = document.createTextNode(code);
-        var nodes = style.element.childNodes;
-        if (nodes[index]) style.element.removeChild(nodes[index]);
-        if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-        else style.element.appendChild(textNode);
-      }
-    }
-  };
-}
-/* style inject SSR */
-
-var VueCkeditor = __vue_normalize__(
-  {
-    render: __vue_render__,
-    staticRenderFns: __vue_staticRenderFns__
-  },
-  __vue_inject_styles__,
-  __vue_script__,
-  __vue_scope_id__,
-  __vue_is_functional_template__,
-  __vue_module_identifier__,
-  __vue_create_injector__,
-  undefined
-);
-
-/* harmony default export */ __webpack_exports__["a"] = (VueCkeditor);
-
-
-/***/ }),
-/* 167 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("vue-ckeditor", {
-        attrs: { config: _vm.config },
-        on: {
-          blur: function($event) {
-            _vm.onBlur($event)
-          },
-          focus: function($event) {
-            _vm.onFocus($event)
-          }
-        },
-        model: {
-          value: _vm.contentEditor,
-          callback: function($$v) {
-            _vm.contentEditor = $$v
-          },
-          expression: "contentEditor"
-        }
-      })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-793bc0a8", module.exports)
-  }
-}
-
-/***/ }),
-/* 168 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -52680,256 +52147,256 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_139__;
 });
 
 /***/ }),
-/* 169 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 13,
-	"./af.js": 13,
-	"./ar": 14,
-	"./ar-dz": 15,
-	"./ar-dz.js": 15,
-	"./ar-kw": 16,
-	"./ar-kw.js": 16,
-	"./ar-ly": 17,
-	"./ar-ly.js": 17,
-	"./ar-ma": 18,
-	"./ar-ma.js": 18,
-	"./ar-sa": 19,
-	"./ar-sa.js": 19,
-	"./ar-tn": 20,
-	"./ar-tn.js": 20,
-	"./ar.js": 14,
-	"./az": 21,
-	"./az.js": 21,
-	"./be": 22,
-	"./be.js": 22,
-	"./bg": 23,
-	"./bg.js": 23,
-	"./bm": 24,
-	"./bm.js": 24,
-	"./bn": 25,
-	"./bn.js": 25,
-	"./bo": 26,
-	"./bo.js": 26,
-	"./br": 27,
-	"./br.js": 27,
-	"./bs": 28,
-	"./bs.js": 28,
-	"./ca": 29,
-	"./ca.js": 29,
-	"./cs": 30,
-	"./cs.js": 30,
-	"./cv": 31,
-	"./cv.js": 31,
-	"./cy": 32,
-	"./cy.js": 32,
-	"./da": 33,
-	"./da.js": 33,
-	"./de": 34,
-	"./de-at": 35,
-	"./de-at.js": 35,
-	"./de-ch": 36,
-	"./de-ch.js": 36,
-	"./de.js": 34,
-	"./dv": 37,
-	"./dv.js": 37,
-	"./el": 38,
-	"./el.js": 38,
-	"./en-au": 39,
-	"./en-au.js": 39,
-	"./en-ca": 40,
-	"./en-ca.js": 40,
-	"./en-gb": 41,
-	"./en-gb.js": 41,
-	"./en-ie": 42,
-	"./en-ie.js": 42,
-	"./en-il": 43,
-	"./en-il.js": 43,
-	"./en-nz": 44,
-	"./en-nz.js": 44,
-	"./eo": 45,
-	"./eo.js": 45,
-	"./es": 46,
-	"./es-do": 47,
-	"./es-do.js": 47,
-	"./es-us": 48,
-	"./es-us.js": 48,
-	"./es.js": 46,
-	"./et": 49,
-	"./et.js": 49,
-	"./eu": 50,
-	"./eu.js": 50,
-	"./fa": 51,
-	"./fa.js": 51,
-	"./fi": 52,
-	"./fi.js": 52,
-	"./fo": 53,
-	"./fo.js": 53,
-	"./fr": 54,
-	"./fr-ca": 55,
-	"./fr-ca.js": 55,
-	"./fr-ch": 56,
-	"./fr-ch.js": 56,
-	"./fr.js": 54,
-	"./fy": 57,
-	"./fy.js": 57,
-	"./gd": 58,
-	"./gd.js": 58,
-	"./gl": 59,
-	"./gl.js": 59,
-	"./gom-latn": 60,
-	"./gom-latn.js": 60,
-	"./gu": 61,
-	"./gu.js": 61,
-	"./he": 62,
-	"./he.js": 62,
-	"./hi": 63,
-	"./hi.js": 63,
-	"./hr": 64,
-	"./hr.js": 64,
-	"./hu": 65,
-	"./hu.js": 65,
-	"./hy-am": 66,
-	"./hy-am.js": 66,
-	"./id": 67,
-	"./id.js": 67,
-	"./is": 68,
-	"./is.js": 68,
-	"./it": 69,
-	"./it.js": 69,
-	"./ja": 70,
-	"./ja.js": 70,
-	"./jv": 71,
-	"./jv.js": 71,
-	"./ka": 72,
-	"./ka.js": 72,
-	"./kk": 73,
-	"./kk.js": 73,
-	"./km": 74,
-	"./km.js": 74,
-	"./kn": 75,
-	"./kn.js": 75,
-	"./ko": 76,
-	"./ko.js": 76,
-	"./ky": 77,
-	"./ky.js": 77,
-	"./lb": 78,
-	"./lb.js": 78,
-	"./lo": 79,
-	"./lo.js": 79,
-	"./lt": 80,
-	"./lt.js": 80,
-	"./lv": 81,
-	"./lv.js": 81,
-	"./me": 82,
-	"./me.js": 82,
-	"./mi": 83,
-	"./mi.js": 83,
-	"./mk": 84,
-	"./mk.js": 84,
-	"./ml": 85,
-	"./ml.js": 85,
-	"./mn": 86,
-	"./mn.js": 86,
-	"./mr": 87,
-	"./mr.js": 87,
-	"./ms": 88,
-	"./ms-my": 89,
-	"./ms-my.js": 89,
-	"./ms.js": 88,
-	"./mt": 90,
-	"./mt.js": 90,
-	"./my": 91,
-	"./my.js": 91,
-	"./nb": 92,
-	"./nb.js": 92,
-	"./ne": 93,
-	"./ne.js": 93,
-	"./nl": 94,
-	"./nl-be": 95,
-	"./nl-be.js": 95,
-	"./nl.js": 94,
-	"./nn": 96,
-	"./nn.js": 96,
-	"./pa-in": 97,
-	"./pa-in.js": 97,
-	"./pl": 98,
-	"./pl.js": 98,
-	"./pt": 99,
-	"./pt-br": 100,
-	"./pt-br.js": 100,
-	"./pt.js": 99,
-	"./ro": 101,
-	"./ro.js": 101,
-	"./ru": 102,
-	"./ru.js": 102,
-	"./sd": 103,
-	"./sd.js": 103,
-	"./se": 104,
-	"./se.js": 104,
-	"./si": 105,
-	"./si.js": 105,
-	"./sk": 106,
-	"./sk.js": 106,
-	"./sl": 107,
-	"./sl.js": 107,
-	"./sq": 108,
-	"./sq.js": 108,
-	"./sr": 109,
-	"./sr-cyrl": 110,
-	"./sr-cyrl.js": 110,
-	"./sr.js": 109,
-	"./ss": 111,
-	"./ss.js": 111,
-	"./sv": 112,
-	"./sv.js": 112,
-	"./sw": 113,
-	"./sw.js": 113,
-	"./ta": 114,
-	"./ta.js": 114,
-	"./te": 115,
-	"./te.js": 115,
-	"./tet": 116,
-	"./tet.js": 116,
-	"./tg": 117,
-	"./tg.js": 117,
-	"./th": 118,
-	"./th.js": 118,
-	"./tl-ph": 119,
-	"./tl-ph.js": 119,
-	"./tlh": 120,
-	"./tlh.js": 120,
-	"./tr": 121,
-	"./tr.js": 121,
-	"./tzl": 122,
-	"./tzl.js": 122,
-	"./tzm": 123,
-	"./tzm-latn": 124,
-	"./tzm-latn.js": 124,
-	"./tzm.js": 123,
-	"./ug-cn": 125,
-	"./ug-cn.js": 125,
-	"./uk": 126,
-	"./uk.js": 126,
-	"./ur": 127,
-	"./ur.js": 127,
-	"./uz": 128,
-	"./uz-latn": 129,
-	"./uz-latn.js": 129,
-	"./uz.js": 128,
-	"./vi": 130,
-	"./vi.js": 130,
-	"./x-pseudo": 131,
-	"./x-pseudo.js": 131,
-	"./yo": 132,
-	"./yo.js": 132,
-	"./zh-cn": 133,
-	"./zh-cn.js": 133,
-	"./zh-hk": 134,
-	"./zh-hk.js": 134,
-	"./zh-tw": 135,
-	"./zh-tw.js": 135
+	"./af": 12,
+	"./af.js": 12,
+	"./ar": 13,
+	"./ar-dz": 14,
+	"./ar-dz.js": 14,
+	"./ar-kw": 15,
+	"./ar-kw.js": 15,
+	"./ar-ly": 16,
+	"./ar-ly.js": 16,
+	"./ar-ma": 17,
+	"./ar-ma.js": 17,
+	"./ar-sa": 18,
+	"./ar-sa.js": 18,
+	"./ar-tn": 19,
+	"./ar-tn.js": 19,
+	"./ar.js": 13,
+	"./az": 20,
+	"./az.js": 20,
+	"./be": 21,
+	"./be.js": 21,
+	"./bg": 22,
+	"./bg.js": 22,
+	"./bm": 23,
+	"./bm.js": 23,
+	"./bn": 24,
+	"./bn.js": 24,
+	"./bo": 25,
+	"./bo.js": 25,
+	"./br": 26,
+	"./br.js": 26,
+	"./bs": 27,
+	"./bs.js": 27,
+	"./ca": 28,
+	"./ca.js": 28,
+	"./cs": 29,
+	"./cs.js": 29,
+	"./cv": 30,
+	"./cv.js": 30,
+	"./cy": 31,
+	"./cy.js": 31,
+	"./da": 32,
+	"./da.js": 32,
+	"./de": 33,
+	"./de-at": 34,
+	"./de-at.js": 34,
+	"./de-ch": 35,
+	"./de-ch.js": 35,
+	"./de.js": 33,
+	"./dv": 36,
+	"./dv.js": 36,
+	"./el": 37,
+	"./el.js": 37,
+	"./en-au": 38,
+	"./en-au.js": 38,
+	"./en-ca": 39,
+	"./en-ca.js": 39,
+	"./en-gb": 40,
+	"./en-gb.js": 40,
+	"./en-ie": 41,
+	"./en-ie.js": 41,
+	"./en-il": 42,
+	"./en-il.js": 42,
+	"./en-nz": 43,
+	"./en-nz.js": 43,
+	"./eo": 44,
+	"./eo.js": 44,
+	"./es": 45,
+	"./es-do": 46,
+	"./es-do.js": 46,
+	"./es-us": 47,
+	"./es-us.js": 47,
+	"./es.js": 45,
+	"./et": 48,
+	"./et.js": 48,
+	"./eu": 49,
+	"./eu.js": 49,
+	"./fa": 50,
+	"./fa.js": 50,
+	"./fi": 51,
+	"./fi.js": 51,
+	"./fo": 52,
+	"./fo.js": 52,
+	"./fr": 53,
+	"./fr-ca": 54,
+	"./fr-ca.js": 54,
+	"./fr-ch": 55,
+	"./fr-ch.js": 55,
+	"./fr.js": 53,
+	"./fy": 56,
+	"./fy.js": 56,
+	"./gd": 57,
+	"./gd.js": 57,
+	"./gl": 58,
+	"./gl.js": 58,
+	"./gom-latn": 59,
+	"./gom-latn.js": 59,
+	"./gu": 60,
+	"./gu.js": 60,
+	"./he": 61,
+	"./he.js": 61,
+	"./hi": 62,
+	"./hi.js": 62,
+	"./hr": 63,
+	"./hr.js": 63,
+	"./hu": 64,
+	"./hu.js": 64,
+	"./hy-am": 65,
+	"./hy-am.js": 65,
+	"./id": 66,
+	"./id.js": 66,
+	"./is": 67,
+	"./is.js": 67,
+	"./it": 68,
+	"./it.js": 68,
+	"./ja": 69,
+	"./ja.js": 69,
+	"./jv": 70,
+	"./jv.js": 70,
+	"./ka": 71,
+	"./ka.js": 71,
+	"./kk": 72,
+	"./kk.js": 72,
+	"./km": 73,
+	"./km.js": 73,
+	"./kn": 74,
+	"./kn.js": 74,
+	"./ko": 75,
+	"./ko.js": 75,
+	"./ky": 76,
+	"./ky.js": 76,
+	"./lb": 77,
+	"./lb.js": 77,
+	"./lo": 78,
+	"./lo.js": 78,
+	"./lt": 79,
+	"./lt.js": 79,
+	"./lv": 80,
+	"./lv.js": 80,
+	"./me": 81,
+	"./me.js": 81,
+	"./mi": 82,
+	"./mi.js": 82,
+	"./mk": 83,
+	"./mk.js": 83,
+	"./ml": 84,
+	"./ml.js": 84,
+	"./mn": 85,
+	"./mn.js": 85,
+	"./mr": 86,
+	"./mr.js": 86,
+	"./ms": 87,
+	"./ms-my": 88,
+	"./ms-my.js": 88,
+	"./ms.js": 87,
+	"./mt": 89,
+	"./mt.js": 89,
+	"./my": 90,
+	"./my.js": 90,
+	"./nb": 91,
+	"./nb.js": 91,
+	"./ne": 92,
+	"./ne.js": 92,
+	"./nl": 93,
+	"./nl-be": 94,
+	"./nl-be.js": 94,
+	"./nl.js": 93,
+	"./nn": 95,
+	"./nn.js": 95,
+	"./pa-in": 96,
+	"./pa-in.js": 96,
+	"./pl": 97,
+	"./pl.js": 97,
+	"./pt": 98,
+	"./pt-br": 99,
+	"./pt-br.js": 99,
+	"./pt.js": 98,
+	"./ro": 100,
+	"./ro.js": 100,
+	"./ru": 101,
+	"./ru.js": 101,
+	"./sd": 102,
+	"./sd.js": 102,
+	"./se": 103,
+	"./se.js": 103,
+	"./si": 104,
+	"./si.js": 104,
+	"./sk": 105,
+	"./sk.js": 105,
+	"./sl": 106,
+	"./sl.js": 106,
+	"./sq": 107,
+	"./sq.js": 107,
+	"./sr": 108,
+	"./sr-cyrl": 109,
+	"./sr-cyrl.js": 109,
+	"./sr.js": 108,
+	"./ss": 110,
+	"./ss.js": 110,
+	"./sv": 111,
+	"./sv.js": 111,
+	"./sw": 112,
+	"./sw.js": 112,
+	"./ta": 113,
+	"./ta.js": 113,
+	"./te": 114,
+	"./te.js": 114,
+	"./tet": 115,
+	"./tet.js": 115,
+	"./tg": 116,
+	"./tg.js": 116,
+	"./th": 117,
+	"./th.js": 117,
+	"./tl-ph": 118,
+	"./tl-ph.js": 118,
+	"./tlh": 119,
+	"./tlh.js": 119,
+	"./tr": 120,
+	"./tr.js": 120,
+	"./tzl": 121,
+	"./tzl.js": 121,
+	"./tzm": 122,
+	"./tzm-latn": 123,
+	"./tzm-latn.js": 123,
+	"./tzm.js": 122,
+	"./ug-cn": 124,
+	"./ug-cn.js": 124,
+	"./uk": 125,
+	"./uk.js": 125,
+	"./ur": 126,
+	"./ur.js": 126,
+	"./uz": 127,
+	"./uz-latn": 128,
+	"./uz-latn.js": 128,
+	"./uz.js": 127,
+	"./vi": 129,
+	"./vi.js": 129,
+	"./x-pseudo": 130,
+	"./x-pseudo.js": 130,
+	"./yo": 131,
+	"./yo.js": 131,
+	"./zh-cn": 132,
+	"./zh-cn.js": 132,
+	"./zh-hk": 133,
+	"./zh-hk.js": 133,
+	"./zh-tw": 134,
+	"./zh-tw.js": 134
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -52945,23 +52412,557 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 169;
+webpackContext.id = 162;
 
 /***/ }),
-/* 170 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(171);
-module.exports = __webpack_require__(172);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(164)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(167)
+/* template */
+var __vue_template__ = __webpack_require__(169)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-8f831b28"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ckeditor.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8f831b28", Component.options)
+  } else {
+    hotAPI.reload("data-v-8f831b28", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
 
 
 /***/ }),
-/* 171 */
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(165);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(160)("94cec994", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8f831b28\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ckeditor.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8f831b28\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ckeditor.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(136)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 166 */
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_table_component__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_ckeditor2__ = __webpack_require__(168);
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'ckeditor',
+    components: { VueCkeditor: __WEBPACK_IMPORTED_MODULE_0_vue_ckeditor2__["a" /* default */] },
+    props: ['content', 'name', 'id', 'readonlymode'],
+    computed: {
+        contentEditor: function contentEditor() {
+            return this.content;
+        }
+    },
+    data: function data() {
+        return {
+            config: {
+                height: 300
+            }
+        };
+    },
+
+
+    methods: {
+        onBlur: function onBlur(editor) {
+            console.log(editor);
+        },
+        onFocus: function onFocus(editor) {
+            console.log(editor);
+        }
+    }
+});
+
+/***/ }),
+/* 168 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var inc = new Date().getTime();
+var script = {
+  name: 'VueCkeditor',
+  props: {
+    name: {
+      type: String,
+      default: function _default() {
+        return 'editor-'.concat(++inc);
+      }
+    },
+    value: {
+      type: String
+    },
+    id: {
+      type: String,
+      default: function _default() {
+        return 'editor-'.concat(inc);
+      }
+    },
+    types: {
+      type: String,
+      default: function _default() {
+        return 'classic';
+      }
+    },
+    config: {
+      type: Object,
+      default: function _default() {}
+    },
+    instanceReadyCallback: {
+      type: Function
+    },
+    readOnlyMode: {
+      type: Boolean,
+      default: function _default() {
+        return false;
+      }
+    }
+  },
+  data: function data() {
+    return {
+      destroyed: false,
+      instanceValue: ''
+    };
+  },
+  computed: {
+    instance: function instance() {
+      return CKEDITOR.instances[this.id];
+    }
+  },
+  watch: {
+    value: function value(val) {
+      try {
+        if (this.instance) {
+          this.update(val);
+        }
+      } catch (e) {}
+    },
+    readOnlyMode: function readOnlyMode(val) {
+      this.instance.setReadOnly(val);
+    }
+  },
+  mounted: function mounted() {
+    this.create();
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.destroy();
+  },
+  methods: {
+    create: function create() {
+      var _this = this;
+
+      if (typeof CKEDITOR === 'undefined') {
+        console.log('CKEDITOR is missing (http://ckeditor.com/)');
+      } else {
+        if (this.types === 'inline') {
+          CKEDITOR.inline(this.id, this.config);
+        } else {
+          CKEDITOR.replace(this.id, this.config);
+        }
+
+        this.instance.setData(this.value);
+        this.instance.on('instanceReady', function() {
+          _this.instance.setData(_this.value);
+        });
+        this.instance.on('change', this.onChange);
+        this.instance.on('mode', this.onMode);
+        this.instance.on('blur', this.onBlur);
+        this.instance.on('focus', this.onFocus);
+        this.instance.on('fileUploadResponse', function() {
+          setTimeout(function() {
+            _this.onChange();
+          }, 0);
+        });
+
+        if (typeof this.instanceReadyCallback !== 'undefined') {
+          this.instance.on('instanceReady', this.instanceReadyCallback);
+        }
+      }
+    },
+    update: function update(val) {
+      if (this.instanceValue !== val) {
+        this.instance.setData(val, {
+          internal: false
+        });
+      }
+    },
+    destroy: function destroy() {
+      try {
+        if (!this.destroyed) {
+          this.instance.focusManager.blur(true);
+          this.instance.removeAllListeners();
+          this.instance.destroy();
+          this.destroyed = true;
+        }
+      } catch (e) {}
+    },
+    onChange: function onChange() {
+      var html = this.instance.getData();
+
+      if (html !== this.value) {
+        this.$emit('input', html);
+        this.instanceValue = html;
+      }
+    },
+    onBlur: function onBlur() {
+      this.$emit('blur', this.instance);
+    },
+    onFocus: function onFocus() {
+      this.$emit('focus', this.instance);
+    },
+    onMode: function onMode() {
+      var _this2 = this;
+
+      if (this.instance.mode === 'source') {
+        var editable = this.instance.editable();
+        editable.attachListener(editable, 'input', function() {
+          _this2.onChange();
+        });
+      }
+    }
+  }
+};
+
+/* script */
+var __vue_script__ = script;
+/* template */
+
+var __vue_render__ = function __vue_render__() {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c(
+    'div',
+    {
+      staticClass: 'ckeditor'
+    },
+    [
+      _c('textarea', {
+        attrs: {
+          name: _vm.name,
+          id: _vm.id,
+          types: _vm.types,
+          config: _vm.config,
+          disabled: _vm.readOnlyMode
+        },
+        domProps: {
+          value: _vm.value
+        }
+      })
+    ]
+  );
+};
+
+var __vue_staticRenderFns__ = [];
+__vue_render__._withStripped = true;
+/* style */
+
+var __vue_inject_styles__ = undefined;
+/* scoped */
+
+var __vue_scope_id__ = undefined;
+/* module identifier */
+
+var __vue_module_identifier__ = undefined;
+/* functional template */
+
+var __vue_is_functional_template__ = false;
+/* component normalizer */
+
+function __vue_normalize__(
+  template,
+  style,
+  script$$1,
+  scope,
+  functional,
+  moduleIdentifier,
+  createInjector,
+  createInjectorSSR
+) {
+  var component =
+    (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {}; // For security concerns, we use only base name in production mode.
+
+  component.__file =
+    '/Users/dangvanthanh/Code/dev/vue/vue-ckeditor2/src/VueCkeditor.vue';
+
+  if (!component.render) {
+    component.render = template.render;
+    component.staticRenderFns = template.staticRenderFns;
+    component._compiled = true;
+    if (functional) component.functional = true;
+  }
+
+  component._scopeId = scope;
+
+  return component;
+}
+/* style inject */
+
+function __vue_create_injector__() {
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var styles =
+    __vue_create_injector__.styles || (__vue_create_injector__.styles = {});
+  var isOldIE =
+    typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+  return function addStyle(id, css) {
+    if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return; // SSR styles are present.
+
+    var group = isOldIE ? css.media || 'default' : id;
+    var style =
+      styles[group] ||
+      (styles[group] = {
+        ids: [],
+        parts: [],
+        element: undefined
+      });
+
+    if (!style.ids.includes(id)) {
+      var code = css.source;
+      var index = style.ids.length;
+      style.ids.push(id);
+
+      if (isOldIE) {
+        style.element =
+          style.element ||
+          document.querySelector('style[data-group=' + group + ']');
+      }
+
+      if (!style.element) {
+        var el = (style.element = document.createElement('style'));
+        el.type = 'text/css';
+        if (css.media) el.setAttribute('media', css.media);
+
+        if (isOldIE) {
+          el.setAttribute('data-group', group);
+          el.setAttribute('data-next-index', '0');
+        }
+
+        head.appendChild(el);
+      }
+
+      if (isOldIE) {
+        index = parseInt(style.element.getAttribute('data-next-index'));
+        style.element.setAttribute('data-next-index', index + 1);
+      }
+
+      if (style.element.styleSheet) {
+        style.parts.push(code);
+        style.element.styleSheet.cssText = style.parts
+          .filter(Boolean)
+          .join('\n');
+      } else {
+        var textNode = document.createTextNode(code);
+        var nodes = style.element.childNodes;
+        if (nodes[index]) style.element.removeChild(nodes[index]);
+        if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
+        else style.element.appendChild(textNode);
+      }
+    }
+  };
+}
+/* style inject SSR */
+
+var VueCkeditor = __vue_normalize__(
+  {
+    render: __vue_render__,
+    staticRenderFns: __vue_staticRenderFns__
+  },
+  __vue_inject_styles__,
+  __vue_script__,
+  __vue_scope_id__,
+  __vue_is_functional_template__,
+  __vue_module_identifier__,
+  __vue_create_injector__,
+  undefined
+);
+
+/* harmony default export */ __webpack_exports__["a"] = (VueCkeditor);
+
+
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("vue-ckeditor", {
+        attrs: { config: _vm.config },
+        on: {
+          blur: function($event) {
+            _vm.onBlur($event)
+          },
+          focus: function($event) {
+            _vm.onFocus($event)
+          }
+        },
+        model: {
+          value: _vm.contentEditor,
+          callback: function($$v) {
+            _vm.contentEditor = $$v
+          },
+          expression: "contentEditor"
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-8f831b28", module.exports)
+  }
+}
+
+/***/ }),
+/* 170 */,
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(172);
+module.exports = __webpack_require__(173);
+
+
+/***/ }),
+/* 172 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_table_component__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_table_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_table_component__);
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -52969,9 +52970,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(138);
+__webpack_require__(137);
 
-window.Vue = __webpack_require__(158);
+window.Vue = __webpack_require__(157);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -52979,7 +52980,7 @@ window.Vue = __webpack_require__(158);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('ckeditor', __webpack_require__(161));
+Vue.component('ckeditor', __webpack_require__(163));
 
 
 
@@ -52991,7 +52992,7 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
