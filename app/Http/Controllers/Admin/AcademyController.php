@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Validator;
-use App\User;
 use App\Academy;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Http\Request;
 
 class AcademyController extends Controller
 {
@@ -33,8 +32,8 @@ class AcademyController extends Controller
 
         $users = $users->transform(function ($user) {
             return [
-                'label'  => $user->name,
-                'value'    => $user->id
+                'label' => $user->name,
+                'value' => $user->id,
             ];
         });
 
@@ -50,15 +49,27 @@ class AcademyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required|string',
-            'master_id' => 'nullable'
+            'name' => 'required|string',
+            'master_id' => 'nullable',
         ]);
 
         if ($request->filled('master_id')) {
             $master = User::findOrFail($request->master_id);
         }
 
-        $academy = Academy::create($request->only(['name', 'master_id']));
+        $data = [
+            'name' => $request->name,
+            'master_id' => $request->master_id,
+            'master' => $master->name,
+            'zip_code' => '0000000',
+            'address_1' => 'UHAUHAUAHUAHUAH',
+            'address_2' => 'UHAUHAUAHUAHUAH',
+            'city' => 'São paulo',
+            'state' => 'SP',
+            'country' => 'BR',
+        ];
+
+        $academy = Academy::create($data);
 
         return redirect()->route('admin.academies.index')->with('message', 'Academy created successful!');
     }

@@ -50,7 +50,7 @@
 @endsection
 
 @section('myscript')
-    <script src="{{ asset('js/academies/app.js') }}"></script>
+    <script src="{{ asset('js/categories/app.js') }}"></script>
     <script>
         $('select').each(function () {
             $(this).select2({

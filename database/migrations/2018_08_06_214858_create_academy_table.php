@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateAcademyTable extends Migration
 {
@@ -20,9 +20,9 @@ class CreateAcademyTable extends Migration
             $table->unsignedInteger('master_id')->nullable();
             $table->string('zip_code');
             $table->string('address_1');
-            $table->string('address_2');
+            $table->string('address_2')->nullable();
             $table->string('city');
-            $table->string('state');
+            $table->string('state')->nullable();
             $table->string('country');
             $table->timestamps();
             $table->softDeletes();
