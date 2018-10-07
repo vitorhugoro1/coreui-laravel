@@ -13,9 +13,9 @@
 
 Auth::routes();
 /* CoreUI templates */
+Route::view('/', 'home');
 
 Route::middleware('auth')->group(function () {
-    Route::view('/', 'panel.blank');
 
     Route::name('admin.')->prefix('admin')->group(function () {
         Route::view('/', 'panel.blank');
