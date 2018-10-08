@@ -14,7 +14,7 @@ class ChampionshipController extends Controller
      */
     public function index()
     {
-        //
+        return view('championships.index');
     }
 
     /**

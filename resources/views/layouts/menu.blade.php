@@ -7,15 +7,13 @@
         </div>
         <div class="col-10">
             <form action="/" method="get">
-                <label for="q" class="sr-only">search</label>
-                <input type="search" id="q" name="q" placeholder="Find an Event or Championship" class="shadow-none bg-light border-0 col-12 font-lg rounded search-input" value="{{ request('q') }}">
+                <label for="q" class="sr-only">{{ __('Search') }}</label>
+                <input type="search" id="q" name="q" placeholder="{{ __('Find an Event or Championship') }}" class="shadow-none bg-light border-0 col-12 font-lg rounded search-input" value="{{ request('q') }}">
             </form>
         </div>
     </div>
     <div class="col-6 font-lg font-weight-bold d-flex justify-content-end">
-        <a href="#" class="d-block menu-link px-3 text-black-50">Events</a>
-        <a href="#" class="d-block menu-link px-3 text-black-50">Events</a>
-        <a href="#" class="d-block menu-link px-3 text-black-50">Events</a>
+        <a href="{{ route('championships.index') }}" class="d-block menu-link px-3 text-black-50">{{ __('Championships') }}</a>
         <a href="#" class="d-block menu-link px-3 text-success">Login</a>
     </div>
 </nav>

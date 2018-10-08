@@ -2,16 +2,16 @@
     <div class="container-fluid p-2 p-md-5">
         <ul class="list-inline">
             <li class="list-inline-item">
-                <a href="#" class="text-muted">Home</a>
+                <a href="{{ url('/') }}" class="text-muted">{{ __('Home') }}</a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="text-muted">Events</a>
+                <a href="{{ route('championships.index') }}" class="text-muted">{{ __('Championships') }}</a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="text-muted">Contact</a>
+                <a href="{{ url('/contact') }}" class="text-muted">{{ __('Contacts') }}</a>
             </li>
             <li class="list-inline-item">
-                <a href="#" class="text-muted">About</a>
+                <a href="{{ url('/about') }}" class="text-muted">{{ __('About') }}</a>
             </li>
         </ul>
     </div>
