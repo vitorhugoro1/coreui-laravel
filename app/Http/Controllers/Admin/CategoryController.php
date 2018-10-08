@@ -18,7 +18,6 @@ class CategoryController extends Controller
         $categories = Category::paginate();
 
         return view('admin.categories.index')->with(compact('categories'));
-
     }
 
     /**
@@ -28,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**

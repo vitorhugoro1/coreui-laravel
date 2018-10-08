@@ -3,12 +3,12 @@
 @section('content')
     <div class="container-fluid">
         <div class="animate fadeIn">
-            <h1>Create Academy</h1>
+            <h1>Create Category</h1>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('admin.academies.store') }}" method="post">
+                            <form action="{{ route('admin.categories.store') }}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -24,20 +24,33 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="master_id">Master</label>
-                                            <select class="form-control select2" name="master_id" id="master_id">
-                                                    <option value="">Select an User</option>
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user['value'] }}">{{ $user['label'] }}</option>
-                                                @endforeach
+                                            <label for="type">Type</label>
+                                            <select name="type" id="type" class="form-control" required v-model="type">
+                                                <option value="">Select an Type</option>
+                                                <option value="forms">Forms</option>
+                                                <option value="weights">Weights</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
-                                            HERE MAPA
+                                            <label for="is_professional">Is Professional?</label>
+                                            <select name="is_professional" id="is_professional" class="form-control" required>
+                                                <option value="false">Not</option>
+                                                <option value="true">True</option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <div class="col-lg-6" v-if="type != 'forms'">
+                                        <div class="form-group">
+                                            <label for="by_gender">By Gender</label>
+                                            <select name="by_gender" id="by_gender" class="form-control" required>
+                                                <option value="false">Not</option>
+                                                <option value="true">True</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <forms-creator-component></forms-creator-component>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Create</button>
                             </form>
@@ -52,7 +65,7 @@
 @section('myscript')
     <script src="{{ asset('js/categories/app.js') }}"></script>
     <script>
-        $('select').each(function () {
+        $('.select2').each(function () {
             $(this).select2({
                 theme: 'bootstrap'
             });

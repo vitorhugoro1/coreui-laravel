@@ -19,11 +19,20 @@ import {
     TableColumn
 } from 'vue-table-component';
 import vSelect from 'vue-select';
+import FormsCreatorComponent from './components/FormsCreatorComponent';
+import WeightsCreatorComponent from './components/WeightsCreatorComponent';
 
 Vue.component('v-select', vSelect);
 Vue.component('table-component', TableComponent);
 Vue.component('table-column', TableColumn);
+Vue.component('forms-creator-component', FormsCreatorComponent);
+Vue.component('weights-creator-component', WeightsCreatorComponent);
 
 const app = new Vue({
     el: '#app',
+    data: () => {
+        return {
+            type: ''
+        };
+    }
 });

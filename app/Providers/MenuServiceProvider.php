@@ -43,13 +43,6 @@ class MenuServiceProvider extends ServiceProvider
                         ->addItemClass('nav-link')
                         ->addItemParentClass('nav-item')
                         ->route('admin.academies.index', 'View Academies');
-                })
-                ->submenu('<a class="nav-link nav-dropdown-toggle" href="#"><i class="fas fa-building"></i> Categories</a>', function (Menu $menu) {
-                    $menu->addParentClass('nav-dropdown')
-                        ->addClass('nav-dropdown-items')
-                        ->addItemClass('nav-link')
-                        ->addItemParentClass('nav-item')
-                        ->route('admin.categories.index', 'View Categories');
                 });
 
             return $menu;
