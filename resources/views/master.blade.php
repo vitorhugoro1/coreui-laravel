@@ -56,8 +56,6 @@
       <!-- /.container-fluid -->
     </main>
 
-    @include('panel.asidemenu')
-
   </div>
 
   @include('panel.footer')

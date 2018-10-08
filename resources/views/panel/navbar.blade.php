@@ -60,10 +60,6 @@
       </div>
     </li>
   </ul>
-  
-  <button class="navbar-toggler aside-menu-toggler" type="button">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
   {{ csrf_field() }}

@@ -12,8 +12,37 @@
             </form>
         </div>
     </div>
-    <div class="col-6 font-lg font-weight-bold d-flex justify-content-end">
-        <a href="{{ route('championships.index') }}" class="d-block menu-link px-3 text-black-50">{{ __('Championships') }}</a>
-        <a href="#" class="d-block menu-link px-3 text-success">Login</a>
+    <div class="col-6 font-lg font-weight-bold navbar navbar-expand-lg d-flex justify-content-end">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="{{ route('championships.index') }}" class="d-block nav-link menu-link px-3 text-black-50">{{ __('Championships') }}</a>
+            </li>
+            @guest
+                <li class="nav-item">
+                    <a href="#" class="d-block nav-link menu-link px-3 text-success">{{ __('Login') }}</a>
+                </li>
+            @endguest
+
+            @auth
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ auth()->user()->name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                        @hasanyrole('admin|colaborator')
+                        <a href="{{ route('admin.home') }}" class="dropdown-item">{{ __('Admin') }}</a>
+                        @endhasanyrole
+                        <a href="#" class="dropdown-item">{{ __('Perfil') }}</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+          onclick="event.preventDefault();
+          document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                    </div>
+                </li>
+            @endauth
+        </ul>
     </div>
 </nav>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+  {{ csrf_field() }}
+</form>
