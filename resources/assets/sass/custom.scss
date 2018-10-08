@@ -15,3 +15,24 @@
 .table-component__filter__clear {
   visibility: hidden;
 }
+
+.search-input {
+  height: 40px;
+
+  &:active {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+.menu-link {
+  line-height: 1.6;
+  text-align: center !important;
+  margin:auto 0 !important;
+
+  &:hover {
+    text-decoration: none;
+    color: #c69500;
+  }
+}
