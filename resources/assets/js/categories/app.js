@@ -32,7 +32,8 @@ const app = new Vue({
     el: '#app',
     data: () => {
         return {
-            type: ''
+            type: '',
+            gender: 'false'
         };
     }
 });

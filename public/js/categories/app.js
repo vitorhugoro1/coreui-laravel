@@ -68861,7 +68861,8 @@ var app = new Vue({
     el: '#app',
     data: function data() {
         return {
-            type: ''
+            type: '',
+            gender: 'false'
         };
     }
 });
@@ -68970,7 +68971,7 @@ var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(215)
 /* template */
-var __vue_template__ = __webpack_require__(216)
+var __vue_template__ = __webpack_require__(222)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -69014,6 +69015,876 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Weights_Common_CommonsController__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Weights_Common_CommonsController___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Weights_Common_CommonsController__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "weights-creator-component",
+  props: ["gender"],
+  components: {
+    CommonsController: __WEBPACK_IMPORTED_MODULE_0__Weights_Common_CommonsController___default.a
+  },
+  data: function data() {
+    return {
+      males: [{
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }],
+      females: [{
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }],
+      commons: [{
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }, {
+        initial: 0,
+        max: 10
+      }],
+      miscs: []
+    };
+  },
+  methods: {
+    update: function update(weight, type) {
+      if (type == "common") {
+        var hasInitial = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["findIndex"])(this.commons, { initial: weight.initial });
+        var hasMax = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["findIndex"])(this.commons, { max: weight.max });
+
+        if (hasInitial < 0 && hasMax < 0) {
+          this.commons[weight.id] = {
+            initial: weight.initial,
+            max: weight.max
+          };
+
+          this.commons = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["sortBy"])(this.commons, ["initial"]);
+        }
+
+        if (hasInitial >= 0 || hasMax >= 0) {
+          alert("ADICIONAR ALERTA");
+        }
+      }
+    },
+    remove: function remove(id, type) {
+      if (type == "common") {
+        if (this.commons.length > 1) {
+          if (id === 0) {
+            this.commons.shift();
+          }
+
+          if (id !== 0) {
+            this.commons.splice(id, id);
+          }
+        }
+
+        if (this.commons.length === 1) {
+          this.commons = [];
+        }
+      }
+
+      this.commons = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["sortBy"])(this.commons, ["initial"]);
+    }
+  }
+});
+
+/***/ }),
+/* 216 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(217)
+/* template */
+var __vue_template__ = __webpack_require__(221)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/categories/components/Weights/Common/CommonsController.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-74907d4c", Component.options)
+  } else {
+    hotAPI.reload("data-v-74907d4c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 217 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommonTable__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommonTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CommonTable__);
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "commons-controller",
+  props: ["commons"],
+  components: {
+    CommonTable: __WEBPACK_IMPORTED_MODULE_0__CommonTable___default.a
+  },
+  methods: {
+    updateCommon: function updateCommon(common) {
+      this.$emit("update", common, "common");
+    },
+    removeCommon: function removeCommon(id) {
+      this.$emit("remove", id, "common");
+    }
+  }
+});
+
+/***/ }),
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(219)
+/* template */
+var __vue_template__ = __webpack_require__(220)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/categories/components/Weights/Common/CommonTable.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-338c7ccb", Component.options)
+  } else {
+    hotAPI.reload("data-v-338c7ccb", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 219 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommonEdit__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CommonEdit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CommonEdit__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "common-table",
+  props: ["commons"],
+  components: {
+    CommonEdit: __WEBPACK_IMPORTED_MODULE_0__CommonEdit___default.a
+  },
+  data: function data() {
+    return {
+      isCommonEdit: false,
+      isCommonEditing: {},
+      isCommonEditingId: 0
+    };
+  },
+  methods: {
+    openEdit: function openEdit(common, id) {
+      this.isCommonEditing = common;
+      this.isCommonEditingId = id;
+      this.isCommonEdit = true;
+    },
+    closeEdit: function closeEdit() {
+      this.isCommonEdit = false;
+      this.isCommonEditing = {};
+    },
+    updateCommon: function updateCommon(common) {
+      this.$emit("update", common);
+    },
+    removeCommon: function removeCommon(id) {
+      this.$emit("remove", id);
+    }
+  }
+});
+
+/***/ }),
+/* 220 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.commons, function(common, key) {
+            return _c("tr", { key: key }, [
+              _vm._m(1, true),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(common.initial))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(common.max))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "modal",
+                      "data-target": "#common-edit"
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.openEdit(common, key)
+                      }
+                    }
+                  },
+                  [_vm._v("Edit")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.removeCommon(key)
+                      }
+                    }
+                  },
+                  [_vm._v("Remove")]
+                )
+              ])
+            ])
+          })
+        )
+      ]),
+      _vm._v(" "),
+      _c("common-edit", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isCommonEdit,
+            expression: "isCommonEdit"
+          }
+        ],
+        attrs: {
+          common: _vm.isCommonEditing,
+          "common-id": _vm.isCommonEditingId
+        },
+        on: { close: _vm.closeEdit, updateCommon: _vm.updateCommon }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_c("input", { attrs: { type: "checkbox" } })]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Initial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Max")]),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("input", { attrs: { type: "checkbox" } })])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-338c7ccb", module.exports)
+  }
+}
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "button",
+        {
+          staticClass: "pull-right my-2 btn btn-success",
+          attrs: { type: "button" }
+        },
+        [_vm._v("Add")]
+      ),
+      _vm._v(" "),
+      _c("common-table", {
+        attrs: { commons: _vm.commons },
+        on: { update: _vm.updateCommon, remove: _vm.removeCommon }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-74907d4c", module.exports)
+  }
+}
+
+/***/ }),
+/* 222 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("ul", { staticClass: "nav nav-tabs", attrs: { role: "tablist" } }, [
+      _vm.gender != "false"
+        ? _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link active show",
+                attrs: { href: "#male", "data-toggle": "tab" }
+              },
+              [_vm._v("Male")]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.gender != "false"
+        ? _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: { href: "#female", "data-toggle": "tab" }
+              },
+              [_vm._v("Female")]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.gender != "true"
+        ? _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link active show",
+                attrs: { href: "#common", "data-toggle": "tab" }
+              },
+              [_vm._v("Common")]
+            )
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "tab-content" }, [
+      _vm.gender != "false"
+        ? _c(
+            "div",
+            {
+              staticClass: "tab-pane show active",
+              attrs: { id: "male", role: "tabpanel" }
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "pull-right my-2 btn btn-success",
+                  attrs: { type: "button" }
+                },
+                [_vm._v("Add")]
+              ),
+              _vm._v(" "),
+              _c("table", { staticClass: "table table-striped" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.males, function(male, key) {
+                    return _c("tr", { key: key }, [
+                      _vm._m(1, true),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(male.initial))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(male.max))]),
+                      _vm._v(" "),
+                      _vm._m(2, true)
+                    ])
+                  })
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.gender != "false"
+        ? _c(
+            "div",
+            {
+              staticClass: "tab-pane",
+              attrs: { id: "female", role: "tabpanel" }
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "pull-right my-2 btn btn-success",
+                  attrs: { type: "button" }
+                },
+                [_vm._v("Add")]
+              ),
+              _vm._v(" "),
+              _c("table", { staticClass: "table table-striped" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.females, function(female, key) {
+                    return _c("tr", { key: key }, [
+                      _vm._m(4, true),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(female.initial))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(female.max))]),
+                      _vm._v(" "),
+                      _vm._m(5, true)
+                    ])
+                  })
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.gender != "true"
+        ? _c(
+            "div",
+            {
+              staticClass: "tab-pane active show table-responsive",
+              attrs: { id: "common", role: "tabpanel" }
+            },
+            [
+              _c("commons-controller", {
+                attrs: { commons: _vm.commons },
+                on: { update: _vm.update, remove: _vm.remove }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_c("input", { attrs: { type: "checkbox" } })]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Initial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Max")]),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("input", { attrs: { type: "checkbox" } })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Edit")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "button" } },
+        [_vm._v("Remove")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_c("input", { attrs: { type: "checkbox" } })]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Initial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Max")]),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("input", { attrs: { type: "checkbox" } })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Edit")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "button" } },
+        [_vm._v("Remove")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-660c0244", module.exports)
+  }
+}
+
+/***/ }),
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(246)
+/* template */
+var __vue_template__ = __webpack_require__(247)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/categories/components/Weights/Common/CommonEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6d2b259d", Component.options)
+  } else {
+    hotAPI.reload("data-v-6d2b259d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 246 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -69022,18 +69893,196 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "weights-creator-component"
+  name: "common-edit",
+  props: ["common", "commonId"],
+  data: function data() {
+    return {
+      commonEdited: {
+        id: 0,
+        initial: 0,
+        max: 0
+      }
+    };
+  },
+  watch: {
+    common: function common(val, oldVal) {
+      this.commonEdited.initial = val.initial;
+      this.commonEdited.max = val.max;
+    },
+    commonId: function commonId(val, oldVal) {
+      this.commonEdited.id = val;
+    }
+  },
+  methods: {
+    updateCommon: function updateCommon(common) {
+      this.$emit("updateCommon", common);
+      document.getElementById("close-common-edit").click();
+    },
+    close: function close() {
+      this.$emit("close");
+    }
+  }
 });
 
 /***/ }),
-/* 216 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n  Weights Creator Component\n")])
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "common-edit",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h4", { staticClass: "modal-title" }, [
+                  _vm._v("Edit Common")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close",
+                    attrs: {
+                      type: "button",
+                      "data-dismiss": "modal",
+                      "aria-label": "Cancel"
+                    },
+                    on: { click: _vm.close }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "initial" } }, [
+                      _vm._v("Initial")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.commonEdited.initial,
+                          expression: "commonEdited.initial",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "initial" },
+                      domProps: { value: _vm.commonEdited.initial },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.commonEdited,
+                            "initial",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "max" } }, [_vm._v("Max")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.commonEdited.max,
+                          expression: "commonEdited.max",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "max" },
+                      domProps: { value: _vm.commonEdited.max },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.commonEdited,
+                            "max",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: {
+                      type: "button",
+                      id: "close-common-edit",
+                      "data-dismiss": "modal"
+                    },
+                    on: { click: _vm.close }
+                  },
+                  [_vm._v("Cancel")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.updateCommon(_vm.commonEdited)
+                      }
+                    }
+                  },
+                  [_vm._v("Edit Common")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -69041,7 +70090,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-660c0244", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6d2b259d", module.exports)
   }
 }
 

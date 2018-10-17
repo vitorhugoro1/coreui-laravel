@@ -19,7 +19,7 @@
             </li>
             @guest
                 <li class="nav-item">
-                    <a href="#" class="d-block nav-link menu-link px-3 text-success">{{ __('Login') }}</a>
+                    <a href="{{ route('login') }}" class="d-block nav-link menu-link px-3 text-success">{{ __('Login') }}</a>
                 </li>
             @endguest
 

@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <form action="{{ route('admin.categories.store') }}" method="post">
                                 @csrf
-                                <div class="row">
+                                <div class="row mb-2">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="name">Name</label>
@@ -44,13 +44,33 @@
                                     <div class="col-lg-6" v-if="type != 'forms'">
                                         <div class="form-group">
                                             <label for="by_gender">By Gender</label>
-                                            <select name="by_gender" id="by_gender" class="form-control" required>
+                                            <select name="by_gender" id="by_gender" v-model="gender" class="form-control" required>
                                                 <option value="false">Not</option>
                                                 <option value="true">True</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <forms-creator-component></forms-creator-component>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="has_weapon">Has Weapon</label>
+                                            <select name="has_weapon" id="has_weapon" class="form-control" required>
+                                                <option value="false">Not</option>
+                                                <option value="true">True</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="has_age_bracket">Has Age Bracket</label>
+                                            <select name="has_age_bracket" id="has_age_bracket" class="form-control" required>
+                                                <option value="false">Not</option>
+                                                <option value="true">True</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <weights-creator-component :gender="gender" v-if="type != 'forms'"></weights-creator-component>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Create</button>
                             </form>
