@@ -15,47 +15,53 @@
                     <td>{{ common.initial }}</td>
                     <td>{{ common.max }}</td>
                     <td>
-                        <button @click="openEdit(common, key)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#common-edit">Edit</button>
+                        <button @click="openEdit(key)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#common-edit">Edit</button>
                         <button @click="removeCommon(key)" type="button" class="btn btn-danger">Remove</button>
                     </td>
+                </tr>
+                <tr v-if="commons.length === 0">
+                  <td colspan="4">
+                    <span class="text-bold">Not weights added</span>
+                  </td>
                 </tr>
             </tbody>
         </table>
 
-        <common-edit v-show="isCommonEdit" :common="isCommonEditing" :common-id="isCommonEditingId" @close="closeEdit" @updateCommon="updateCommon"></common-edit>
+        <common-edit v-show="isCommonEdit" @close="closeEdit"></common-edit>
     </div>
 </template>
 
 <script>
 import CommonEdit from "./CommonEdit";
+import { mapState } from "vuex";
 
 export default {
   name: "common-table",
-  props: ["commons"],
+  computed: mapState("common", {
+    commons: state => state.commons,
+    commonEditing: state => state.commonEditing
+  }),
   components: {
     CommonEdit
   },
   data: () => ({
-    isCommonEdit: false,
-    isCommonEditing: {},
-    isCommonEditingId: 0
+    isCommonEdit: false
   }),
   methods: {
-    openEdit(common, id) {
-      this.isCommonEditing = common;
-      this.isCommonEditingId = id;
+    openEdit(id) {
+      this.$store.dispatch("common/isCommonEditing", id);
       this.isCommonEdit = true;
     },
     closeEdit() {
+      this.$store.dispatch("common/notCommonEditing");
       this.isCommonEdit = false;
-      this.isCommonEditing = {};
-    },
-    updateCommon(common) {
-      this.$emit("update", common);
     },
     removeCommon(id) {
-      this.$emit("remove", id);
+      this.$store.dispatch("common/removeCommon", id);
     }
+  },
+  created() {
+    this.$store.dispatch("common/getAllCommons");
   }
 };
 </script>

@@ -25,8 +25,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="type">Type</label>
-                                            <select name="type" id="type" class="form-control" required v-model="type">
-                                                <option value="">Select an Type</option>
+                                            <select name="type" id="type" class="form-control" required @change="changeType(typeInput)" v-model="typeInput">
                                                 <option value="forms">Forms</option>
                                                 <option value="weights">Weights</option>
                                             </select>
@@ -41,10 +40,10 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6" v-if="type != 'forms'">
+                                    <div class="col-lg-6" v-if="typeInput != 'forms'">
                                         <div class="form-group">
                                             <label for="by_gender">By Gender</label>
-                                            <select name="by_gender" id="by_gender" v-model="gender" class="form-control" required>
+                                            <select name="by_gender" id="by_gender" v-model="genderInput" class="form-control" required @change="changeGender(genderInput)">
                                                 <option value="false">Not</option>
                                                 <option value="true">True</option>
                                             </select>
@@ -69,7 +68,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <weights-creator-component :gender="gender" v-if="type != 'forms'"></weights-creator-component>
+                                        <weights-creator-component :gender="gender" v-if="typeInput != 'forms'"></weights-creator-component>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Create</button>

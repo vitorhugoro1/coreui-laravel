@@ -23,7 +23,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" id='close-common-edit' class="btn btn-secondary" data-dismiss="modal" @click="close">Cancel</button>
-                        <button type="button" class="btn btn-primary" @click="updateCommon(commonEdited)">Edit Common</button>
+                        <button type="button" class="btn btn-primary" @click="updateCommon(commonEdited, id)">Edit Common</button>
                     </div>
                 </div>
             </div>
@@ -32,29 +32,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "common-edit",
-  props: ["common", "commonId"],
-  data: () => ({
-    commonEdited: {
-      id: 0,
-      initial: 0,
-      max: 0
-    }
+  computed: mapGetters("common", {
+    id: "getEditingId",
+    commonEdited: "getEditing"
   }),
-  watch: {
-    common: function(val, oldVal) {
-      this.commonEdited.initial = val.initial;
-      this.commonEdited.max = val.max;
-    },
-    commonId: function(val, oldVal) {
-      this.commonEdited.id = val;
-    }
-  },
   methods: {
-    updateCommon(common) {
-      this.$emit("updateCommon", common);
-      document.getElementById("close-common-edit").click();
+    updateCommon(common, id) {
+      this.$store.dispatch("common/updateCommon", { id, common });
+
+      if (!this.$store.state.common.isErrorAction) {
+        document.getElementById("close-common-edit").click();
+      }
     },
     close() {
       this.$emit("close");

@@ -1,26 +1,24 @@
 <template>
     <div>
-        <button type="button" class="pull-right my-2 btn btn-success">Add</button>
-        <common-table :commons="commons" @update="updateCommon" @remove="removeCommon"></common-table>
+        <button @click="isAdding = true" type="button" class="pull-right my-2 btn btn-success" data-toggle="modal" data-target="#common-add">Add</button>
+        <common-table></common-table>
+        <common-add v-show="isAdding" @close="isAdding = false"></common-add>
     </div>
 </template>
 
 <script>
 import CommonTable from "./CommonTable";
+import CommonAdd from "./CommonAdd";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "commons-controller",
-  props: ["commons"],
   components: {
-    CommonTable
+    CommonTable,
+    CommonAdd
   },
-  methods: {
-    updateCommon(common) {
-      this.$emit("update", common, "common");
-    },
-    removeCommon(id) {
-      this.$emit("remove", id, "common");
-    }
-  }
+  data: () => ({
+    isAdding: false
+  })
 };
 </script>

@@ -52,6 +52,7 @@
     "vue-select": "github:frontandstart/vue-select",
     "vue-table-component": "^1.9.2",
     "vue-template-compiler": "^2.5.17",
-    "vue-the-mask": "^0.11.1"
+    "vue-the-mask": "^0.11.1",
+    "vuex": "^3.0.1"
   }
 }

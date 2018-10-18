@@ -21,6 +21,11 @@ import {
 import vSelect from 'vue-select';
 import FormsCreatorComponent from './components/FormsCreatorComponent';
 import WeightsCreatorComponent from './components/WeightsCreatorComponent';
+import store from './stores';
+import {
+    mapState,
+    mapMutations
+} from 'vuex';
 
 Vue.component('v-select', vSelect);
 Vue.component('table-component', TableComponent);
@@ -30,10 +35,17 @@ Vue.component('weights-creator-component', WeightsCreatorComponent);
 
 const app = new Vue({
     el: '#app',
-    data: () => {
-        return {
-            type: '',
-            gender: 'false'
-        };
-    }
+    store,
+    data: () => ({
+        typeInput: 'forms',
+        genderInput: 'false'
+    }),
+    computed: mapState([
+        'type',
+        'gender'
+    ]),
+    methods: mapMutations([
+        'changeType',
+        'changeGender'
+    ])
 });
