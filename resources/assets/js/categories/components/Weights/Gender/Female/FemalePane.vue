@@ -1,17 +1,24 @@
 <template>
-    <div class="tab-pane show active" id="male" role="tabpanel">
-        <button type="button" class="pull-right my-2 btn btn-success">Add</button>
-        <male-table></male-table>
+    <div class="tab-pane" id="female" role="tabpanel">
+        <button @click="isAdding = true" type="button" class="pull-right my-2 btn btn-success" data-toggle="modal" data-target="#female-add">Add</button>
+        <female-table></female-table>
+        <female-add v-show="isAdding" @close="isAdding = false"></female-add>
     </div>
 </template>
 
 <script>
-import MaleTable from './MaleTable'
+import FemaleTable from './FemaleTable';
+import FemaleAdd from './FemaleAdd';
+
 export default {
-  name: 'male-pane',
+  name: 'female-pane',
   components: {
-    MaleTable
-  }
+    FemaleTable,
+    FemaleAdd
+  },
+  data: () => ({
+    isAdding: false
+  })
 }
 </script>
 
