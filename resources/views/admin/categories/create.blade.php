@@ -69,6 +69,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <weights-creator-component :gender="gender" v-if="typeInput != 'forms'"></weights-creator-component>
+                                        <forms-creator-component :gender="gender" v-if="typeInput === 'forms'"></forms-creator-component>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Create</button>
