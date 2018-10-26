@@ -38,7 +38,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate([
+            'name'  => 'required|string',
+        ]);
+
+        if ($request->filled('forms')) {
+            $forms = json_decode($request->get('forms'), true);
+            dd($forms);
+        }
     }
 
     /**

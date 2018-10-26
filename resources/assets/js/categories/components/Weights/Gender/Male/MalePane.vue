@@ -3,6 +3,7 @@
         <button @click="isAdding = true" type="button" class="pull-right my-2 btn btn-success" data-toggle="modal" data-target="#male-add">Add</button>
         <male-table></male-table>
         <male-add v-show="isAdding" @close="isAdding = false"></male-add>
+        <input type="hidden" name="males" :value="JSON.stringify($store.state.genders.males)">
     </div>
 </template>
 

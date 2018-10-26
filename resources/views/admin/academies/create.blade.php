@@ -52,7 +52,7 @@
 @section('myscript')
     <script src="{{ asset('js/academies/app.js') }}"></script>
     <script>
-        $('select').each(function () {
+        $('.select2').each(function () {
             $(this).select2({
                 theme: 'bootstrap'
             });

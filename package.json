@@ -40,9 +40,13 @@
     "vue": "^2.5.17"
   },
   "dependencies": {
+    "@coreui/coreui": "^2.0.21",
     "@fortawesome/fontawesome-free": "^5.3.1",
     "bootstrap": "^4.0.0",
+    "ckeditor": "^4.10.1",
+    "imagemin": "^6.0.0",
     "paymentfont": "^1.2.5",
+    "perfect-scrollbar": "^1.4.0",
     "select2": "^4.0.6-rc.1",
     "select2-theme-bootstrap4": "^0.2.0-beta.2",
     "v-calendar": "^0.9.7",

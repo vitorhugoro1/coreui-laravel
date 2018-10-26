@@ -3,6 +3,7 @@
     "/js/championship/app.js": "/js/championship/app.js",
     "/js/app.js": "/js/app.js",
     "/css/custom.css": "/css/custom.css",
+    "/css/coreui-standalone.css": "/css/coreui-standalone.css",
     "/js/users/app.js": "/js/users/app.js",
     "/js/academies/app.js": "/js/academies/app.js",
     "/js/core/core-ui.js": "/js/core/core-ui.js",

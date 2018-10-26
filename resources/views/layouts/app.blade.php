@@ -10,9 +10,9 @@
     <title>{{ config('app.name') }} @yield('title')</title>
 
     <!-- Main styles for this application -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/coreui-standalone.css') }}" rel="stylesheet">
     <!-- Styles required by this views -->
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
 </head>
 <body>
     @include('layouts.menu')
@@ -23,7 +23,7 @@
     </div>
     @include('layouts.footer')
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
 </body>
 </html>

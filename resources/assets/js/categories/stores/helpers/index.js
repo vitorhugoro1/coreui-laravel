@@ -17,3 +17,17 @@ export const isValidWeight = (weights, weight, id) => {
 
   return hasInitial < 0 && hasMax < 0;
 };
+
+export const isValidForm = (forms, form, id) => {
+  let hasNamed = findIndex(forms, {
+    name: form.name
+  });
+
+  if (id !== undefined) {
+    if (hasNamed === id) {
+      return true;
+    }
+  }
+
+  return hasNamed < 0;
+};

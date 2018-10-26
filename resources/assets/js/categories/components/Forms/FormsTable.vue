@@ -6,6 +6,7 @@
                     <th><input type="checkbox"></th>
                     <th>Name</th>
                     <th>Weapon</th>
+                    <th>Team</th>
                     <th></th>
                 </tr>
             </thead>
@@ -14,9 +15,10 @@
                     <td><input type="checkbox"></td>
                     <td>{{ form.name }}</td>
                     <td>{{ form.weapon }}</td>
+                    <td>{{ form.team }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">Edit</button>
-                        <button type="button" class="btn btn-danger">Remove</button>
+                        <button @click="openEdit(key)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit">Edit</button>
+                        <button @click="remove(key)" type="button" class="btn btn-danger">Remove</button>
                     </td>
                 </tr>
                 <tr v-if="forms.length === 0">
@@ -26,6 +28,8 @@
                 </tr>
             </tbody>
         </table>
+
+        <forms-edit v-show="isEditing" @close="closeEdit"></forms-edit>
     </div>
 </template>
 
@@ -45,6 +49,19 @@ export default {
     data: () => ({
         isEditing: false
     }),
+    methods: {
+        openEdit(id) {
+            this.$store.dispatch("forms/isFormEditing", id);
+            this.isEditing = true;
+        },
+        closeEdit() {
+            this.$store.dispatch("forms/notFormEditing");
+            this.isEditing = false;
+        },
+        remove(id) {
+            this.$store.dispatch("forms/removeForm", id);
+        }
+    },
     created() {
         this.$store.dispatch("forms/getAllForms");
     }

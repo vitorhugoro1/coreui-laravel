@@ -2,7 +2,7 @@ import {
     orderBy
 } from 'lodash';
 import {
-    isValidWeight
+    isValidForm
 } from "../helpers/index";
 
 const formsInitial = [
@@ -106,12 +106,12 @@ const mutations = {
         state.forms = forms;
     },
     addForm(state, form) {
-        let validate = isValidWeight(state.form, form);
+        let validate = isValidForm(state.form, form);
 
         if (validate) {
             state.forms.push(form);
 
-            state.forms = orderBy(state.forms, ["initial"]);
+            // state.forms = orderBy(state.forms, ["initial"]);
             state.isErrorAction = false;
         }
 
@@ -124,14 +124,14 @@ const mutations = {
         id,
         form
     }) {
-        let validate = isValidWeight(state.forms, form, id);
+        let validate = isValidForm(state.forms, form, id);
 
         if (validate) {
             state.forms[id] = {
                 ...form
             };
 
-            state.forms = orderBy(state.forms, ["initial"]);
+            // state.forms = orderBy(state.forms, ["initial"]);
             state.isErrorAction = false;
         }
 
@@ -156,7 +156,7 @@ const mutations = {
         }
 
         if (state.forms.length > 0) {
-            state.forms = orderBy(state.forms, ["initial"]);
+            // state.forms = orderBy(state.forms, ["initial"]);
         }
     }
 };

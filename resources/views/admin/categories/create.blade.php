@@ -40,8 +40,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6" v-if="typeInput != 'forms'">
-                                        <div class="form-group">
+                                    <div class="col-lg-6" v-show="typeInput != 'forms'">
+                                        <div class="form-group" v-if="typeInput !== 'forms'">
                                             <label for="by_gender">By Gender</label>
                                             <select name="by_gender" id="by_gender" v-model="genderInput" class="form-control" required @change="changeGender(genderInput)">
                                                 <option value="false">Not</option>
@@ -49,8 +49,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
+                                    <div class="col-lg-6" v-show="typeInput === 'forms'">
+                                        <div class="form-group" v-if="typeInput !== 'forms'">
                                             <label for="has_weapon">Has Weapon</label>
                                             <select name="has_weapon" id="has_weapon" class="form-control" required>
                                                 <option value="false">Not</option>
@@ -58,8 +58,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
+                                    <div class="col-lg-6" v-show="typeInput === 'forms'">
+                                        <div class="form-group" v-if="typeInput !== 'forms'">
                                             <label for="has_age_bracket">Has Age Bracket</label>
                                             <select name="has_age_bracket" id="has_age_bracket" class="form-control" required>
                                                 <option value="false">Not</option>

@@ -20,11 +20,11 @@
   <link href="{{ asset('css/simple-line-icons.css') }}" rel="stylesheet">
 
   <!-- Main styles for this application -->
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link href="{{ mix('css/coreui-standalone.css') }}" rel="stylesheet">
   <!-- Styles required by this views -->
-  <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/vendor/select2/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/vendor/select2/select2-bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
+  <link rel="stylesheet" href="{{ mix('css/vendor/select2/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ mix('css/vendor/select2/select2-bootstrap.min.css') }}">
 </head>
 <!-- BODY options, add following classes to body to change options
 '.header-fixed' - Fixed Header
@@ -41,9 +41,9 @@
 '.footer-fixed'- Fixed footer
 -->
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden sidebar-show">
   @include('panel.navbar')
-  
+
   <div class="app-body">
     @include('panel.sidebar')
     <!-- Main content -->

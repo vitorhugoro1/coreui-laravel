@@ -75,7 +75,7 @@ $(document).ready(function($){
 
     /* ---------- Main Menu Open/Close, Min/Full ---------- */
     $('.sidebar-toggler').click(function(){
-        $('body').toggleClass('sidebar-hidden');
+        $('body').toggleClass('sidebar-hidden sidebar-show');
         resizeBroadcast();
     });
 

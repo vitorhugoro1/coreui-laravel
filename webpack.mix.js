@@ -20,4 +20,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('node_modules/select2/dist/js/select2.min.js', 'public/js/vendor/select2/select2.min.js')
     .copy('node_modules/select2/dist/css/select2.min.css', 'public/css/vendor/select2/select2.min.css')
     .copy('node_modules/select2-theme-bootstrap4/dist/select2-bootstrap.min.css', 'public/css/vendor/select2/select2-bootstrap.min.css')
-    .sass('resources/assets/sass/custom.scss', 'public/css');
+    .sass('resources/assets/sass/custom.scss', 'public/css')
+    .sass('node_modules/@coreui/coreui/scss/coreui-standalone.scss', 'public/css');
