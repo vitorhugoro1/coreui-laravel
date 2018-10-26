@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         type: 'forms',
-        gender: 'false',
+        gender: '0',
     },
     mutations,
     modules: {

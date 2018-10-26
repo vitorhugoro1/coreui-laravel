@@ -38,7 +38,7 @@ const app = new Vue({
     store,
     data: () => ({
         typeInput: 'forms',
-        genderInput: 'false'
+        genderInput: '0'
     }),
     computed: mapState([
         'type',

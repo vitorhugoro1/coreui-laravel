@@ -36,15 +36,22 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $this->validate([
+        $this->validate(request(), [
             'name'  => 'required|string',
+            'type'  => 'required|string',
+            'is_professional'   => 'required|boolean',
+            'forms'     => 'nullable|json',
+            'gender'    => 'nullable|boolean',
+            'weapon'    => 'nullable|boolean',
+            'males'     => 'nullable|json',
+            'females'   => 'nullable|json',
+            'common'    => 'nullable|json'
         ]);
 
-        if ($request->filled('forms')) {
-            $forms = json_decode($request->get('forms'), true);
-            dd($forms);
+        if (request()->filled('forms')) {
+            dd(request()->all());
         }
     }
 

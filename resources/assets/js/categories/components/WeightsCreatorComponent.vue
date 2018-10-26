@@ -35,7 +35,7 @@
     computed: {
       ...mapState(["genders/females/females", "genders/males/males"]),
       notHasGender() {
-        return this.$store.state.gender !== 'true';
+        return this.$store.state.gender !== '1';
       }
     }
   };
