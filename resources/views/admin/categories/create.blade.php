@@ -83,7 +83,7 @@
 @endsection
 
 @section('myscript')
-    <script src="{{ asset('js/categories/app.js') }}"></script>
+    <script src="{{ mix('js/categories/app.js') }}"></script>
     <script>
         $('.select2').each(function () {
             $(this).select2({
