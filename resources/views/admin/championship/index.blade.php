@@ -29,12 +29,11 @@
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a href="{{ route('admin.championships.edit', $championship->id) }}`" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
-                                                @hasallroles('admin|collaborator')
-                                                    @if(auth()->user()->isCollaborator() && $championship->createdByMe() ||
-                                                        auth()->user()->isAdmin())
+                                                @hasanyrole('admin|associated')
+                                                    @if($championship->createdByMe())
                                                         <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                     @endif
-                                                @endhasallroles
+                                                @endhasanyrole
                                             </div>
                                         </td>
                                     </tr>

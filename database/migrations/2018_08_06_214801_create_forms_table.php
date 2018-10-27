@@ -17,12 +17,9 @@ class CreateFormsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->string('name');
-            $table->boolean('has_weapon');
-            $table->boolean('has_team');
-            $table->boolean('has_age_bracket');
-            $table->json('age_bracket')->nullable();
-            $table->json('team')->nullable();
-            $table->string('gender')->nullable();
+            $table->boolean('weapon');
+            $table->boolean('team');
+            $table->json('payload')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

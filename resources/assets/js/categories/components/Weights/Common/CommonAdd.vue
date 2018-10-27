@@ -13,7 +13,7 @@
                         <div class="form">
                             <div class="form-group">
                                 <label for="initial">Initial</label>
-                                <input type="text" class="form-control" id="initial" v-model.number="common.initial">
+                                <input type="text" class="form-control" id="initial" v-model.number="common.min">
                             </div>
                             <div class="form-group">
                                 <label for="max">Max</label>
@@ -36,7 +36,7 @@ export default {
   name: "common-add",
   data: () => ({
     common: {
-      initial: 0,
+      min: 0,
       max: 0
     }
   }),
@@ -46,7 +46,7 @@ export default {
 
       if (!this.$store.state.common.isErrorAction) {
         this.common = {
-          initial: 0,
+          min: 0,
           max: 0
         };
         document.getElementById("close-common-add").click();
@@ -54,7 +54,7 @@ export default {
     },
     close() {
       this.common = {
-        initial: 0,
+        min: 0,
         max: 0
       };
       this.$emit("close");

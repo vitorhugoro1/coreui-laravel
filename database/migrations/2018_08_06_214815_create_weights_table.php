@@ -18,12 +18,12 @@ class CreateWeightsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->decimal('min', 8, 2);
             $table->decimal('max', 8, 2);
-            $table->string('gender');
-            $table->boolean('has_team');
-            $table->boolean('has_age_bracket');
-            $table->boolean('has_weapon');
-            $table->json('team')->nullable();
-            $table->json('age_bracket')->nullable();
+            $table->string('gender')->nullable();
+            $table->boolean('team');
+            $table->boolean('age_bracket');
+            $table->boolean('weapon');
+            $table->string('age')->nullable();
+            $table->json('payload')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -65,8 +65,17 @@
                                     </div>
                                     <div class="col-lg-6" v-show="typeInput != 'forms'">
                                         <div class="form-group" v-if="typeInput !== 'forms'">
-                                            <label for="has_age_bracket">Has Age Bracket</label>
-                                            <select name="has_age_bracket" id="has_age_bracket" class="form-control" required>
+                                            <label for="age_bracket">Has Age Bracket</label>
+                                            <select name="age_bracket" id="age_bracket" class="form-control" required>
+                                                <option value="0">Not</option>
+                                                <option value="1">True</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6" v-show="typeInput != 'forms'">
+                                        <div class="form-group" v-if="typeInput !== 'forms'">
+                                            <label for="team">Has Team</label>
+                                            <select name="team" id="team" class="form-control" required>
                                                 <option value="0">Not</option>
                                                 <option value="1">True</option>
                                             </select>

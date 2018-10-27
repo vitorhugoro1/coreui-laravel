@@ -13,7 +13,7 @@
                         <div class="form">
                             <div class="form-group">
                                 <label for="initial">Initial</label>
-                                <input type="text" class="form-control" id="initial" v-model.number="commonEdited.initial">
+                                <input type="text" class="form-control" id="initial" v-model.number="commonEdited.min">
                             </div>
                             <div class="form-group">
                                 <label for="max">Max</label>

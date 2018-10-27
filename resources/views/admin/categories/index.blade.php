@@ -1,4 +1,5 @@
 @extends('master')
+
 @section('content')
     <div class="container-fluid">
         <div class="animate fadeIn">
@@ -17,6 +18,8 @@
                                         <th>Name</th>
                                         <th>Type</th>
                                         <th>Is Professional</th>
+                                        <th>Created by</th>
+                                        <th>Created at</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -25,16 +28,18 @@
                                     <tr>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->type }}</td>
-                                        <td>{{ $category->is_professional }}</td>
+                                        <td>{{ $category->professional ? 'true' : 'false' }}</td>
+                                        <td>{{ $category->owner->name }}</td>
+                                        <td>{{ optional($category)->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                @hasallroles('admin|collaborator')
-                                                    <a href="{{ route('admin.categories.edit', $category->id) }}`" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
-                                                    @if(auth()->user()->isCollaborator() && $category->createdByMe() ||
-                                                        auth()->user()->isAdmin())
+                                                <a href="{!! route('admin.categories.show', $category->id) !!}" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                                @hasanyrole('admin|associated')
+                                                    <a href="{!! route('admin.categories.edit', $category->id) !!}" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
+                                                    @if($category->canDelete())
                                                         <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                     @endif
-                                                @endhasallroles
+                                                @endhasanyrole
                                             </div>
                                         </td>
                                     </tr>
@@ -55,5 +60,5 @@
 @endsection
 
 @section('myscript')
-    <script src="{{ asset('js/championship/app.js') }}"></script>
+    <script src="{{ mix('js/categories/app.js') }}"></script>
 @endsection

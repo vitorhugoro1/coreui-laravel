@@ -14,7 +14,7 @@
                           <div class="form-group">
                               <label for="initial">Initial</label>
                               <input type="text" class="form-control" id="initial"
-                                      v-model.number="femaleEdited.initial">
+                                      v-model.number="femaleEdited.min">
                           </div>
                           <div class="form-group">
                               <label for="max">Max</label>
@@ -45,8 +45,8 @@ export default {
     femaleEdited: "getFemaleEditing"
   }),
   methods: {
-    update(male, id) {
-      this.$store.dispatch('genders/females/updateFemale', { id, male });
+    update(female, id) {
+      this.$store.dispatch('genders/females/updateFemale', { id, female });
 
       if (!this.$store.state.genders.isErrorAction) {
           document.getElementById("close-female-edit").click();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Championship;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Category;
 
 class ChampionshipController extends Controller
 {
@@ -27,7 +28,14 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
-        $modalities = collect();
+        if (auth()->user()->isAdmin()) {
+            $modalities = Category::pluck('name', 'id');
+        }
+
+        if (auth()->user()->isAssociated()) {
+            $modalities = Category::where('user_id', auth()->id())->pluck('name', 'id');
+        }
+
         $fight_level = collect();
         $age_bracket = collect();
 

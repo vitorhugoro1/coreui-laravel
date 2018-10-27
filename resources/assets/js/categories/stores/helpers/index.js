@@ -2,7 +2,7 @@ import {findIndex} from 'lodash';
 
 export const isValidWeight = (weights, weight, id) => {
   let hasInitial = findIndex(weights, {
-    initial: weight.initial
+    min: weight.min
   });
 
   let hasMax = findIndex(weights, {

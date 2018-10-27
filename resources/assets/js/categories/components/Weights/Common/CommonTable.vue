@@ -12,7 +12,7 @@
             <tbody>
                 <tr v-for="(common, key) in commons" :key="key">
                     <td><input type="checkbox"></td>
-                    <td>{{ common.initial }}</td>
+                    <td>{{ common.min }}</td>
                     <td>{{ common.max }}</td>
                     <td>
                         <button @click="openEdit(key)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#common-edit">Edit</button>

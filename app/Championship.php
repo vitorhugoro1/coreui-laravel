@@ -69,12 +69,8 @@ class Championship extends Model
     /**
      * @return bool
      */
-    public function createdByMe()
+    public function createdByMe() : bool
     {
-        if (Auth::user()->id === $this->attributes['author_id']) {
-            return true;
-        }
-
-        return false;
+        return $this->author_id === auth()->user()->getKey();
     }
 }

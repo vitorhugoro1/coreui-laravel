@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,10 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('category/{category}', function (Category $category) {
+        return $category->load('owner', 'modalities');
+    });
 });

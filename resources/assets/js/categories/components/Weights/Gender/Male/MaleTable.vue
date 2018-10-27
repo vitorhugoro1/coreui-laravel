@@ -12,7 +12,7 @@
             <tbody>
             <tr v-for="(male, key) in males" :key="key">
                 <td><input type="checkbox"></td>
-                <td>{{ male.initial }}</td>
+                <td>{{ male.min }}</td>
                 <td>{{ male.max }}</td>
                 <td>
                     <button type="button" class="btn btn-primary" @click="edit(key)" data-toggle="modal" data-target="#male-edit">Edit</button>

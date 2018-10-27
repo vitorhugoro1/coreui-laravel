@@ -71,7 +71,9 @@ class AcademyController extends Controller
 
         $academy = Academy::create($data);
 
-        return redirect()->route('admin.academies.index')->with('message', 'Academy created successful!');
+        return redirect()->route('admin.academies.index')->withInput([
+            'message' => 'Academy created successful!'
+        ]);
     }
 
     /**

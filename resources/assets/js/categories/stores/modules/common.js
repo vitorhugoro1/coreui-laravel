@@ -4,23 +4,23 @@ import {
 import {isValidWeight} from "../helpers/index";
 
 const commonsInitial = [{
-  initial: 0,
+  min: 0,
   max: 10
 },
   {
-    initial: 0,
+    min: 0,
     max: 10
   },
   {
-    initial: 0,
+    min: 0,
     max: 10
   },
   {
-    initial: 0,
+    min: 0,
     max: 10
   },
   {
-    initial: 0,
+    min: 0,
     max: 12
   }
 ];
@@ -28,7 +28,7 @@ const commonsInitial = [{
 const state = {
   commons: [],
   commonEditing: {
-    initial: 0,
+    min: 0,
     max: 0
   },
   commonEditingId: null,
@@ -94,7 +94,7 @@ const mutations = {
   },
   notCommonEditing(state) {
     state.commonEditing = {
-      initial: 0,
+      min: 0,
       max: 0
     };
     state.commonEditingId = null;
@@ -108,7 +108,7 @@ const mutations = {
     if (validate) {
       state.commons.push(common);
 
-      state.commons = orderBy(state.commons, ["initial"]);
+      state.commons = orderBy(state.commons, ["min"]);
       state.isErrorAction = false;
     }
 
@@ -128,7 +128,7 @@ const mutations = {
         ...common
       };
 
-      state.commons = orderBy(state.commons, ["initial"]);
+      state.commons = orderBy(state.commons, ["min"]);
       state.isErrorAction = false;
     }
 
@@ -153,7 +153,7 @@ const mutations = {
     }
 
     if (state.commons.length > 0) {
-      state.commons = orderBy(state.commons, ["initial"]);
+      state.commons = orderBy(state.commons, ["min"]);
     }
   }
 };

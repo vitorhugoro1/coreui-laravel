@@ -82,8 +82,8 @@
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
                                                             <label for="modalities">Modalities</label>
-                                                            <v-select v-model="modalitiesModel" inputId="modalities"
-                                                            :options="{{ $modalities->toJson() }}" multiple placeholder="Select an Modalities"></v-select>
+                                                            <v-select v-model="modalitiesModel" inputId="modalities" label="name"
+                                                            :options="{{ $modalities->values()->toJson() }}" multiple placeholder="Select an Modalities"></v-select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">

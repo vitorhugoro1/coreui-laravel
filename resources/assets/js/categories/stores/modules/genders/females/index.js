@@ -6,11 +6,11 @@ import {
 } from 'lodash';
 
 const femalesInitial = [{
-        initial: 0,
+        min: 0,
         max: 19
     },
     {
-        initial: 20,
+        min: 20,
         max: 29
     }
 ];
@@ -18,7 +18,7 @@ const femalesInitial = [{
 const state = {
     females: [],
     femaleEditing: {
-        initial: 0,
+        min: 0,
         max: 0
     },
     femaleEditingId: null,
@@ -49,14 +49,14 @@ const mutations = {
     },
     notFemaleEditing(state) {
         state.femaleEditing = {
-            initial: 0,
+            min: 0,
             max: 0
         };
         state.femaleEditingId = null;
     },
     addFemale(state, female) {
         state.females.push(female);
-        state.females = orderBy(state.females, ["initial"]);
+        state.females = orderBy(state.females, ["min"]);
     },
     updateFemale(state, {
         id,
@@ -66,7 +66,7 @@ const mutations = {
             ...female
         };
 
-        state.females = orderBy(state.females, ["initial"]);
+        state.females = orderBy(state.females, ["min"]);
     },
     removeFemale(state, id) {
         if (state.females.length === 1) {
@@ -84,7 +84,7 @@ const mutations = {
         }
 
         if (state.females.length > 0) {
-            state.females = orderBy(state.females, ["initial"]);
+            state.females = orderBy(state.females, ["min"]);
         }
     }
 };

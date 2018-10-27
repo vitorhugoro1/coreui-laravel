@@ -14,7 +14,7 @@
                             <div class="form-group">
                                 <label for="initial">Initial</label>
                                 <input type="text" class="form-control" id="initial"
-                                       v-model.number="maleEdited.initial">
+                                       v-model.number="maleEdited.min">
                             </div>
                             <div class="form-group">
                                 <label for="max">Max</label>

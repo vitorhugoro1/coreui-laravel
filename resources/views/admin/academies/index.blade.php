@@ -16,7 +16,8 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Address</th>
-                                        <th>Created At</th>
+                                        <th>Master</th>
+                                        <th>Created at</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -26,15 +27,15 @@
                                         <td>{{ $academy->name }}</td>
                                         <td>{{ $academy->address_1 }}</td>
                                         <td>{{ $academy->master ?? '-' }}</td>
+                                        <td>{{ optional($academy)->created_at->format('d/m/Y') }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                @hasallroles('admin|collaborator')
+                                                @hasanyrole('admin|associated')
                                                     <a href="{{ route('admin.academies.edit', $academy->id) }}`" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
-                                                    @if(auth()->user()->isCollaborator() && $academy->createdByMe() ||
-                                                        auth()->user()->isAdmin())
+                                                    @if($academy->createdByMe())
                                                         <a class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                     @endif
-                                                @endhasallroles
+                                                @endhasanyrole
                                             </div>
                                         </td>
                                     </tr>
