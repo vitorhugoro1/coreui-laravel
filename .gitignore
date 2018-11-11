@@ -13,3 +13,7 @@ yarn-error.log
 composer.lock
 /public/fonts
 /public/js
+horizon*.log
+listeners*.log
+worker*.log
+/.vscode

@@ -1,6 +1,8 @@
 <?php
 
 use App\Championship;
+use App\Mail\UserCreated;
+use App\Mail\WelcomeMail;
 
 /*
 |--------------------------------------------------------------------------

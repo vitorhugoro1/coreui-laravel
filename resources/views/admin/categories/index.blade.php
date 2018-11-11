@@ -45,7 +45,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">Not has categories</td>
+                                        <td colspan="6">Not has categories</td>
                                     </tr>
                                 @endforelse
                                 </tbody>
