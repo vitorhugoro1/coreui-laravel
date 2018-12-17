@@ -66,7 +66,7 @@
                                     <div class="col-lg-6" v-show="typeInput != 'forms'">
                                         <div class="form-group" v-if="typeInput !== 'forms'">
                                             <label for="age_bracket">Has Age Bracket</label>
-                                            <select name="age_bracket" id="age_bracket" class="form-control" required>
+                                            <select name="age_bracket" id="age_bracket" v-model="ageBracketInput" class="form-control" @change="changeAgeing(ageBracketInput)" required>
                                                 <option value="0">Not</option>
                                                 <option value="1">True</option>
                                             </select>

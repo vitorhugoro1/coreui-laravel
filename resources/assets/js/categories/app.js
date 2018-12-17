@@ -38,14 +38,17 @@ const app = new Vue({
     store,
     data: () => ({
         typeInput: 'forms',
-        genderInput: '0'
+        genderInput: '0',
+        ageBracketInput: '0'
     }),
     computed: mapState([
         'type',
-        'gender'
+        'gender',
+        'age_bracket'
     ]),
     methods: mapMutations([
         'changeType',
-        'changeGender'
+        'changeGender',
+        'changeAgeing'
     ])
 });

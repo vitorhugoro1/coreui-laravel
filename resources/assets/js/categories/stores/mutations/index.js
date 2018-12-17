@@ -4,6 +4,9 @@ const mutations = {
     },
     changeGender(state, payload) {
         state.gender = payload;
+    },
+    changeAgeing(state, payload) {
+        state.age_bracket = payload;
     }
 };
 

@@ -11,6 +11,7 @@ const store = new Vuex.Store({
     state: {
         type: 'forms',
         gender: '0',
+        age_bracket: '0'
     },
     mutations,
     modules: {
