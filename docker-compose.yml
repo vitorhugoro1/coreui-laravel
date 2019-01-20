@@ -8,10 +8,6 @@ version: '2'
 
 # Named volumes
 volumes:
-  # Postgres Data
-  sandbox-postgres-data:
-    driver: local
-
   # MySQL Data
   sandbox-mysql-data:
     driver: local
@@ -21,19 +17,6 @@ volumes:
     driver: local
 
 services:
-  # Postgres (10.3)
-  postgres:
-    image: postgres:10.3
-    container_name: sandbox-postgres
-    volumes:
-      - sandbox-postgres-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=sandbox
-      - POSTGRES_DB=sandbox
-      - POSTGRES_USER=sandbox
-
   # MySQL (5.7)
   mysql:
     image: mysql:5.7
@@ -43,10 +26,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=sandbox
-      - MYSQL_DATABASE=sandbox
-      - MYSQL_USER=sandbox
-      - MYSQL_PASSWORD=sandbox
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=homestead
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=secret
 
   # Redis
   cache:
@@ -63,21 +46,18 @@ services:
   app:
     image: ambientum/php:7.2-nginx
     container_name: sandbox-app
-    command: php artisan serve
     volumes:
       - .:/var/www/app
     ports:
       - "80:8080"
     links:
-      - postgres
       - mysql
       - cache
 
-  # Laravel Queues
-  queue:
+  horizon:
     image: ambientum/php:7.2
-    container_name: sandbox-queue
-    command: php artisan queue:listen
+    container_name: sandbox-horizon
+    command: php artisan horizon
     volumes:
       - .:/var/www/app
     links:
