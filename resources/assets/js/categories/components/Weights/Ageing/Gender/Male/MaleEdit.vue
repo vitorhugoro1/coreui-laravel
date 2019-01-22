@@ -1,11 +1,9 @@
 <script>
 export default {
-  name: "female-pane"
-};
+    name: 'male-edit'
+}
 </script>
 
 <template>
-  <div>
 
-  </div>
 </template>

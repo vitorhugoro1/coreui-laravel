@@ -4,6 +4,7 @@ import mutations from './mutations';
 import common from './modules/common';
 import genders from './modules/gender';
 import forms from './modules/forms';
+import ageing from './modules/ageing/index';
 
 Vue.use(Vuex);
 
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
     modules: {
         common,
         genders,
-        forms
+        forms,
+        ageing
     }
 });
 

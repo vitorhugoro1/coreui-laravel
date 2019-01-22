@@ -1,60 +1,59 @@
 <script>
+import {mapState} from 'vuex';
+import MaleAdd from './MaleAdd';
+import MaleTable from './MaleTable';
+
 export default {
   name: "male-pane",
+ components: {
+    MaleTable,
+    MaleAdd
+  },
   data: () => ({
-    ageings: [
-      {
-        name: 'Junior',
-        key: 'junior',
-        data: [
-          {
-            min: 0,
-            max: 10
-          }
-        ]
+    isAdding: false
+  }),
+  computed: mapState('ageing/males', {
+      ageings: 'males'
+  }),
+  methods: {
+    remove(key) {
+      this.$store.dispatch('ageing/males/removeMale', key);
+
+      if (this.$store.state.ageing.isErrorAction) {
+        alert('COLOCAR UM ERRO!');
       }
-    ]
-  })
+    },
+    edit(key) {
+      this.$store.dispatch('ageing/males/isMaleEditing', key);
+      this.isEditing = true;
+    },
+    close() {
+      this.$store.dispatch("ageing/males/notMaleEditing");
+      this.isEditing = false;
+    }
+  },
+  created() {
+    this.$store.dispatch('ageing/males/getAllMales');
+  }
 };
 </script>
 
 <template>
   <div class="tab-pane show active" id="male" role="tabpanel">
     <div class="accordion" id="malePaneAccordion">
-      <div class="card" v-for="(ageing, key) in ageings" :key="key">
+      <div class="card mb-0" v-for="(ageing, key) in ageings" :key="key">
         <div class="card-header">
           <h5 class="mb-0">
-            <a class="btn btn-link collapse" data-toggle="collapse" :data-target="`#${ageing.key}`">
+            <a class="btn btn-link" data-toggle="collapse" :data-target="`#${ageing.key}`">
               {{ ageing.name }}
             </a>
           </h5>
         </div>
         <div class="collapse" :id="ageing.key" data-parent="#malePaneAccordion">
-          <div class="card card-body">
-            <table class="table table-striped">
-              <thead>
-                <tr>#</tr>
-                <tr>Initial</tr>
-                <tr>Max</tr>
-                <tr></tr>
-              </thead>
-              <tbody>
-                <tr v-for="(value, id) in ageing.data" :key="id">
-                  <td><input type="checkbox"></td>
-                  <td>{{ value.min }}</td>
-                  <td>{{ value.max }}</td>
-                  <td>
-                      <button type="button" class="btn btn-primary" @click="edit(id)" data-toggle="modal" :data-target="`#${ageing.key}-edit`">Edit</button>
-                      <button type="button" class="btn btn-danger" @click="remove(id)">Remove</button>
-                  </td>
-                </tr>
-                <tr v-if="ageing.data.length === 0">
-                  <td colspan="4">
-                    <span class="text-bold">Not weights added</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="card card-body mb-0">
+            <button @click="isAdding = true" type="button" class="col-lg-1 pull-right my-2 btn btn-success" data-toggle="modal" :data-target="`#male-${ageing.key}-add`">Add</button>
+            <male-table :data='ageing.data || []' :target="ageing.key"></male-table>
+            <male-add :target='ageing.key' v-show="isAdding" @close="isAdding = false"></male-add>
           </div>
         </div>
       </div>

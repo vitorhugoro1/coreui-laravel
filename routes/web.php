@@ -1,8 +1,6 @@
 <?php
 
 use App\Championship;
-use App\Mail\UserCreated;
-use App\Mail\WelcomeMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +33,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('roles', 'Admin\RoleController');
         Route::resource('academies', 'Admin\AcademyController');
         Route::resource('categories', 'Admin\CategoryController');
+        Route::get('ageing', 'Admin\AgeingController@basic')->name('ageing');
+        Route::get('ageing/category/{category}', 'Admin\AgeingController@byCategory')->name('ageing.category');
     });
 });
