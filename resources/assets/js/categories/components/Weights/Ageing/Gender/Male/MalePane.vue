@@ -15,23 +15,6 @@ export default {
   computed: mapState('ageing/males', {
       ageings: 'males'
   }),
-  methods: {
-    remove(key) {
-      this.$store.dispatch('ageing/males/removeMale', key);
-
-      if (this.$store.state.ageing.isErrorAction) {
-        alert('COLOCAR UM ERRO!');
-      }
-    },
-    edit(key) {
-      this.$store.dispatch('ageing/males/isMaleEditing', key);
-      this.isEditing = true;
-    },
-    close() {
-      this.$store.dispatch("ageing/males/notMaleEditing");
-      this.isEditing = false;
-    }
-  },
   created() {
     this.$store.dispatch('ageing/males/getAllMales');
   }

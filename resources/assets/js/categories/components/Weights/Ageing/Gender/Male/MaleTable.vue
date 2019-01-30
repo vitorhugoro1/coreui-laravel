@@ -1,7 +1,35 @@
 <script>
+import MaleEdit from './MaleEdit.vue'
+
 export default {
     name: 'male-table',
-    props: ['data', 'target']
+    props: ['data', 'target'],
+    components: {
+        MaleEdit
+    },
+    data: () => ({
+      isEditing: false
+    }),
+    methods: {
+        remove(id) {
+            const target = this.target;
+            this.$store.dispatch('ageing/males/removeMale', {id, target});
+
+            if (this.$store.state.ageing.isErrorAction) {
+                alert('COLOCAR UM ERRO!');
+            }
+        },
+        edit(id) {
+            const target = this.target;
+
+            this.$store.dispatch('ageing/males/isMaleEditing', {id, target});
+            this.isEditing = true;
+        },
+        close() {
+            this.$store.dispatch("ageing/males/notMaleEditing");
+            this.isEditing = false;
+        }
+    }
 }
 </script>
 
@@ -22,7 +50,7 @@ export default {
                     <td>{{ value.min }}</td>
                     <td>{{ value.max }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" @click="edit(id)" data-toggle="modal" :data-target="`#${target}-edit`">Edit</button>
+                        <button type="button" class="btn btn-primary" @click="edit(id)" data-toggle="modal" :data-target="`#male-${target}-edit`">Edit</button>
                         <button type="button" class="btn btn-danger" @click="remove(id)">Remove</button>
                     </td>
                 </tr>
@@ -33,5 +61,7 @@ export default {
                 </tr>
             </tbody>
         </table>
+
+        <male-edit v-show="isEditing" :target="target" @close="close"></male-edit>
     </div>
 </template>

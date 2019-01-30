@@ -10,14 +10,15 @@ export default {
     }),
     methods: {
         add(male) {
-            this.$store.dispatch("genders/males/addMale", male);
+            const target = this.target;
+            this.$store.dispatch("ageing/males/addMale", {male, target});
 
-            if (!this.$store.state.genders.isErrorAction) {
+            if (!this.$store.state.ageing.isErrorAction) {
                 this.male = {
                     min: 0,
                     max: 0
                 };
-                document.getElementById(`close-male-add`).click();
+                document.getElementById(`close-male-${target}-add`).click();
             }
         },
         close() {
@@ -55,7 +56,7 @@ export default {
                       </div>
                   </div>
                   <div class="modal-footer">
-                      <button type="button" id='close-male-add' class="btn btn-secondary" data-dismiss="modal" @click="close">Cancel</button>
+                      <button type="button" :id='`close-male-${target}-add`' class="btn btn-secondary" data-dismiss="modal" @click="close">Cancel</button>
                       <button type="button" class="btn btn-primary" @click="add(male)">Add Male</button>
                   </div>
               </div>

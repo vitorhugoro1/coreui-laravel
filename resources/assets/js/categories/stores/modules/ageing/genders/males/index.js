@@ -6,8 +6,6 @@ import {
     findIndex
 } from 'lodash';
 
-const malesInitial = [];
-
 const state = {
     males: [],
     maleEditing: {
@@ -34,9 +32,13 @@ const mutations = {
     setMales(state, males) {
         state.males = males;
     },
-    isMaleEditing(state, id) {
+    isMaleEditing(state, {id, target}) {
+        const key = findIndex(state.males, {
+            key: target
+        })
+
         state.maleEditing = {
-            ...state.males[id]
+            ...state.males[key].data[id]
         };
         state.maleEditingId = id;
     },
@@ -47,37 +49,49 @@ const mutations = {
         };
         state.maleEditingId = null;
     },
-    addMale(state, male) {
-        state.males.push(male);
-        state.males = orderBy(state.males, ["min"]);
+    addMale(state, {male, target}) {
+        const key = findIndex(state.males, {
+            key: target
+        })
+
+        state.males[key].data.push(male);
+        state.males[key].data = orderBy(state.males[key].data, ["min"]);
     },
     updateMale(state, {
         id,
-        male
+        male,
+        target
     }) {
-        state.males[id] = {
+        const key = findIndex(state.males, {
+            key: target
+        });
+
+        state.males[key].data[id] = {
             ...male
         };
 
-        state.males = orderBy(state.males, ["min"]);
+        state.males[key].data = orderBy(state.males[key].data, ["min"]);
     },
-    removeMale(state, id) {
+    removeMale(state, {id, target}) {
+        const key = findIndex(state.males, {
+            key: target
+        })
         if (state.males.length === 1) {
-            state.males = [];
+            state.males[key].data = [];
         }
 
         if (state.males.length > 1) {
             if (id === 0) {
-                state.males.shift();
+                state.males[key].data.shift();
             }
 
             if (id !== 0) {
-                state.males.splice(id, id);
+                state.males[key].data.splice(id, id);
             }
         }
 
         if (state.males.length > 0) {
-            state.males = orderBy(state.males, ["min"]);
+            state.males[key].data = orderBy(state.males[key].data, ["min"]);
         }
     }
 };
@@ -123,33 +137,40 @@ const actions = {
         if (validate) {
             commit('updateMale', {
                 id,
-                male
+                male,
+                target
             });
 
-            dispatch('genders/setError', false);
+            dispatch('ageing/setError', false);
         }
 
         if (!validate) {
-            dispatch('genders/setError', true);
+            dispatch('ageing/setError', true);
         }
     },
     addMale({
         commit,
         state,
         dispatch
-    }, male) {
+    }, {
+        male,
+        target
+    }) {
         let validate = isValidWeight(state.males, male);
 
         if (validate) {
-            commit('addMale', male);
+            commit('addMale', {
+                male,
+                target
+            });
 
-            dispatch('genders/setError', false, {
+            dispatch('ageing/setError', false, {
                 root: true
             });
         }
 
         if (!validate) {
-            dispatch('genders/setError', true, {
+            dispatch('ageing/setError', true, {
                 root: true
             });
         }
