@@ -32,7 +32,10 @@ const mutations = {
     setMales(state, males) {
         state.males = males;
     },
-    isMaleEditing(state, {id, target}) {
+    isMaleEditing(state, {
+        id,
+        target
+    }) {
         const key = findIndex(state.males, {
             key: target
         })
@@ -49,7 +52,10 @@ const mutations = {
         };
         state.maleEditingId = null;
     },
-    addMale(state, {male, target}) {
+    addMale(state, {
+        male,
+        target
+    }) {
         const key = findIndex(state.males, {
             key: target
         })
@@ -72,7 +78,10 @@ const mutations = {
 
         state.males[key].data = orderBy(state.males[key].data, ["min"]);
     },
-    removeMale(state, {id, target}) {
+    removeMale(state, {
+        id,
+        target
+    }) {
         const key = findIndex(state.males, {
             key: target
         })
@@ -100,19 +109,31 @@ const actions = {
     getAllMales({
         commit
     }) {
-        window.axios.get('http://skigawk.test/admin/ageing').then((result) => {
+        window.axios.get(`admin/ageing`).then((result) => {
             commit('setMales', result.data);
         });
     },
     removeMale({
         commit
-    }, {id, target}) {
-        commit('removeMale', {id, target});
+    }, {
+        id,
+        target
+    }) {
+        commit('removeMale', {
+            id,
+            target
+        });
     },
     isMaleEditing({
         commit
-    }, {id, target}) {
-        commit('isMaleEditing', {id, target});
+    }, {
+        id,
+        target
+    }) {
+        commit('isMaleEditing', {
+            id,
+            target
+        });
     },
     notMaleEditing({
         commit
