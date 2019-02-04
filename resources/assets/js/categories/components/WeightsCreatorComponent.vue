@@ -12,10 +12,10 @@
       </li>
     </ul>
     <div class="tab-content">
-      <male-pane v-if="!notHasGender" v-show="!isAged"></male-pane>
-      <female-pane v-if="!notHasGender" v-show="!isAged"></female-pane>
-      <common-pane v-if="notHasGender" v-show="!isAged"></common-pane>
-      <ageing-pane v-show="isAged"></ageing-pane>
+      <male-pane v-if="!notHasGender && !isAged"></male-pane>
+      <female-pane v-if="!notHasGender && !isAged"></female-pane>
+      <common-pane v-if="notHasGender && !isAged"></common-pane>
+      <ageing-pane v-if="isAged"></ageing-pane>
     </div>
   </div>
 </template>

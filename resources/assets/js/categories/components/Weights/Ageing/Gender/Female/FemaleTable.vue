@@ -1,11 +1,11 @@
 <script>
-import MaleEdit from "./MaleEdit";
+import FemaleEdit from "./FemaleEdit";
 
 export default {
-  name: "male-table",
+  name: "female-table",
   props: ["data", "target"],
   components: {
-    MaleEdit
+    FemaleEdit
   },
   data: () => ({
     isEditing: false
@@ -13,7 +13,7 @@ export default {
   methods: {
     remove(id) {
       const target = this.target;
-      this.$store.dispatch("ageing/males/removeMale", { id, target });
+      this.$store.dispatch("ageing/females/removeFemale", { id, target });
 
       if (this.$store.state.ageing.isErrorAction) {
         alert("COLOCAR UM ERRO!");
@@ -22,11 +22,11 @@ export default {
     edit(id) {
       const target = this.target;
 
-      this.$store.dispatch("ageing/males/isMaleEditing", { id, target });
+      this.$store.dispatch("ageing/females/isFemaleEditing", { id, target });
       this.isEditing = true;
     },
     close() {
-      this.$store.dispatch("ageing/males/notMaleEditing");
+      this.$store.dispatch("ageing/females/notFemaleEditing");
       this.isEditing = false;
     }
   }
@@ -57,7 +57,7 @@ export default {
               class="btn btn-primary"
               @click="edit(id)"
               data-toggle="modal"
-              :data-target="`#male-${target}-edit`"
+              :data-target="`#female-${target}-edit`"
             >Edit</button>
             <button type="button" class="btn btn-danger" @click="remove(id)">Remove</button>
           </td>
@@ -70,6 +70,6 @@ export default {
       </tbody>
     </table>
 
-    <male-edit v-show="isEditing" :target="target" @close="close"></male-edit>
+    <female-edit v-show="isEditing" :target="target" @close="close"></female-edit>
   </div>
 </template>

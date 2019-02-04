@@ -28,21 +28,16 @@ class Championship extends Model
     {
         parent::boot();
 
-        static::creating(function (self $model) {
-            $model->setAuthor();
+        static::creating(function (Championship $model) {
+            $this->attributes['author_id'] = auth()->user()->getKey();
         });
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-                          ->generateSlugsFrom('title')
-                          ->saveSlugsTo('slug');
-    }
-
-    protected function setAuthor()
-    {
-        $this->attributes['author_id'] = Auth::user()->id;
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 
     /**
@@ -69,7 +64,7 @@ class Championship extends Model
     /**
      * @return bool
      */
-    public function createdByMe() : bool
+    public function createdByMe(): bool
     {
         return $this->author_id === auth()->user()->getKey();
     }

@@ -2,9 +2,9 @@
 
 namespace App;
 
+use App\Helpers\UserRules;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
-use App\Helpers\UserRules;
 
 class Academy extends Model
 {

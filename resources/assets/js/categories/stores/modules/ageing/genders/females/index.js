@@ -2,10 +2,9 @@ import {
     isValidWeight
 } from "../../../../helpers/index";
 import {
-    orderBy
+    orderBy,
+    findIndex
 } from 'lodash';
-
-const femalesInitial = [];
 
 const state = {
     females: [],
@@ -33,9 +32,16 @@ const mutations = {
     setFemales(state, females) {
         state.females = females;
     },
-    isFemaleEditing(state, id) {
+    isFemaleEditing(state, {
+        id,
+        target
+    }) {
+        const key = findIndex(state.females, {
+            key: target
+        })
+
         state.femaleEditing = {
-            ...state.females[id]
+            ...state.females[key].data[id]
         };
         state.femaleEditingId = id;
     },
@@ -46,37 +52,55 @@ const mutations = {
         };
         state.femaleEditingId = null;
     },
-    addFemale(state, female) {
-        state.females.push(female);
-        state.females = orderBy(state.females, ["min"]);
+    addFemale(state, {
+        female,
+        target
+    }) {
+        const key = findIndex(state.females, {
+            key: target
+        })
+
+        state.females[key].data.push(female);
+        state.females[key].data = orderBy(state.females[key].data, ["min"]);
     },
     updateFemale(state, {
         id,
-        female
+        female,
+        target
     }) {
-        state.females[id] = {
+        const key = findIndex(state.females, {
+            key: target
+        });
+
+        state.females[key].data[id] = {
             ...female
         };
 
-        state.females = orderBy(state.females, ["min"]);
+        state.females[key].data = orderBy(state.females[key].data, ["min"]);
     },
-    removeFemale(state, id) {
+    removeFemale(state, {
+        id,
+        target
+    }) {
+        const key = findIndex(state.females, {
+            key: target
+        })
         if (state.females.length === 1) {
-            state.females = [];
+            state.females[key].data = [];
         }
 
         if (state.females.length > 1) {
             if (id === 0) {
-                state.females.shift();
+                state.females[key].data.shift();
             }
 
             if (id !== 0) {
-                state.females.splice(id, id);
+                state.females[key].data.splice(id, id);
             }
         }
 
         if (state.females.length > 0) {
-            state.females = orderBy(state.females, ["min"]);
+            state.females[key].data = orderBy(state.females[key].data, ["min"]);
         }
     }
 };
@@ -85,21 +109,31 @@ const actions = {
     getAllFemales({
         commit
     }) {
-        window.axios.get('ageing').then((result) => {
-            console.log(result)
+        window.axios.get(`admin/ageing`).then((result) => {
+            commit('setFemales', result.data);
         });
-        commit('setFemales', femalesInitial);
     },
     removeFemale({
         commit
-    }, id) {
-        commit('removeFemale', id);
+    }, {
+        id,
+        target
+    }) {
+        commit('removeFemale', {
+            id,
+            target
+        });
     },
     isFemaleEditing({
         commit
-    }, id) {
-        console.log(id);
-        commit('isFemaleEditing', id);
+    }, {
+        id,
+        target
+    }) {
+        commit('isFemaleEditing', {
+            id,
+            target
+        });
     },
     notFemaleEditing({
         commit
@@ -108,44 +142,56 @@ const actions = {
     },
     updateFemale({
         commit,
-        dispatch,
-        state
+        state,
+        dispatch
     }, {
         id,
+        target,
         female
     }) {
-        let validate = isValidWeight(state.females, female, id);
+        let femaleKey = findIndex(state.females, {
+            key: target
+        })
+
+        let validate = isValidWeight(state.females[femaleKey].data, female, id);
 
         if (validate) {
             commit('updateFemale', {
                 id,
-                female
+                female,
+                target
             });
 
-            dispatch('genders/setError', false);
+            dispatch('ageing/setError', false);
         }
 
         if (!validate) {
-            dispatch('genders/setError', true);
+            dispatch('ageing/setError', true);
         }
     },
     addFemale({
         commit,
         state,
         dispatch
-    }, female) {
+    }, {
+        female,
+        target
+    }) {
         let validate = isValidWeight(state.females, female);
 
         if (validate) {
-            commit('addFemale', female);
+            commit('addFemale', {
+                female,
+                target
+            });
 
-            dispatch('genders/setError', false, {
+            dispatch('ageing/setError', false, {
                 root: true
             });
         }
 
         if (!validate) {
-            dispatch('genders/setError', true, {
+            dispatch('ageing/setError', true, {
                 root: true
             });
         }
