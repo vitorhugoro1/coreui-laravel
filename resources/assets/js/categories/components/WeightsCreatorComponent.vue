@@ -11,7 +11,7 @@
         <a href="#common" class="nav-link active show" data-toggle="tab">Common</a>
       </li>
     </ul>
-    <div class="tab-content">
+    <div :class="{ 'tab-content': !isAged }">
       <male-pane v-if="!notHasGender && !isAged"></male-pane>
       <female-pane v-if="!notHasGender && !isAged"></female-pane>
       <common-pane v-if="notHasGender && !isAged"></common-pane>

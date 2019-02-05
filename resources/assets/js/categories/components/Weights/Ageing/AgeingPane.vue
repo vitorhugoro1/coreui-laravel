@@ -18,7 +18,7 @@ export default {
 };
 </script>
 <template>
-  <div>
+  <div class="tab-content">
     <male-pane v-show="hasGender"></male-pane>
     <female-pane v-show="hasGender"></female-pane>
     <common-pane v-show="!hasGender"></common-pane>
