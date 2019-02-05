@@ -162,11 +162,15 @@ const actions = {
                 target
             });
 
-            dispatch('ageing/setError', false);
+            dispatch('ageing/setError', false, {
+                root: true
+            });
         }
 
         if (!validate) {
-            dispatch('ageing/setError', true);
+            dispatch('ageing/setError', true, {
+                root: true
+            });
         }
     },
     addMale({

@@ -42,7 +42,8 @@ const mutations = {
     state.males = males;
   },
   isMaleEditing(state, id) {
-    state.maleEditing = { ...state.males[id]
+    state.maleEditing = {
+      ...state.males[id]
     };
     state.maleEditingId = id;
   },
@@ -110,7 +111,9 @@ const actions = {
     commit('notMaleEditing');
   },
   updateMale({
-    commit, state, dispatch
+    commit,
+    state,
+    dispatch
   }, {
     id,
     male
@@ -123,15 +126,21 @@ const actions = {
         male
       });
 
-      dispatch('genders/setError', false);
+      dispatch('genders/setError', false, {
+        root: true
+      });
     }
 
     if (!validate) {
-      dispatch('genders/setError', true);
+      dispatch('genders/setError', true, {
+        root: true
+      });
     }
   },
   addMale({
-    commit, state, dispatch
+    commit,
+    state,
+    dispatch
   }, male) {
     let validate = isValidWeight(state.males, male);
 

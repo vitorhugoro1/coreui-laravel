@@ -112,7 +112,9 @@ const actions = {
         commit('notFemaleEditing');
     },
     updateFemale({
-        commit, dispatch, state
+        commit,
+        dispatch,
+        state
     }, {
         id,
         female
@@ -125,15 +127,21 @@ const actions = {
                 female
             });
 
-            dispatch('genders/setError', false);
+            dispatch('genders/setError', false, {
+                root: true
+            });
         }
 
         if (!validate) {
-            dispatch('genders/setError', true);
+            dispatch('genders/setError', true, {
+                root: true
+            });
         }
     },
     addFemale({
-        commit, state, dispatch
+        commit,
+        state,
+        dispatch
     }, female) {
         let validate = isValidWeight(state.females, female);
 
