@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="period">Event Period</label>
-                                        <date-range id="period" name="period" :makerequired="true"></date-range>
+                                        <date-range id="period" name="period" :make-required="true"></date-range>
                                     </div>
                                     <div class="col-lg-3">
                                         {{-- @TODO Add recorrence --}}
@@ -82,20 +82,20 @@
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
                                                             <label for="modalities">Modalities</label>
-                                                            <v-select v-model="modalitiesModel" inputId="modalities" label="name"
+                                                            <v-select v-model="modalitiesModel" input-id="modalities" label="name"
                                                             :options="{{ $modalities->values()->toJson() }}" multiple placeholder="Select an Modalities"></v-select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label for="fight_level">Fight Level</label>
-                                                            <v-select v-model="fight_level" inputId="fight_level" :options="{{ $fight_level->toJson() }}" multiple placeholder="Select an Fight Level"></v-select>
+                                                            <v-select v-model="fight_level" input-id="fight_level" :options="{{ $fight_level->toJson() }}" multiple placeholder="Select an Fight Level"></v-select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label for="age_bracket">Age Bracket</label>
-                                                            <v-select v-model="age_bracket" inputId="age_bracket" :options="{{ $age_bracket->toJson() }}" multiple placeholder="Select an Age Bracket"></v-select>
+                                                            <v-select v-model="age_bracket" input-id="age_bracket" :options="{{ $age_bracket->toJson() }}" multiple placeholder="Select an Age Bracket"></v-select>
                                                         </div>
                                                     </div>
                                                 </div>

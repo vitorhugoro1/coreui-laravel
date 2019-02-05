@@ -20,16 +20,22 @@ Vue.component('event-ticket-selector', require('./components/EventTicketSelector
 Vue.component('event-date-selector', require('./components/EventDateSelector.vue'));
 Vue.component('event-organizator', require('./components/EventOrganizator.vue'));
 
-import { TableComponent, TableColumn } from 'vue-table-component';
+import {
+    TableComponent,
+    TableColumn
+} from 'vue-table-component';
 import vSelect from 'vue-select';
+import store from './stores'
 
 Vue.component('v-select', vSelect);
 Vue.component('table-component', TableComponent);
 Vue.component('table-column', TableColumn);
 
+
 const app = new Vue({
     el: '#app',
-    data(){
+    store,
+    data() {
         return {
             money: {
                 decimal: ',',

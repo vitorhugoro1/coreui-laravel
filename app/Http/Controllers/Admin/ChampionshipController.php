@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Championship;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AgeBracket;
 use App\Models\Category;
+use App\Models\Championship;
+use App\Models\Organizer;
+use Illuminate\Http\Request;
 
 class ChampionshipController extends Controller
 {
@@ -28,6 +30,11 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
+        $modalities = collect();
+        $fight_level = collect();
+        $age_bracket = AgeBracket::pluck('name');
+        $organizers = Organizer::fromUser(auth()->user()->getKey())->get();
+
         if (auth()->user()->isAdmin()) {
             $modalities = Category::pluck('name', 'id');
         }
@@ -36,10 +43,7 @@ class ChampionshipController extends Controller
             $modalities = Category::where('user_id', auth()->id())->pluck('name', 'id');
         }
 
-        $fight_level = collect();
-        $age_bracket = collect();
-
-        return view('admin.championship.create')->with(compact('modalities', 'fight_level', 'age_bracket'));
+        return view('admin.championship.create')->with(compact('modalities', 'fight_level', 'age_bracket', 'organizers'));
     }
 
     /**

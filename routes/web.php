@@ -35,5 +35,25 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', 'Admin\CategoryController');
         Route::get('ageing', 'Admin\AgeingController@basic')->name('ageing');
         Route::get('ageing/category/{category}', 'Admin\AgeingController@byCategory')->name('ageing.category');
+
+        Route::name('user.')->prefix('user')->group(function () {
+            Route::get('organizers', function () {
+                return response()->json(App\Models\Organizer::fromUser(auth()->user()->id)->get());
+            });
+
+            Route::post('organizers', function () {
+                $organizer = request()->only(['name', 'contact', 'address', 'email']);
+
+                array_add($organizer, 'user_id', auth()->user()->id);
+
+                $organizer = App\Models\Organizer::create($organizer);
+
+                return response()->json([
+                    'status' => 'success',
+                    'data' => $organizer,
+                    'message' => 'Success',
+                ]);
+            });
+        });
     });
 });
