@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Championship;
+use App\Models\Championship;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Category;
+use App\Models\Category;
 
 class ChampionshipController extends Controller
 {
@@ -56,7 +56,7 @@ class ChampionshipController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Championship  $championship
+     * @param  \App\Models\Championship  $championship
      * @return \Illuminate\Http\Response
      */
     public function show(Championship $championship)
@@ -67,7 +67,7 @@ class ChampionshipController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Championship  $championship
+     * @param  \App\Models\Championship  $championship
      * @return \Illuminate\Http\Response
      */
     public function edit(Championship $championship)
@@ -79,7 +79,7 @@ class ChampionshipController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Championship  $championship
+     * @param  \App\Models\Championship  $championship
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Championship $championship)
@@ -90,7 +90,7 @@ class ChampionshipController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Championship  $championship
+     * @param  \App\Models\Championship  $championship
      * @return \Illuminate\Http\Response
      */
     public function destroy(Championship $championship)

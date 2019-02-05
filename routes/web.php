@@ -1,6 +1,6 @@
 <?php
 
-use App\Championship;
+use App\Models\Championship;
 
 /*
 |--------------------------------------------------------------------------

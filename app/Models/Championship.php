@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -9,8 +9,8 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- * @property mixed $user
- * @property int $id
+ * Class Championship
+ * @package App\Models
  */
 class Championship extends Model
 {
@@ -29,7 +29,7 @@ class Championship extends Model
         parent::boot();
 
         static::creating(function (Championship $model) {
-            $this->attributes['author_id'] = auth()->user()->getKey();
+            $model->author_id = auth()->user()->getKey();
         });
     }
 
@@ -56,6 +56,9 @@ class Championship extends Model
         return $this->hasOne(User::class, 'author_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany|EventTicket
+     */
     public function tickets()
     {
         return $this->hasMany(EventTicket::class, 'event_id');
