@@ -34,7 +34,7 @@
               <td>{{ organization.address }}</td>
               <td>{{ organization.email }}</td>
             </tr>
-            <tr v-if="organizators.length > 0">
+            <tr v-if="organizators.length === 0">
               <td colspan="5">Not organizations founded</td>
             </tr>
           </tbody>

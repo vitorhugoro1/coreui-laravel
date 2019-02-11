@@ -29,6 +29,9 @@ export default {
         },
         setOrganizers(state, payload) {
             state.organizers = payload
+        },
+        add(state, payload) {
+            state.organizers.push(payload)
         }
     },
     actions: {
@@ -40,13 +43,17 @@ export default {
             })
         },
         add({
-            dispatch
+            commit
         }, organization) {
             window.axios.post('admin/user/organizers', {
                 ...organization
             }).then(response => {
                 if (response.data.status === 'success') {
-                    dispatch('load')
+                    commit('add', response.data.data)
+                }
+
+                if (response.data.status === 'error') {
+                    alert(response.data.message)
                 }
             })
         }
