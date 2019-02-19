@@ -2,7 +2,7 @@
   <div>
     <div class="modal fade" :id="idModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <form class="modal-content" @submit="addOrganizator">
+        <form class="modal-content" @submit.prevent="addOrganizator">
           <div class="modal-header">
             <h4 class="modal-title">Add Organizator</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
@@ -30,7 +30,12 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              :id="`${idModal}-close`"
+            >Cancel</button>
             <button type="submit" class="btn btn-primary">Add Organizator</button>
           </div>
         </form>
@@ -62,7 +67,11 @@ export default {
   }),
   methods: {
     addOrganizator() {
-      console.log(this.organizator);
+      this.$store.dispatch("organizers/add", this.organizator);
+
+      if (!this.$store.state.errorApi) {
+        document.getElementById(`${this.idModal}-close`).click();
+      }
     }
   }
 };

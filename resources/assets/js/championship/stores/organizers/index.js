@@ -1,11 +1,12 @@
 import {
     findIndex
-} from 'lodash';
+} from "lodash"
 
 export default {
     namespaced: true,
     state: {
-        organizers: []
+        organizers: [],
+        errorApi: false
     },
     mutations: {
         remove(state, id) {
@@ -14,16 +15,16 @@ export default {
             })
 
             if (state.organizers.length === 1) {
-                state.organizers = [];
+                state.organizers = []
             }
 
             if (state.organizers.length > 1) {
                 if (organizers === 0) {
-                    state.organizers.shift();
+                    state.organizers.shift()
                 }
 
                 if (organizers !== 0) {
-                    state.organizers.splice(key, key);
+                    state.organizers.splice(key, key)
                 }
             }
         },
@@ -38,22 +39,23 @@ export default {
         load({
             commit
         }) {
-            window.axios.get('admin/user/organizers').then(response => {
-                commit('setOrganizers', response.data)
+            window.axios.get("admin/user/organizers").then(response => {
+                commit("setOrganizers", response.data)
             })
         },
         add({
             commit
         }, organization) {
-            window.axios.post('admin/user/organizers', {
+            window.axios.post("admin/user/organizers", {
                 ...organization
             }).then(response => {
-                if (response.data.status === 'success') {
-                    commit('add', response.data.data)
+                if (response.data.status === "success") {
+                    commit("add", response.data.data)
                 }
 
-                if (response.data.status === 'error') {
+                if (response.data.status === "error") {
                     alert(response.data.message)
+
                 }
             })
         }

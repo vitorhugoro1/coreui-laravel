@@ -42,9 +42,14 @@ Route::middleware('auth')->group(function () {
             });
 
             Route::post('organizers', function () {
-                $organizer = request()->only(['name', 'contact', 'address', 'email']);
+                $organizer = request()->validate([
+                    'name' => 'required|string|max:255',
+                    'contact' => 'required|string',
+                    'address' => 'required|string',
+                    'email' => 'required|string|email|max:255',
+                ]);
 
-                array_add($organizer, 'user_id', auth()->user()->id);
+                $organizer = array_add($organizer, 'user_id', auth()->id());
 
                 $organizer = App\Models\Organizer::create($organizer);
 

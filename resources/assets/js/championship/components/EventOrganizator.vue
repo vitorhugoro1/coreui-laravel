@@ -16,38 +16,17 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane active show" id="organizations" role="tabpanel">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#ID</th>
-              <th scope="col">Name</th>
-              <th scope="col">Contact</th>
-              <th scope="col">Address</th>
-              <th scope="col">E-mail</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="organization in organizators" :key="organization.id">
-              <th scope="row">#{{ organization.id }}</th>
-              <td>{{ organization.name }}</td>
-              <td>{{ organization.contact }}</td>
-              <td>{{ organization.address }}</td>
-              <td>{{ organization.email }}</td>
-            </tr>
-            <tr v-if="organizators.length === 0">
-              <td colspan="5">Not organizations founded</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th scope="col">#ID</th>
-              <th scope="col">Name</th>
-              <th scope="col">Contact</th>
-              <th scope="col">Address</th>
-              <th scope="col">E-mail</th>
-            </tr>
-          </tfoot>
-        </table>
+        <table-component
+          :data="this.organizators"
+          table-class="table table-striped table-responsive-sm"
+          filter-input-class="mb-md-2 form-control col-md-3 float-right"
+          :show-caption="false"
+        >
+          <table-column show="name" label="Name"></table-column>
+          <table-column show="contact" label="Contact"></table-column>
+          <table-column show="address" label="Address"></table-column>
+          <table-column show="email" label="E-mail"></table-column>
+        </table-component>
         <button
           type="button"
           class="btn btn-outline-secondary"
@@ -61,6 +40,7 @@
 </template>
 
 <script>
+import { TableComponent, TableColumn } from "vue-table-component";
 import AddOrganizatorModal from "./Organizator/AddOrganizatorModal";
 import { mapState, mapActions } from "vuex";
 
