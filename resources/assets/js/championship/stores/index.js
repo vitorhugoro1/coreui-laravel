@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import organizers from './organizers'
+import Vue from "vue"
+import Vuex from "vuex"
+import organizers from "./organizers"
 
 Vue.use(Vuex)
 

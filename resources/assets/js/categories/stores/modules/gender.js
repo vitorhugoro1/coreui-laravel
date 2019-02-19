@@ -1,35 +1,37 @@
-import males from './genders/males/index';
-import females from "./genders/females/index";
+import males from "./genders/males/index"
+import females from "./genders/females/index"
 
 const state = {
-  isErrorAction: false
-};
+    isErrorAction: false
+}
 
 const mutations = {
-  setError(state, error) {
-    state.isErrorAction = error;
-  }
-};
+    setError(state, error) {
+        state.isErrorAction = error
+    }
+}
 
-const getters = {
-};
+const getters = {}
 
 const actions = {
-  setError({ commit, state }, error) {
-    if (state.isErrorAction !== error) {
-      commit('setError', error);
+    setError({
+        commit,
+        state
+    }, error) {
+        if (state.isErrorAction !== error) {
+            commit("setError", error)
+        }
     }
-  }
-};
+}
 
 export default {
-  namespaced: true,
-  modules: {
-    males,
-    females
-  },
-  state,
-  mutations,
-  getters,
-  actions
-};
+    namespaced: true,
+    modules: {
+        males,
+        females
+    },
+    state,
+    mutations,
+    getters,
+    actions
+}

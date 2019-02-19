@@ -4,9 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('../bootstrap');
+require("../bootstrap")
 
-window.Vue = require('vue');
+window.Vue = require("vue")
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -14,34 +14,34 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('ckeditor', require('../components/ckeditor.vue'));
-Vue.component('date-range', require('./components/DateRange.vue'));
-Vue.component('event-ticket-selector', require('./components/EventTicketSelector.vue'));
-Vue.component('event-date-selector', require('./components/EventDateSelector.vue'));
-Vue.component('event-organizator', require('./components/EventOrganizator.vue'));
+Vue.component("ckeditor", require("../components/ckeditor.vue"))
+Vue.component("date-range", require("./components/DateRange.vue"))
+Vue.component("event-ticket-selector", require("./components/EventTicketSelector.vue"))
+Vue.component("event-date-selector", require("./components/EventDateSelector.vue"))
+Vue.component("event-organizator", require("./components/EventOrganizator.vue"))
 
 import {
     TableComponent,
     TableColumn
-} from 'vue-table-component';
-import vSelect from 'vue-select';
-import store from './stores'
+} from "vue-table-component"
+import vSelect from "vue-select"
+import store from "./stores"
 
-Vue.component('v-select', vSelect);
-Vue.component('table-component', TableComponent);
-Vue.component('table-column', TableColumn);
+Vue.component("v-select", vSelect)
+Vue.component("table-component", TableComponent)
+Vue.component("table-column", TableColumn)
 
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
     store,
     data() {
         return {
             money: {
-                decimal: ',',
-                thousands: '.',
-                prefix: '',
-                suffix: '',
+                decimal: ",",
+                thousands: ".",
+                prefix: "",
+                suffix: "",
                 precision: 2,
             },
             modalitiesModel: [],
@@ -49,4 +49,4 @@ const app = new Vue({
             age_bracket: []
         }
     }
-});
+})
