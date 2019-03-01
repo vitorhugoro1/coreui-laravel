@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AgeBracket;
 use App\Models\Category;
 use App\Models\Championship;
+use App\Models\FighterLevel;
 use App\Models\Organizer;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class ChampionshipController extends Controller
     public function create()
     {
         $modalities = collect();
-        $fight_level = collect();
+        $fight_level = FighterLevel::pluck('name');
         $age_bracket = AgeBracket::pluck('name');
         $organizers = Organizer::fromUser(auth()->user()->getKey())->get();
 
