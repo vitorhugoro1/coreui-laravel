@@ -22,6 +22,16 @@
           filter-input-class="mb-md-2 form-control col-md-3 float-right"
           :show-caption="false"
         >
+          <table-column show="id" label="#" filterable="false" sortable="false">
+            <template slot-scope="row">
+              <input
+                type="checkbox"
+                :id="`organization-${row.id}`"
+                :value="row.id"
+                v-model="selectedOrganizations"
+              >
+            </template>
+          </table-column>
           <table-column show="name" label="Name"></table-column>
           <table-column show="contact" label="Contact"></table-column>
           <table-column show="address" label="Address"></table-column>
@@ -34,6 +44,14 @@
           data-target="#organizator-modal"
         >Add an Organizator</button>
         <add-organizator-modal></add-organizator-modal>
+
+        <input
+          type="hidden"
+          name="organizations[]"
+          v-for="organization in selectedOrganizations"
+          :id="organization"
+          :key="organization"
+        >
       </div>
     </div>
   </div>
@@ -47,6 +65,9 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "event-organizator",
   components: { AddOrganizatorModal },
+  data: () => ({
+    selectedOrganizations: []
+  }),
   computed: mapState("organizers", {
     organizators: state => state.organizers
   }),
