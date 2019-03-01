@@ -1,6 +1,6 @@
 <?php
 
-use App\AgeBracket;
+use App\Models\AgeBracket;
 use Illuminate\Database\Seeder;
 
 class AgeingTableSeeder extends Seeder

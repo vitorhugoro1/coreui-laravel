@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Helpers\PayloadRequests;
-use App\Rules\Helpers\CategoryGendered;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -43,17 +42,17 @@ class CategoryController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'name'  => 'required|string',
-            'type'  => 'required|string',
-            'professional'   => 'required|boolean',
-            'forms'     => 'required_if:type,forms|json',
-            'gender'    => 'required_if:type,weights|boolean',
-            'weapon'    => 'required_if:type,weights|boolean',
+            'name' => 'required|string',
+            'type' => 'required|string',
+            'professional' => 'required|boolean',
+            'forms' => 'required_if:type,forms|json',
+            'gender' => 'required_if:type,weights|boolean',
+            'weapon' => 'required_if:type,weights|boolean',
             'age_bracket' => 'required_if:type,weights|boolean',
             'team' => 'required_if:type,weights|boolean',
-            'males'     => 'required_if:gender,1|required_with_all:females|json',
-            'females'   => 'required_if:gender,1|required_with_all:males|json',
-            'common'    => 'required_if:gender,0|json'
+            'males' => 'required_if:gender,1|required_with_all:females|json',
+            'females' => 'required_if:gender,1|required_with_all:males|json',
+            'common' => 'required_if:gender,0|json',
         ]);
 
         if (request()->filled('forms')) {
@@ -86,7 +85,7 @@ class CategoryController extends Controller
         }
 
         return redirect()->route('admin.categories.index')->withInput([
-            'message'   => 'Category created succcessful!'
+            'message' => 'Category created succcessful!',
         ]);
     }
 

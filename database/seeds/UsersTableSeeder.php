@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\User;
 use Spatie\Permission\Models\Role;
 
 class UsersTableSeeder extends Seeder
@@ -20,15 +20,15 @@ class UsersTableSeeder extends Seeder
         ]);
 
         Role::create([
-            'name' => 'admin'
+            'name' => 'admin',
         ]);
 
         Role::create([
-            'name' => 'associated'
+            'name' => 'associated',
         ]);
 
         Role::create([
-            'name' => 'subscribed'
+            'name' => 'subscribed',
         ]);
 
         $user->assignRole('admin');
