@@ -34,7 +34,7 @@ class MenuServiceProvider extends ServiceProvider
                         ->addClass('nav-dropdown-items')
                         ->addItemClass('nav-link')
                         ->addItemParentClass('nav-item')
-                        ->route('admin.championships.index', 'View Events')
+                        ->route('admin.championships.index', 'View Championships')
                         ->route('admin.categories.index', 'View Categories');
                 })
                 ->submenu('<a class="nav-link nav-dropdown-toggle" href="#"><i class="fas fa-building"></i> Academies</a>', function (Menu $menu) {
