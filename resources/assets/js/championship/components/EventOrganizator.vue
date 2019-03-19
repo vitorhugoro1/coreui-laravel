@@ -22,7 +22,7 @@
           filter-input-class="mb-md-2 form-control col-md-3 float-right"
           :show-caption="false"
         >
-          <table-column show="id" label="#" filterable="false" sortable="false">
+          <table-column show="id" label="#" :filterable="false" :sortable="false">
             <template slot-scope="row">
               <input
                 type="checkbox"
