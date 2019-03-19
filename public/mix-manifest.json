@@ -1,16 +1,13 @@
 {
-    "/js/categories/app.js": "/js/categories/app.js",
-    "/js/championship/app.js": "/js/championship/app.js",
-    "/js/app.js": "/js/app.js",
-    "/css/custom.css": "/css/custom.css",
-    "/css/coreui-standalone.css": "/css/coreui-standalone.css",
-    "/js/users/app.js": "/js/users/app.js",
-    "/js/academies/app.js": "/js/academies/app.js",
-    "/js/core/core-ui.js": "/js/core/core-ui.js",
-    "/js/vendor/select2/select2.min.js": "/js/vendor/select2/select2.min.js",
-    "/css/vendor/select2/select2.min.css": "/css/vendor/select2/select2.min.css",
-    "/css/vendor/select2/select2-bootstrap.min.css": "/css/vendor/select2/select2-bootstrap.min.css",
-    "/0.a25ecfa703ca013d5da4.hot-update.js": "/0.a25ecfa703ca013d5da4.hot-update.js",
-    "/1.a25ecfa703ca013d5da4.hot-update.js": "/1.a25ecfa703ca013d5da4.hot-update.js",
-    "/4.a25ecfa703ca013d5da4.hot-update.js": "/4.a25ecfa703ca013d5da4.hot-update.js"
+    "/js/categories/app.js": "/js/categories/app.js?id=249e774aea889f8172bd",
+    "/js/championship/app.js": "/js/championship/app.js?id=4499cf1065065ffac69b",
+    "/js/app.js": "/js/app.js?id=cc456de413d67ed8cbe1",
+    "/css/custom.css": "/css/custom.css?id=99c659263ec574e3b511",
+    "/css/coreui-standalone.css": "/css/coreui-standalone.css?id=cbaf66046a119fe0be4d",
+    "/js/users/app.js": "/js/users/app.js?id=1d99087f39cf44a33396",
+    "/js/academies/app.js": "/js/academies/app.js?id=f3b90f1d8fef7cfb0661",
+    "/js/core/core-ui.js": "/js/core/core-ui.js?id=187999a4cd31f95f74d3",
+    "/js/vendor/select2/select2.min.js": "/js/vendor/select2/select2.min.js?id=cd5f56bf4f27be8b4407",
+    "/css/vendor/select2/select2.min.css": "/css/vendor/select2/select2.min.css?id=af22a7e2bfec4d2a82c4",
+    "/css/vendor/select2/select2-bootstrap.min.css": "/css/vendor/select2/select2-bootstrap.min.css?id=54d515c3ba71fb623919"
 }

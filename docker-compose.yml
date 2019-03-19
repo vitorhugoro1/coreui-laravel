@@ -4,7 +4,7 @@
 ####
 
 # v2 syntax
-version: '2'
+version: "2"
 
 # Named volumes
 volumes:
@@ -49,7 +49,7 @@ services:
     volumes:
       - .:/var/www/app
     ports:
-      - "80:8080"
+      - 80:8080
     links:
       - mysql
       - cache

@@ -31,7 +31,10 @@ Vue.component(
 
 Vue.component('ckeditor', require('./components/ckeditor.vue'));
 
-import { TableComponent, TableColumn } from 'vue-table-component';
+import {
+    TableComponent,
+    TableColumn
+} from 'vue-table-component';
 
 Vue.component('table-component', TableComponent);
 Vue.component('table-column', TableColumn);

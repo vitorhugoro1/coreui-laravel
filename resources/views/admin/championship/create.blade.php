@@ -47,7 +47,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="place">Place</label>
-                                            <input type="text" name="place" id="place" class="form-control" placeholder="Find event place">
+                                            <here-auto-complete field-id="place" placeholder="Find event place"></here-auto-complete>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 my-2">
