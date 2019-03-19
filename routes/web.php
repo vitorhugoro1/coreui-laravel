@@ -37,28 +37,8 @@ Route::middleware('auth')->group(function () {
         Route::get('ageing/category/{category}', 'Admin\AgeingController@byCategory')->name('ageing.category');
 
         Route::name('user.')->prefix('user')->group(function () {
-            Route::get('organizers', function () {
-                return response()->json(App\Models\Organizer::fromUser(auth()->user()->id)->get());
-            });
-
-            Route::post('organizers', function () {
-                $organizer = request()->validate([
-                    'name' => 'required|string|max:255',
-                    'contact' => 'required|string',
-                    'address' => 'required|string',
-                    'email' => 'required|string|email|max:255',
-                ]);
-
-                $organizer = array_add($organizer, 'user_id', auth()->id());
-
-                $organizer = App\Models\Organizer::create($organizer);
-
-                return response()->json([
-                    'status' => 'success',
-                    'data' => $organizer,
-                    'message' => 'Success',
-                ]);
-            });
+            Route::resource('organizers', 'Admin\OrganizerController');
+            Route::resource('bank-accounts', 'Admin\UserBankAccountController');
         });
     });
 });

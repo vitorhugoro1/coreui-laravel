@@ -64,7 +64,7 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "event-organizator",
-  components: { AddOrganizatorModal },
+  components: { AddOrganizatorModal, TableComponent, TableColumn },
   data: () => ({
     selectedOrganizations: []
   }),

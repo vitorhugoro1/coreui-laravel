@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Organizer::class);
     }
+
+    public function bankAccounts()
+    {
+        return $this->hasMany(UserBankAccount::class);
+    }
 }
