@@ -11,9 +11,18 @@ class EventTicket extends Model
 
     protected $table = 'event_ticket';
 
-    protected $fillable = ['name', 'event_id', 'open_date', 'close_date', 'is_free', 'quantity', 'amount'];
+    protected $fillable = [
+        'name', 'event_id', 'open_date', 'close_date', 'is_free', 'quantity', 'amount', 'options',
+    ];
 
     protected $dates = ['open_date', 'close_date'];
+
+    protected $casts = [
+        'amount' => 'decimal',
+        'quantity' => 'integer',
+        'is_free' => 'boolean',
+        'options' => 'json',
+    ];
 
     public function event()
     {

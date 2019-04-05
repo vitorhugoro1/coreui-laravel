@@ -20,7 +20,9 @@ class Championship extends Model
     const DELETED = 'deleted';
     const DRAFTED = 'drafted';
 
-    protected $fillable = ['title', 'slug', 'type', 'status', 'content', 'is_comment', 'author_id'];
+    protected $fillable = [
+        'title', 'slug', 'type', 'status', 'content', 'is_comment', 'author_id',
+    ];
 
     public $timestamps = ['created_at', 'updated_at', 'deleted_at'];
 

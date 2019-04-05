@@ -17,6 +17,7 @@ class CreateEventTermTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('body');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
         });

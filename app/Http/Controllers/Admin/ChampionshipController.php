@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Domain\Championship\Action\CreateChampionship;
 use App\Http\Controllers\Controller;
 use App\Models\AgeBracket;
 use App\Models\Category;
@@ -12,6 +13,14 @@ use Illuminate\Http\Request;
 
 class ChampionshipController extends Controller
 {
+    /** @var \App\Domain\Championship\Action\CreateChampionship */
+    private $createChampionship;
+
+    public function __construct(CreateChampionship $createChampionship)
+    {
+        $this->createChampionship = $createChampionship;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +65,49 @@ class ChampionshipController extends Controller
     public function store(Request $request)
     {
         dd($request->all());
+        $this->validate($request, [
+            'title' => 'required|string',
+            'content' => 'required|string',
+        ]);
+
+        $championship = $this->createChampionship->create();
+
+        // $ticket = [
+        //     'name' => '',
+        //     'event_id' => $campeonato['id'],
+        //     'open_date' => now(),
+        //     'close_date' => now()->addDays(20),
+        //     'is_free' => false,
+        //     'quantity' => 0,
+        //     'amount' => 10.2,
+        //     'options' => [
+        //         [
+        //             'method' => 'bank',
+        //             'bank_list' => [
+        //                 1, 2, 3, 4,
+        //             ],
+        //         ],
+        //         [
+        //             'method' => 'paypal',
+        //             'api_key' => '',
+        //             'api_secret' => '',
+        //         ],
+        //         [
+        //             'method' => 'pagseguro',
+        //             'api_key' => '',
+        //             'api_secret' => '',
+        //         ],
+        //     ],
+        // ];
+
+        // $period = [
+        //     'event_id' => $campeonato['id'],
+        //     'open_date' => now()->addMonths(3),
+        //     'close_date' => now()->addMonths(3)->addDay(1),
+        //     'is_full_day' => false,
+        // ];
+
+        dd($championship);
     }
 
     /**

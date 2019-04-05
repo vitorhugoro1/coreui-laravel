@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateEventTicketTable extends Migration
 {
@@ -22,6 +22,7 @@ class CreateEventTicketTable extends Migration
             $table->boolean('is_free');
             $table->integer('quantity')->nullable();
             $table->decimal('amount', 8, 2)->nullable();
+            $table->json('options')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
