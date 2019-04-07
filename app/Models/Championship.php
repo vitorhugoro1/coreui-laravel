@@ -67,6 +67,14 @@ class Championship extends Model
     }
 
     /**
+     * @return HasOne|EventPeriod
+     */
+    public function period()
+    {
+        return $this->hasOne(EventPeriod::class, 'event_id');
+    }
+
+    /**
      * @return bool
      */
     public function createdByMe(): bool

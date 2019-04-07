@@ -2,6 +2,7 @@
 
 namespace App\Domain\Championship\Action;
 
+use App\Domain\Championship\DTO\Period;
 use App\Domain\Championship\DTO\Ticket;
 use App\Models\Championship;
 use Illuminate\Http\Request;
@@ -11,10 +12,13 @@ class CreateChampionship
     /** @var \Illuminate\Http\Request */
     private $request;
 
+    /**
+     * @var array
+     */
     private $defaultValues = [
         'is_comment' => false,
-        'status' => Championship::PUBLISHED,
-        'type' => 'championship',
+        'status'     => Championship::PUBLISHED,
+        'type'       => 'championship',
     ];
 
     public function __construct(Request $request)
@@ -22,21 +26,35 @@ class CreateChampionship
         $this->request = $request;
     }
 
-    public function create(array $optionals = [])
+    /**
+     * @param array $optionals
+     *
+     * @return Championship|null
+     */
+    public function create(array $optionals = []): ?Championship
     {
-        $data = $this->request->only(['title', 'content']);
-        $data = array_merge_recursive($data, $this->defaultValues, $optionals);
+        $data = $this->getData($optionals);
+
         $championship = Championship::create($data);
 
         $ticket = Ticket::fromRequest($this->request, $championship->id);
+        $period = Period::fromRequest($this->request, $championship->id);
 
-        $championship->tickets()->create($ticket->toArray());
+        $championship->tickets->create($ticket->toArray());
+        $championship->period->create($period->toArray());
 
-        $period = [
-            'event_id' => $campeonato['id'],
-            'open_date' => now()->addMonths(3),
-            'close_date' => now()->addMonths(3)->addDay(1),
-            'is_full_day' => false,
-        ];
+        return $championship;
+    }
+
+    /**
+     * @param array $optionals
+     *
+     * @return array
+     */
+    private function getData(array $optionals): array
+    {
+        $data = $this->request->only(['title', 'content']);
+
+        return array_merge_recursive($data, $this->defaultValues, $optionals);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Championship;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $championships = Championship::all();
+
+        return view('home')->with(compact('championships'));
     }
 }
